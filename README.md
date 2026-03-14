@@ -57,6 +57,7 @@ https://stackspot.app/pot/SPT4SQP5RC1BFAJEQKBHZMXQ8NQ7G118F335BD85.STXLFG?networ
 
 **Community**  
 https://x.com/StacksPot_App
+https://discord.gg/n6GEydeG
 
 ---
 
@@ -83,7 +84,7 @@ All milestone updates, development progress, and relevant evidence will be docum
 
 ### 1. cryptosmith.btc
 **Role:** Founder & Developer  
-**Expertise:** Clarity, decentralized application (dApp) architecture, React development, blockchain integrations, and user focused Web3 product design. 
+**Expertise:** Clarity, decentralized application (dApp) architecture, blockchain integrations, and user focused Web3 product design. 
 **Background & Experience:**
 
 
