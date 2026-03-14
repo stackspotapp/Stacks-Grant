@@ -30,7 +30,7 @@ Continuous deployment of new pots to maintain active participation cycles and in
 
 Development and integration of new pot types including:
 
-- **StackSpot Go-Fund-Me Pots** – community-driven funding pools
+- **StackSpot Crowd Funding Pots** – community-driven funding pools
 - **StackSpot Sequential Pots** – structured reward distribution across rounds
 
 ### Platform Development
@@ -76,3 +76,23 @@ These improvements aim to strengthen participation within the Stacks ecosystem w
 ## Transparency
 
 All milestone updates, development progress, and relevant evidence will be documented in this repository to ensure transparent reporting throughout the grant period.
+
+---
+
+## Core Team Members
+
+### 1. cryptosmith.btc
+**Role:** Founder & Developer  
+**Expertise:** Clarity, decentralized application (dApp) architecture, React development, blockchain integrations, and user focused Web3 product design. 
+**Background & Experience:**
+
+
+### 2. cryptodude.btc
+**Role:** Co-Founder, UI/UX Supervisor  
+**Expertise:** __________________________  
+**Background & Experience:**
+
+### 3. friedger.btc
+**Role:** Co-Founder, Contract Supervisor & Audits  
+**Expertise:** Stacking, Clarity
+**Background & Experience:** Contributor to the stacks ecosystem for the last 8 years
