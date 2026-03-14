@@ -59,7 +59,8 @@ https://stackspot.app
 https://stackspot.app/pot/SPT4SQP5RC1BFAJEQKBHZMXQ8NQ7G118F335BD85.STXLFG?network=mainnet
 
 **Community**  
-- https://x.com/StacksPot_App
+- [![X](https://img.shields.io/badge/X-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/StacksPot_App)
+- [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com)
 - https://discord.gg/n6GEydeG
 
 ---
