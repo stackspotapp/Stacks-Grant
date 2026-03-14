@@ -92,7 +92,7 @@ All milestone updates, development progress, and relevant evidence will be docum
 - **Background & Experience:**
 
 
-### 2. cryptodude.btc
+### 2. cryptodude.btc (aka cryptocracy.btc)
 - **Role:** Co-Founder, UI/UX Supervisor  
 - **Expertise:** __________________________  
 - **Background & Experience:**
