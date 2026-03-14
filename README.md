@@ -34,7 +34,7 @@ Development and integration of new pot types including:
 A **Crowd Funding Pot** allows communities or individuals to contribute **STX** into a shared pot that is delegated for stacking. The generated yield is used to fund a specific project or goal defined by the pot creator. At the end of the pot cycle, **contributors receive back their principal**, while the **yield is sent to the designated project or goal address**.
 
 - **StackSpot Sequential Pots** – structured reward distribution across rounds pot type:
-A **Sequential Pot** is a cooperative stacking pool where participants delegate **equal STX amounts** into a pot. The **number of participants determines the number of cycles**, and yield is distributed **sequentially based on join order**, with each cycle paying the next participant. After all cycles are completed, **all participants receive back their original principal**.
+A **Sequential Pot** is a cooperative stacking pot where participants delegate **equal STX amounts** into a pot. The **number of participants determines the number of cycles**, and yield is distributed **sequentially based on join order**, with each cycle paying the next participant. After all cycles are completed, **all participants receive back their original principal**.
 
 ### Platform Development
 
