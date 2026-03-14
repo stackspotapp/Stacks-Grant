@@ -88,7 +88,7 @@ All milestone updates, development progress, and relevant evidence will be docum
 
 ### 1. cryptosmith.btc
 - **Role:** Founder & Developer  
-- **Expertise:** Clarity, decentralized application (dApp) architecture, blockchain integrations, and user focused Web3 product design. 
+- **Expertise:** Clarity smart contracts, dApp architecture, blockchain integrations, and user focused Web2/Web3 design. 
 - **Background & Experience:**
 
 
