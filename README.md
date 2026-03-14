@@ -56,8 +56,8 @@ https://stackspot.app
 https://stackspot.app/pot/SPT4SQP5RC1BFAJEQKBHZMXQ8NQ7G118F335BD85.STXLFG?network=mainnet
 
 **Community**  
-https://x.com/StacksPot_App
-https://discord.gg/n6GEydeG
+- https://x.com/StacksPot_App
+- https://discord.gg/n6GEydeG
 
 ---
 
@@ -83,17 +83,17 @@ All milestone updates, development progress, and relevant evidence will be docum
 ## Core Team Members
 
 ### 1. cryptosmith.btc
-**Role:** Founder & Developer  
-**Expertise:** Clarity, decentralized application (dApp) architecture, blockchain integrations, and user focused Web3 product design. 
-**Background & Experience:**
+- **Role:** Founder & Developer  
+- **Expertise:** Clarity, decentralized application (dApp) architecture, blockchain integrations, and user focused Web3 product design. 
+- **Background & Experience:**
 
 
 ### 2. cryptodude.btc
-**Role:** Co-Founder, UI/UX Supervisor  
-**Expertise:** __________________________  
-**Background & Experience:**
+- **Role:** Co-Founder, UI/UX Supervisor  
+- **Expertise:** __________________________  
+- **Background & Experience:**
 
 ### 3. friedger.btc
-**Role:** Co-Founder, Contract Supervisor & Audits  
-**Expertise:** Stacking, Clarity
-**Background & Experience:** Contributor to the stacks ecosystem for the last 8 years
+- **Role:** Co-Founder, Contract Supervisor & Audits  
+- **Expertise:** Stacking, Clarity
+- **Background & Experience:** Contributor to the stacks ecosystem for the last 8 years
