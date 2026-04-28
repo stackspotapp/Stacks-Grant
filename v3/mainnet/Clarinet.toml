@@ -1,0 +1,72 @@
+[project]
+name = 'mainnet'
+description = ''
+authors = []
+telemetry = true
+cache_dir = './.cache'
+
+[[project.requirements]]
+contract_id = 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token'
+
+[[project.requirements]]
+contract_id = 'SPMPMA1V6P430M8C91QS1G9XJ95S59JS1TZFZ4Q4.pox4-multi-pool-v1'
+
+[[project.requirements]]
+contract_id = 'SP000000000000000000002Q6VF78.pox-4'
+
+[[project.requirements]]
+contract_id = 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait'
+
+[[project.requirements]]
+contract_id = 'SPN4Y5QPGQA8882ZXW90ADC2DHYXMSTN8VAR8C3X.stackspot-jackpot-v00'
+[contracts.stackspot-admin]
+path = 'contracts/stackspot-admin.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-audited-contracts]
+path = 'contracts/stackspot-audited-contracts.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-distribute]
+path = 'contracts/stackspot-distribute.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-registry]
+path = 'contracts/stackspot-registry.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-trait]
+path = 'contracts/stackspot-trait.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-vrf]
+path = 'contracts/stackspot-vrf.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-winners]
+path = 'contracts/stackspot-winners.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspots]
+path = 'contracts/stackspots.clar'
+clarity_version = 3
+epoch = 3.1
+[repl.analysis]
+passes = ['check_checker']
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false
+
+[repl.remote_data]
+enabled = false
+api_url = 'https://api.hiro.so'

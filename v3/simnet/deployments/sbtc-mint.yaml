@@ -1,0 +1,20 @@
+---
+id: 0
+name: Activate Multi Pool
+network: testnet
+stacks-node: 'https://api.testnet.hiro.so'
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-call:
+            contract-id: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            method: protocol-mint
+            parameters:
+              - u1000000000000
+              - "'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM"
+              - 0x01
+            cost: 800
+
+

@@ -1,0 +1,93 @@
+[project]
+name = 'stackspot'
+description = ''
+authors = []
+telemetry = true
+cache_dir = './.cache'
+
+[[project.requirements]]
+contract_id = 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait'
+
+[[project.requirements]]
+contract_id = 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.nft-trait'
+[contracts.sbtc-registry]
+path = 'contracts/sbtc-registry.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.sbtc-token]
+path = 'contracts/sbtc-token.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.sim-pox-4]
+path = 'contracts/sim-pox-4.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.sim-pox4-multi-pool-v1]
+path = 'contracts/sim-pox4-multi-pool-v1.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-admin]
+path = 'contracts/stackspot-admin.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-audited-contracts]
+path = 'contracts/stackspot-audited-contracts.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-cryptonauts]
+path = 'contracts/stackspot-cryptonauts.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-distribute]
+path = 'contracts/stackspot-distribute.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-jackpot]
+path = 'contracts/stackspot-jackpot.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-registry]
+path = 'contracts/stackspot-registry.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-trait]
+path = 'contracts/stackspot-trait.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-vrf]
+path = 'contracts/stackspot-vrf.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspot-winners]
+path = 'contracts/stackspot-winners.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.stackspots]
+path = 'contracts/stackspots.clar'
+clarity_version = 3
+epoch = 3.1
+[repl.analysis]
+passes = []
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false
+
+[repl.remote_data]
+enabled = false
+api_url = 'https://api.hiro.so'

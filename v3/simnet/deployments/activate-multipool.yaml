@@ -1,0 +1,19 @@
+---
+id: 0
+name: Activate Multi Pool
+network: testnet
+stacks-node: 'https://api.testnet.hiro.so'
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-call:
+            contract-id: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox4-multi-pool-v1
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            method: set-pool-pox-address-active
+            parameters:
+              - (tuple (hashbytes 0x7321b74e2b6a7e949e6c4ad313035b1665095017) (version 0x01))
+              - true
+            cost: 800
+
+

@@ -1,0 +1,67 @@
+---
+id: 0
+name: Mainnet deployment
+network: mainnet
+stacks-node: "https://api.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoin.blockstack.com:8332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: stackspot-admin
+            expected-sender: SP7FSE31MWSJJFTQBEQ1TT6TF3G4J6GDKE81SWD9
+            cost: 15410
+            path: contracts/stackspot-admin.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: stackspot-trait
+            expected-sender: SP7FSE31MWSJJFTQBEQ1TT6TF3G4J6GDKE81SWD9
+            cost: 22110
+            path: contracts/stackspot-trait.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: stackspot-audited-contracts
+            expected-sender: SP7FSE31MWSJJFTQBEQ1TT6TF3G4J6GDKE81SWD9
+            cost: 8430
+            path: contracts/stackspot-audited-contracts.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: stackspot-winners
+            expected-sender: SP7FSE31MWSJJFTQBEQ1TT6TF3G4J6GDKE81SWD9
+            cost: 2980
+            path: contracts/stackspot-winners.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: stackspot-distribute
+            expected-sender: SP7FSE31MWSJJFTQBEQ1TT6TF3G4J6GDKE81SWD9
+            cost: 107150
+            path: contracts/stackspot-distribute.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: stackspot-registry
+            expected-sender: SP7FSE31MWSJJFTQBEQ1TT6TF3G4J6GDKE81SWD9
+            cost: 2960
+            path: contracts/stackspot-registry.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: stackspot-vrf
+            expected-sender: SP7FSE31MWSJJFTQBEQ1TT6TF3G4J6GDKE81SWD9
+            cost: 53450
+            path: contracts/stackspot-vrf.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
+            contract-name: stackspots
+            expected-sender: SP7FSE31MWSJJFTQBEQ1TT6TF3G4J6GDKE81SWD9
+            cost: 103210
+            path: contracts/stackspots.clar
+            anchor-block-only: true
+            clarity-version: 3
+      epoch: "3.1"
