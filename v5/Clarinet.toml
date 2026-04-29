@@ -5,6 +5,9 @@ authors = []
 telemetry = true
 cache_dir = "./.cache"
 
+[[project.requirements]]
+contract_id = "SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait"
+
 # [contracts.counter]
 # path = "contracts/counter.clar"
 # epoch = "latest"
@@ -48,8 +51,8 @@ path = "contracts/stackspot-vrf.clar"
 clarity_version = 5
 epoch = "latest"
 
-[contracts.stackspot-registery]
-path = "contracts/stackspot-registery.clar"
+[contracts.stackspot-registry]
+path = "contracts/stackspot-registry.clar"
 clarity_version = 5
 epoch = "latest"
 
@@ -83,8 +86,8 @@ path = "contracts/stackspot-cryptonauts.clar"
 clarity_version = 5
 epoch = "latest"
 
-[contracts.sbtc-registery]
-path = "contracts/sbtc-registery.clar"
+[contracts.sbtc-registry]
+path = "contracts/sbtc-registry.clar"
 clarity_version = 5
 epoch = "latest"
 
@@ -95,10 +98,10 @@ epoch = "latest"
 
 [contracts.sim-pox-4]
 path = "contracts/sim-pox-4.clar"
-clarity_version = 5
+clarity_version = 3
 epoch = "latest"
 
 [contracts.sim-pox-4-multi-pool-v1]
 path = "contracts/sim-pox-4-multi-pool-v1.clar"
-clarity_version = 5
+clarity_version = 3
 epoch = "latest"

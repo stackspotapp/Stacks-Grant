@@ -1,0 +1,3 @@
+#V2
+(contract-call? 'STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6.stackspot-jackpot get-pot-origiin-contract-sha-hash)
+(contract-call? 'STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6.stackspot-jackpot get-pot-origin-contract-sha-hash)

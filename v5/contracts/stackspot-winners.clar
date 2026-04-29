@@ -3,27 +3,13 @@
 ;; summary:
 ;; description:
 
-;; traits
-;;
+(define-constant ERR_UNAUTHORIZED (err u1101))
+(define-constant ERR_NOT_FOUND (err u1001))
 
-;; token definitions
-;;
-
-;; constants
-;;
-
-;; data vars
-;;
-
-;; data maps
-;;
-
-;; public functions
-;;
-
-;; read only functions
-;;
-
-;; private functions
-;;
-
+(define-public (log-winner (winner-values (buff 250000)))
+    (begin
+        (asserts! (is-eq contract-caller .stackspot-distribute) ERR_UNAUTHORIZED)
+        (print winner-values)
+        (ok true)
+    )
+)
