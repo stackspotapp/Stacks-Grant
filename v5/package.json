@@ -18,5 +18,8 @@
     "chokidar-cli": "^3.0.0",
     "vitest": "^4.0.7",
     "vitest-environment-clarinet": "^3.0.0"
+  },
+  "devDependencies": {
+    "@stacks/rendezvous": "^1.0.0-rc.1"
   }
 }

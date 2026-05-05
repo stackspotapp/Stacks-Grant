@@ -489,3 +489,73 @@
 
 ;; Register pot
 (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots register-pot {owner: tx-sender, contract: current-contract, cycles: (var-get pot-cycle), type: (var-get pot-type), pot-reward-token: "sbtc", min-amount: (var-get pot-min-amount), max-participants: (var-get pot-max-participants)})
+
+;; --- Rendezvous invariants & property tests ---
+
+;; #[env(simnet)]
+(define-read-only (invariant-locked-and-cancelled-exclusive)
+    (not (and (var-get locked) (var-get pot-cancelled)))
+)
+
+;; #[env(simnet)]
+(define-read-only (invariant-lock-burn-height-iff-locked)
+    (is-eq (var-get locked) (is-some (var-get lock-burn-height)))
+)
+
+;; #[env(simnet)]
+(define-read-only (invariant-locked-implies-starter-set)
+    (if (var-get locked)
+        (is-some (var-get pot-starter-principal))
+        true
+    )
+)
+
+;; #[env(simnet)]
+(define-read-only (invariant-pot-value-ge-min-times-participants)
+    (>= (var-get total-pot-value)
+        (* (var-get last-participant) (var-get pot-min-amount)))
+)
+
+;; #[env(simnet)]
+(define-read-only (invariant-last-participant-bounded)
+    (<= (var-get last-participant) (+ (var-get pot-max-participants) u1))
+)
+
+;; #[env(simnet)]
+(define-read-only (invariant-participant-bimap-consistent (id uint))
+    (match (map-get? pot-participants-by-id id)
+        entry (is-eq (some id) (map-get? pot-participants-by-principal (get participant entry)))
+        true
+    )
+)
+
+;; #[env(simnet)]
+(define-read-only (invariant-funding-address-not-platform-or-treasury)
+    (and
+        (not (is-eq (var-get funding-address) platform-address))
+        (not (is-eq (var-get funding-address) pot-treasury-address))
+    )
+)
+
+;; #[env(simnet)]
+(define-read-only (invariant-initiated-true)
+    (var-get initiated)
+)
+
+;; #[env(simnet)]
+(define-public (test-join-pot-fails-when-locked (amount uint))
+    (begin
+        (asserts! (var-get locked) (ok true))
+        (asserts! (is-err (join-pot amount)) (err u930))
+        (ok true)
+    )
+)
+
+;; #[env(simnet)]
+(define-public (test-start-twice-fails (pot-contract <stackspot-trait>))
+    (begin
+        (asserts! (var-get locked) (ok true))
+        (asserts! (is-err (start-stackspot-jackpot pot-contract)) (err u931))
+        (ok true)
+    )
+)

@@ -79,3 +79,28 @@
 ;; Initialize admins
 (add-update-admin-status tx-sender true)
 (add-update-admin-status 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5 true)
+
+;; --- Rendezvous invariants & property tests ---
+
+;; #[env(simnet)]
+(define-read-only (invariant-primary-admin-always-enabled)
+    (default-to false (map-get? admins primary-admin))
+)
+
+;; #[env(simnet)]
+(define-public (test-non-primary-cannot-promote-admin (target principal))
+    (begin
+        (asserts! (not (is-eq tx-sender primary-admin)) (ok true))
+        (asserts! (is-err (add-update-admin-status target true)) (err u940))
+        (ok true)
+    )
+)
+
+;; #[env(simnet)]
+(define-public (test-non-admin-cannot-toggle-public-deploy (flag bool))
+    (begin
+        (asserts! (not (default-to false (map-get? admins tx-sender))) (ok true))
+        (asserts! (is-err (update-public-pot-deploy-status flag)) (err u941))
+        (ok true)
+    )
+)

@@ -28,3 +28,23 @@
 (define-read-only (is-audited-contract (contract <stackspot-trait>))
     (ok (default-to false (map-get? audited-contracts (contract-of contract))))
 )
+
+;; --- Rendezvous invariants & property tests ---
+
+;; #[env(simnet)]
+(define-public (test-non-admin-cannot-update-audit (contract <stackspot-trait>) (flag bool))
+    (begin
+        (asserts! (not (contract-call? .stackspot-admin is-admin)) (ok true))
+        (asserts! (is-err (update-audited-contract contract flag)) (err u950))
+        (ok true)
+    )
+)
+
+;; #[env(simnet)]
+(define-public (test-non-admin-cannot-remove-audit (contract <stackspot-trait>))
+    (begin
+        (asserts! (not (contract-call? .stackspot-admin is-admin)) (ok true))
+        (asserts! (is-err (remove-audited-contract contract)) (err u951))
+        (ok true)
+    )
+)

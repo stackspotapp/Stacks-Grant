@@ -288,3 +288,44 @@
 )
 
 (update-fee u100000)
+
+;; --- Rendezvous invariants & property tests ---
+
+;; #[env(simnet)]
+(define-read-only (invariant-last-index-bounded-by-calls)
+    (let (
+            (mint-calls (default-to u0 (get called (map-get? context "mint"))))
+            (register-calls (default-to u0 (get called (map-get? context "register-pot"))))
+        )
+        (<= (var-get last-pot-index) (+ mint-calls register-calls))
+    )
+)
+
+;; #[env(simnet)]
+(define-read-only (invariant-fee-positive)
+    (> (var-get fee) u0)
+)
+
+;; #[env(simnet)]
+(define-read-only (invariant-token-id-in-range (recipient principal))
+    (match (map-get? pot-contract-with-index recipient)
+        token-id (and (> token-id u0) (<= token-id (var-get last-pot-index)))
+        true
+    )
+)
+
+;; #[env(simnet)]
+(define-read-only (invariant-pot-id-info-self-consistent (k uint))
+    (match (map-get? pot-id-info k)
+        info (is-eq (get pot-id info) k)
+        true
+    )
+)
+
+;; #[env(simnet)]
+(define-public (test-transfer-always-reverts (token-id uint) (sender principal) (recipient principal))
+    (begin
+        (asserts! (is-err (transfer token-id sender recipient)) (err u900))
+        (ok true)
+    )
+)
