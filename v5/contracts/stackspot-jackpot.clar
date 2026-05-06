@@ -22,6 +22,7 @@
 (define-constant ERR_POT_JOIN_FAILED (err u1408))
 (define-constant ERR_TOO_EARLY (err u1409))
 (define-constant ERR_INSUFFICIENT_REWARD (err u1410))
+(define-constant ERR_ALREADY_INIT (err u1411))
 
 (define-constant JOIN_POT_MEMO (unwrap-panic (to-consensus-buff? "join pot")))
 
@@ -66,7 +67,6 @@
       (cycle (/ (- (default-to burn-block-height (var-get lock-burn-height)) first)
         cycle-len
       ))
-      (cycle-start (+ first (* cycle cycle-len)))
       (next-cycle-start (+ first (* (+ cycle u1) cycle-len)))
     )
     (ok {
@@ -80,7 +80,7 @@
 
 ;; Pot Join Start validation
 (define-read-only (validate-can-join-pot)
-  (var-get locked)
+  (not (var-get locked))
 )
 
 ;; Pot Claim Start validation
@@ -531,24 +531,37 @@
   ))
 )
 
-;; Pot Deployer Configuration
+;; Pot Configuration
 (define-data-var initiated bool false)
-(define-private (init-pot)
+(define-public (init-pot
+    (cycle uint)
+    (min-amount uint)
+    (max-participants uint)
+    (name (string-ascii 255))
+    (type (string-ascii 255))
+  )
   (begin
-    (if (not (var-get initiated))
-      (begin
-        (var-set pot-cycle u1)
-        (var-set pot-min-amount u100)
-        (var-set pot-max-participants u100)
-        (var-set pot-name "StackSpot Jackpot")
-        (var-set pot-type "StackSpot Jackpot")
-        true
-      )
-      false
-    )
+    (asserts! (is-eq tx-sender POT_ADMIN) ERR_ADMIN_ONLY)
+    (asserts! (not (var-get initiated)) ERR_ALREADY_INIT)
+
+    (var-set pot-cycle cycle)
+    (var-set pot-min-amount min-amount)
+    (var-set pot-max-participants max-participants)
+    (var-set pot-name name)
+    (var-set pot-type type)
+
     (var-set initiated true)
-    ;; Execution complete
-    (ok true)
+
+    (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
+      register-pot {
+      owner: tx-sender,
+      contract: current-contract,
+      cycles: (var-get pot-cycle),
+      type: (var-get pot-type),
+      pot-reward-token: "sbtc",
+      min-amount: (var-get pot-min-amount),
+      max-participants: (var-get pot-max-participants),
+    })
   )
 )
 
@@ -557,19 +570,6 @@
 (define-data-var pot-max-participants uint u100)
 (define-data-var pot-name (string-ascii 255) "")
 (define-data-var pot-type (string-ascii 255) "")
-
-;; Initiate pot
-(init-pot)
-(contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
-  register-pot {
-  owner: tx-sender,
-  contract: current-contract,
-  cycles: (var-get pot-cycle),
-  type: (var-get pot-type),
-  pot-reward-token: "sbtc",
-  min-amount: (var-get pot-min-amount),
-  max-participants: (var-get pot-max-participants),
-})
 
 ;; --- Rendezvous invariants & property tests ---
 

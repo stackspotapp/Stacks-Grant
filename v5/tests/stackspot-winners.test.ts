@@ -1,20 +1,40 @@
 import { describe, expect, it } from "vitest";
+import { Cl } from "@stacks/transactions";
+
+/**
+ * Tests for stackspot-winners.
+ *
+ * Single function: log-winner — print-only event sink.
+ * Restricted to contract-caller .stackspot-distribute; any other caller
+ * fails with ERR_UNAUTHORIZED (u1101).
+ */
 
 const accounts = simnet.getAccounts();
-const address1 = accounts.get("wallet_1")!;
+const deployer = accounts.get("deployer")!;
+const wallet1 = accounts.get("wallet_1")!;
 
-/*
-The test below is an example. To learn more, read the testing documentation here:
-https://docs.stacks.co/clarinet/testing-with-clarinet-sdk
-*/
+const WINNERS = "stackspot-winners";
 
-describe("example tests", () => {
-it("ensures simnet is well initialised", () => {
-    expect(simnet.blockHeight).toBeDefined();
-});
+describe("stackspot-winners", () => {
+  describe("log-winner", () => {
+    it("rejects callers other than .stackspot-distribute (deployer EOA)", () => {
+      const { result } = simnet.callReadOnlyFn(
+        WINNERS,
+        "log-winner",
+        [Cl.bufferFromAscii("payload")],
+        deployer,
+      );
+      expect(result).toBeErr(Cl.uint(1101));
+    });
 
-// it("shows an example", () => {
-//   const { result } = simnet.callReadOnlyFn("counter", "get-counter", [], address1);
-//   expect(result).toBeUint(0);
-// });
+    it("rejects callers other than .stackspot-distribute (random wallet)", () => {
+      const { result } = simnet.callReadOnlyFn(
+        WINNERS,
+        "log-winner",
+        [Cl.bufferFromAscii("hello")],
+        wallet1,
+      );
+      expect(result).toBeErr(Cl.uint(1101));
+    });
+  });
 });

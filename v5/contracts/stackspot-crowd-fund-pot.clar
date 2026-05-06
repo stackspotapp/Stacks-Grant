@@ -79,7 +79,7 @@
 
 ;; Pot Join Start validation
 (define-read-only (validate-can-join-pot)
-  (var-get locked)
+  (not (var-get locked))
 )
 
 ;; Pot Claim Start validation
