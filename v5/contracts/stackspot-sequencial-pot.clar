@@ -11,28 +11,19 @@
 (define-constant ERR_NOT_FOUND (err u1001))
 (define-constant ERR_UNAUTHORIZED (err u1101))
 (define-constant ERR_ADMIN_ONLY (err u1102))
-(define-constant ERR_PARTICIPANT_ONLY (err u1105))
 (define-constant ERR_DUPLICATE_PARTICIPANT (err u1104))
-(define-constant ERR_INVALID_ADDRESS (err u1201))
-(define-constant ERR_INVALID_ARGUMENT_VALUE (err u1202))
-(define-constant ERR_INVALID_POT (err u1203))
-(define-constant ERR_INSUFFICIENT_BALANCE (err u1301))
 (define-constant ERR_INSUFFICIENT_AMOUNT (err u1302))
-(define-constant ERR_INSUFFICIENT_POT_BALANCE (err u1303))
 (define-constant ERR_INSUFFICIENT_POT_REWARD (err u1304))
 (define-constant ERR_POT_JOIN_CLOSED (err u1401))
 (define-constant ERR_POT_CLAIM_NOT_REACHED (err u1402))
 (define-constant ERR_POT_ALREADY_STARTED (err u1403))
 (define-constant ERR_POT_CANCELLED (err u1404))
 (define-constant ERR_MAX_PARTICIPANTS_REACHED (err u1405))
-(define-constant ERR_DELEGATE_FAILED (err u1406))
-(define-constant ERR_DISPATCH_FAILED (err u1108))
 (define-constant ERR_POT_JOIN_FAILED (err u1408))
 (define-constant ERR_TOO_EARLY (err u1409))
 (define-constant ERR_INSUFFICIENT_REWARD (err u1410))
 
 (define-constant JOIN_POT_MEMO (unwrap-panic (to-consensus-buff? "join pot")))
-(define-constant LEAVE_POT_MEMO (unwrap-panic (to-consensus-buff? "leave pot")))
 
 ;; Pot Starter Principal
 ;; Pot Claimer Principal
@@ -52,21 +43,16 @@
 (define-data-var next-payment-id uint u1)
 
 ;; Get PoX Info and return pool config
-(define-constant pox-data (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4 get-pox-info))
-(define-constant pox-details (unwrap! pox-data ERR_NOT_FOUND))
-(define-constant MORE_THAN_ONE_CYCLE (+ (get prepare-cycle-length pox-details) (get reward-cycle-length pox-details)) )
-
-;; Get platform fee
-(define-constant platform-fee (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots get-fee ))
+(define-constant POX_DETAILS (unwrap! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4 get-pox-info) ERR_NOT_FOUND))
+(define-constant MORE_THAN_ONE_CYCLE (+ (get prepare-cycle-length POX_DETAILS) (get reward-cycle-length POX_DETAILS)) )
 
 (define-read-only (get-pool-config)
     (let (
 
-            (first (get first-burnchain-block-height pox-details))
-            (cycle-len (get reward-cycle-length pox-details))
-            (prepare-len (get prepare-cycle-length pox-details))
+            (first (get first-burnchain-block-height POX_DETAILS))
+            (cycle-len (get reward-cycle-length POX_DETAILS))
+            (prepare-len (get prepare-cycle-length POX_DETAILS))
             (cycle (/ (- (default-to burn-block-height (var-get lock-burn-height)) first) cycle-len))
-            (cycle-start (+ first (* cycle cycle-len)))
             (next-cycle-start (+ first (* (+ cycle u1) cycle-len)))
         )
         (ok {
@@ -127,8 +113,7 @@
 ;; Total Max Participants
 ;; Platform Address
 ;; Pot Treasury Address
-(define-constant total-max-participants u100)
-(define-constant platform-address (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots get-platform-treasury))
+(define-constant PLATFORM_ADDRESS (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots get-platform-treasury))
 
 (define-constant pot-treasury-address current-contract)
 (define-read-only (get-pot-treasury)
@@ -165,11 +150,6 @@
 (define-private (add-pot-value (amount uint))
     (var-set total-pot-value (+ (var-get total-pot-value) amount))
 )
-;; Decrement Pot Value
-(define-private (remove-pot-value (amount uint))
-    (var-set total-pot-value (- (var-get total-pot-value) amount))
-)
-
 ;; Read-Only public function that gets participant by index
 (define-read-only (get-by-id-helper (n uint))
     (ok (map-get? pot-participants-by-id n))
@@ -212,7 +192,7 @@
 )
 
 ;; Get random digit from VRF and return the winner index
-(define-public (get-random-index (participant-count uint))
+(define-private (get-random-index (participant-count uint))
     (let (
             ;; Get random digit from VRF
             (vrf-random-digit (unwrap! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-vrf get-random-uint-at-block stacks-block-height) ERR_NOT_FOUND))
@@ -225,7 +205,6 @@
 (define-private (delegate-to-pot (amount uint) (participant principal))
     (let
         (
-            (participants-stx-balance (stx-get-balance participant))
             (index-participants (var-get last-participant))
             (pot-config (get-configs))
             (max-participants (get max-participants pot-config))
@@ -235,7 +214,7 @@
         (asserts! (>= amount min-amount) ERR_INSUFFICIENT_AMOUNT)
 
         (asserts! (not (is-eq participant pot-treasury-address)) ERR_UNAUTHORIZED)
-        (asserts! (not (is-eq participant platform-address)) ERR_UNAUTHORIZED)
+        (asserts! (not (is-eq participant PLATFORM_ADDRESS)) ERR_UNAUTHORIZED)
         (asserts! (not (is-eq participant pot-admin)) ERR_UNAUTHORIZED)
         (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
 
@@ -477,7 +456,7 @@
 (define-data-var initiated bool false)
 (define-private (init-pot) 
     (begin 
-        (if (is-eq (var-get initiated) false) 
+        (if (not (var-get initiated)) 
             (begin
                 (var-set pot-cycle u1)
                 (var-set pot-min-amount u100)
@@ -508,6 +487,16 @@
 (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots register-pot {owner: tx-sender, contract: current-contract, cycles: (var-get pot-cycle), type: (var-get pot-type), pot-reward-token: "sbtc", min-amount: (var-get pot-min-amount), max-participants: (var-get pot-max-participants)})
 
 ;; --- Rendezvous invariants & property tests ---
+
+;; #[env(simnet)]
+(define-map context (string-ascii 255) {called: uint})
+;; #[env(simnet)]
+(define-public (update-context
+    (function-name (string-ascii 100))
+    (called uint)
+  )
+  (ok (map-set context function-name { called: called }))
+)
 
 ;; #[env(simnet)]
 (define-read-only (invariant-locked-and-cancelled-exclusive)

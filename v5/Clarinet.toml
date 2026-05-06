@@ -81,11 +81,6 @@ path = "contracts/stackspot-audited-contracts.clar"
 clarity_version = 5
 epoch = "latest"
 
-[contracts.stackspot-cryptonauts]
-path = "contracts/stackspot-cryptonauts.clar"
-clarity_version = 5
-epoch = "latest"
-
 [contracts.sbtc-registry]
 path = "contracts/sbtc-registry.clar"
 clarity_version = 5

@@ -13,13 +13,13 @@
 (define-map admins principal bool)
 (define-map allowed-contract-hash (buff 32) bool)
 
-(define-constant primary-admin tx-sender)
+(define-constant PRIMARY_ADMIN tx-sender)
 
 (define-data-var public-pot-deploy bool true)
 
 (define-public (add-update-admin-status (admin principal) (enable bool)) 
     (begin
-        (asserts! (is-eq tx-sender primary-admin) ERR_UNAUTHORIZED)
+        (asserts! (is-eq tx-sender PRIMARY_ADMIN) ERR_UNAUTHORIZED)
         (map-set admins admin enable)
         (print {
             event: "admin added/updated",
@@ -83,14 +83,14 @@
 ;; --- Rendezvous invariants & property tests ---
 
 ;; #[env(simnet)]
-(define-read-only (invariant-primary-admin-always-enabled)
-    (default-to false (map-get? admins primary-admin))
+(define-read-only (invariant-PRIMARY_ADMIN-always-enabled)
+    (default-to false (map-get? admins PRIMARY_ADMIN))
 )
 
 ;; #[env(simnet)]
 (define-public (test-non-primary-cannot-promote-admin (target principal))
     (begin
-        (asserts! (not (is-eq tx-sender primary-admin)) (ok true))
+        (asserts! (not (is-eq tx-sender PRIMARY_ADMIN)) (ok true))
         (asserts! (is-err (add-update-admin-status target true)) (err u940))
         (ok true)
     )

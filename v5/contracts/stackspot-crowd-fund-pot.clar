@@ -25,14 +25,11 @@
 (define-constant ERR_POT_ALREADY_STARTED (err u1403))
 (define-constant ERR_POT_CANCELLED (err u1404))
 (define-constant ERR_MAX_PARTICIPANTS_REACHED (err u1405))
-(define-constant ERR_DELEGATE_FAILED (err u1406))
-(define-constant ERR_DISPATCH_FAILED (err u1108))
 (define-constant ERR_POT_JOIN_FAILED (err u1408))
 (define-constant ERR_TOO_EARLY (err u1409))
 (define-constant ERR_INSUFFICIENT_REWARD (err u1410))
 
 (define-constant JOIN_POT_MEMO (unwrap-panic (to-consensus-buff? "join pot")))
-(define-constant LEAVE_POT_MEMO (unwrap-panic (to-consensus-buff? "leave pot")))
 
 ;; Pot Starter Principal
 ;; Pot Claimer Principal
@@ -126,8 +123,7 @@
 ;; Total Max Participants
 ;; Platform Address
 ;; Pot Treasury Address
-(define-constant total-max-participants u100)
-(define-constant platform-address (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots get-platform-treasury))
+(define-constant PLATFORM_ADDRESS (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots get-platform-treasury))
 
 (define-constant pot-treasury-address current-contract)
 (define-read-only (get-pot-treasury)
@@ -164,11 +160,6 @@
 (define-private (add-pot-value (amount uint))
     (var-set total-pot-value (+ (var-get total-pot-value) amount))
 )
-;; Decrement Pot Value
-(define-private (remove-pot-value (amount uint))
-    (var-set total-pot-value (- (var-get total-pot-value) amount))
-)
-
 ;; Read-Only public function that gets participant by index
 (define-read-only (get-by-id-helper (n uint))
     (ok (map-get? pot-participants-by-id n))
@@ -234,7 +225,7 @@
         (asserts! (>= amount min-amount) ERR_INSUFFICIENT_AMOUNT)
 
         (asserts! (not (is-eq participant pot-treasury-address)) ERR_UNAUTHORIZED)
-        (asserts! (not (is-eq participant platform-address)) ERR_UNAUTHORIZED)
+        (asserts! (not (is-eq participant PLATFORM_ADDRESS)) ERR_UNAUTHORIZED)
         (asserts! (not (is-eq participant pot-admin)) ERR_UNAUTHORIZED)
         (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
 
@@ -376,7 +367,7 @@
             (pot-yield (unwrap! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token get-balance pot-treasury-address) (err u997))) ;; Get stacked reward
             
             (pot-deploy-fee (/ (* pot-yield u5) u100))
-            (platform-royalty-reward (/ (* pot-yield u1) u100))
+            (platform-royalty-reward (/ pot-yield u100))
 
             (pot-starter (get pot-starter-address pot-details))
             (pot-starter-reward (if (> pot-yield u0) (* (/ pot-yield u100) u2) u0));; Calculate pot starter's reward
@@ -458,7 +449,7 @@
 (define-data-var initiated bool false)
 (define-private (init-pot) 
     (begin 
-        (if (is-eq (var-get initiated) false) 
+        (if (not (var-get initiated)) 
             (begin
                 (var-set pot-cycle u1)
                 (var-set pot-min-amount u100)
@@ -532,7 +523,7 @@
 ;; #[env(simnet)]
 (define-read-only (invariant-funding-address-not-platform-or-treasury)
     (and
-        (not (is-eq (var-get funding-address) platform-address))
+        (not (is-eq (var-get funding-address) PLATFORM_ADDRESS))
         (not (is-eq (var-get funding-address) pot-treasury-address))
     )
 )

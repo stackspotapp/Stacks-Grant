@@ -11,10 +11,8 @@
 (define-constant ERR_UNAUTHORIZED (err u1101))
 (define-constant ERR_POT_CLAIM_NOT_REACHED (err u1402))
 (define-constant ERR_INSUFFICIENT_POT_REWARD (err u1304))
-(define-constant ERR_DISPATCH_FAILED (err u1108))
-(define-constant ERR_LOG_FAILED (err u1107))
 ;; Platform Address
-(define-constant platform-address tx-sender)
+(define-constant PLATFORM_ADDRESS tx-sender)
 
 ;; Get PoX Info and return pool config
 ;; Testnet version
@@ -27,7 +25,6 @@
             (cycle-len (get reward-cycle-length pox-details))
             (prepare-len (get prepare-cycle-length pox-details))
             (cycle (/ (- lock-burn-height first) cycle-len))
-            (cycle-start (+ first (* cycle cycle-len)))
             (next-cycle-start (+ first (* (+ cycle u1) cycle-len)))
         )
         (ok {
@@ -116,7 +113,7 @@
             (pot-fee (/ (* pot-yield u5) u100))
 
             ;; Platform Royalty
-            (platform-royalty-address platform-address)
+            (platform-royalty-address PLATFORM_ADDRESS)
             (platform-royalty-reward (/ (* pot-yield u1) u100))
 
             ;; Pot Starter Values

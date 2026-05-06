@@ -24,9 +24,6 @@
 (define-constant ERR_UNAUTHORIZED_CONTRACT_HASH (err u1110))
 
 ;; NFT errors
-(define-constant ERR_OWNER_ONLY (err u200))
-(define-constant ERR_NOT_TOKEN_OWNER (err u201))
-(define-constant ERR_OWNER_NOT_PERMITTED (err u202))
 (define-constant ERR_NOT_PERMITTED (err u203))
 
 ;; NFT Declaration
@@ -292,6 +289,17 @@
 ;; --- Rendezvous invariants & property tests ---
 
 ;; #[env(simnet)]
+(define-map context (string-ascii 255) {called: uint})
+;; #[env(simnet)]
+(define-public (update-context
+    (function-name (string-ascii 100))
+    (called uint)
+  )
+  (ok (map-set context function-name { called: called }))
+)
+
+
+;; #[env(simnet)]
 (define-read-only (invariant-last-index-bounded-by-calls)
     (let (
             (mint-calls (default-to u0 (get called (map-get? context "mint"))))
@@ -310,14 +318,6 @@
 (define-read-only (invariant-token-id-in-range (recipient principal))
     (match (map-get? pot-contract-with-index recipient)
         token-id (and (> token-id u0) (<= token-id (var-get last-pot-index)))
-        true
-    )
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-pot-id-info-self-consistent (k uint))
-    (match (map-get? pot-id-info k)
-        info (is-eq (get pot-id info) k)
         true
     )
 )

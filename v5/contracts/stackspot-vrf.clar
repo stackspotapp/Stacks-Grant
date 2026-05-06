@@ -9,9 +9,9 @@
 
 (define-constant ERR_NOT_FOUND (err u1001))
 
-(define-public (get-random-uint-at-block (blockHeight uint))
+(define-read-only (get-random-uint-at-block (height uint))
   (let (
-      (stacks-block-hash (unwrap! (get-stacks-block-info? header-hash (- blockHeight u1)) ERR_NOT_FOUND))
+      (stacks-block-hash (unwrap! (get-stacks-block-info? header-hash (- height u1)) ERR_NOT_FOUND))
       (senders-principal-hash (unwrap! (to-consensus-buff? tx-sender) ERR_NOT_FOUND))
       (merged-buff (concat stacks-block-hash senders-principal-hash))
       (merged-sha256 (sha256 merged-buff))

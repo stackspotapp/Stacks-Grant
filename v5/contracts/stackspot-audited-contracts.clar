@@ -9,8 +9,6 @@
 
 (define-constant ERR_ADMIN_ONLY (err u1102))
 
-(define-constant platform-admin tx-sender)
-
 (define-public (update-audited-contract (contract <stackspot-trait>) (is-audited bool))
     (begin
         (asserts! (contract-call? .stackspot-admin is-admin) ERR_ADMIN_ONLY)
