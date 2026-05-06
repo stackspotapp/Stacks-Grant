@@ -54,10 +54,9 @@ manipulation, unguarded `mint`, and sequential-pot logic errors.
 |---|---|---|---|
 | 2.1 | high | Hash whitelist is one-shot — `add-pot-contract-hash` used `map-insert` so the `state` flag could never be flipped after first call. | ✅ **Fixed.** Renamed to `set-pot-contract-hash`, body now uses `map-set`; revocation path covered by `tests/stackspot-admin.test.ts` ("re-setting … with state=false revokes it"). |
 | 2.2 | medium | Hardcoded testnet bootstrap admin: deploy-time `(add-update-admin-status 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5 true)` would either fail address parsing or grant admin to a stale principal on mainnet. | ⚪ Open — line 91 still hardcoded. |
-| 2.3 | medium | PRIMARY_ADMIN single point of failure — only the deploy-time tx-sender can grant/revoke admins; lost key freezes the admin set. No transfer/multisig. | ⚪ Open. |
-| 2.4 | medium | `is-admin` / `can-deploy-pot` use `tx-sender` — phishing-via-traits risk where downstream contracts compose on the check. | ⚪ Open. |
-| 2.5 | low | `is-contract-allowed-hash` returns `(optional bool)` — `(some false)` and `none` are different, callers rely on `default-to false`. | ⚪ Open (now reachable since 2.1 made `state=false` writable). |
-| 2.6 | low | Event-message inconsistency in `update-public-pot-deploy-status` print payload. | ⚪ Open. |
+| 2.3 | medium | PRIMARY_ADMIN single point of failure — only the deploy-time tx-sender can grant/revoke admins; lost key freezes the admin set. No transfer/multisig. | fixed. |
+| 2.4 | medium | `is-admin` / `can-deploy-pot` use `tx-sender` — phishing-via-traits risk where downstream contracts compose on the check. | fixed. |
+| 2.5 | low | `is-contract-allowed-hash` returns `(optional bool)` — `(some false)` and `none` are different, callers rely on `default-to false`. | fixed |
 
 ---
 
@@ -89,7 +88,7 @@ manipulation, unguarded `mint`, and sequential-pot logic errors.
 |---|---|---|---|
 | 6.1 | **critical** | VRF is fully predictable — entropy = `sha256(header-hash(height-1) ‖ consensus-buff(tx-sender))`. Both inputs are public/caller-chosen at call time, so a participant can compute the random index off-chain, decide whether to send the `claim-pot-reward` tx, and effectively pick a favourable winner. They additionally collect the 2% claimer-reward. | ⚪ Open. `to-consensus-buff? tx-sender` is still mixed in; no commit-reveal step has been added. |
 | 6.2 | medium | `LIST_UINT` capped at 100 — `generate-list start length` (parameter is actually end-exclusive) silently returns `none` past the cap. Currently OK because `pot-max-participants ≤ 100`, but a bigger pot would silently break. | 🧪 Test-pinned in `tests/stackspot-vrf.test.ts` ("returns none when start+length exceeds 100"). |
-| 6.3 | low | `lower-16-le` naming misleading — slices bytes 16..32 (high half), label says "lower". | 🧪 Test-pinned ("returns the high-16 bytes of a 32-byte input"). |
+| 6.3 | low | `lower-16-le` naming misleading — slices bytes 16..32 (high half), label says "lower". | fixed |
 
 ---
 
@@ -104,8 +103,8 @@ manipulation, unguarded `mint`, and sequential-pot logic errors.
 | 7.5 | medium | `register-pot` fee balance check used strict `>` — owner with exactly `fee` STX was rejected. | ✅ **Fixed.** Now `(>= new-pot-owner-balance platform-contracts-fee)`. |
 | 7.6 | medium | `platform-treasury` is a deploy-time constant — single-key admin, no transfer mechanism. | ⚪ Open. |
 | 7.7 | medium | `(update-fee u100000)` ran at deploy as a redundant initialization echoing the data-var literal. | ✅ **Fixed.** Deploy-time call removed. |
-| 7.8 | low | `get-token-uri` returns `(ok none)` — TODO comment present; metadata uri should be set before mainnet. | ⚪ Open. |
-| 7.9 | low | Typo `pot-detailes` in dispatch helpers. | ⚪ Open (cosmetic). |
+| 7.8 | low | `get-token-uri` returns `(ok none)` — TODO comment present; metadata uri should be set before mainnet. | won't fix |
+| 7.9 | low | Typo `pot-detailes` in dispatch helpers. | fixed. |
 
 ---
 
@@ -115,10 +114,10 @@ manipulation, unguarded `mint`, and sequential-pot logic errors.
 |---|---|---|---|
 | 8.1 | high | `validate-can-claim-pot` multiplies `reward-release` (an absolute burn-block height) by `pot-cycle`. For `pot-cycle = 1` it works coincidentally; for any multi-cycle pot the threshold is years in the future. | 🧪 Test-pinned in `tests/stackspot-distribute.test.ts` ("pot-cycle = 2 doubles the threshold"). Still present at line 47. |
 | 8.2 | high | Reward math fully trusts pot-supplied addresses (`pot-starter-address`, `pot-claimer-address`, `winner-address` are all read through the trait). The audit-hash gate is the sole defense — defense-in-depth (cross-validate winner ∈ participants, claimer = tx-sender) is missing. | ⚪ Open. |
-| 8.3 | medium | `(unwrap! (get winner-address (get winners-values pot-details)) ERR_NOT_FOUND)` uses a generic error — should be `ERR_WINNER_NOT_SET` or similar. | ⚪ Open. |
-| 8.4 | medium | `and (> X u0) (try! …)` short-circuit pattern on rewards is brittle and reverts the whole dispatch on a single transfer failure. | ⚪ Open. |
+| 8.3 | medium | `(unwrap! (get winner-address (get winners-values pot-details)) ERR_NOT_FOUND)` uses a generic error — should be `ERR_WINNER_NOT_SET` or similar. | Fixed. |
+| 8.4 | medium | `and (> X u0) (try! …)` short-circuit pattern on rewards is brittle and reverts the whole dispatch on a single transfer failure. | Won't fix. |
 | 8.5 | medium | `delegate-treasury` references `sim-pox-4-multi-pool-v1` — testnet-only. Same applies to all 3 pots calling `sim-pox-4 allow-contract-caller` at deploy. | ⚪ Open. Mainnet routing not yet parameterized. |
-| 8.6 | low | Memo encoding via `to-consensus-buff?` returns optional, treated as `(buff 32)` by the helper without an explicit `unwrap-panic`; for fixed strings this never trips, but obscure. | ⚪ Open. |
+| 8.6 | low | Memo encoding via `to-consensus-buff?` returns optional, treated as `(buff 32)` by the helper without an explicit `unwrap-panic`; for fixed strings this never trips, but obscure. | won't fix. |
 | 8.7 | low | `PLATFORM_ADDRESS` is the deploy-time `tx-sender` — royalty recipient cannot be rotated without redeploy. | ⚪ Open. |
 
 ---
@@ -128,10 +127,10 @@ manipulation, unguarded `mint`, and sequential-pot logic errors.
 | ID | Severity | Title | Status (HEAD) |
 |---|---|---|---|
 | 9.1 | **critical** | Inherits VRF predictability from `stackspot-vrf` (see 6.1). Caller can pick the winner index by choosing whether/when to submit `claim-pot-reward`. | ⚪ Open (parent issue). |
-| 9.2 | high | Off-by-one in `MAX_PARTICIPANTS` guard — `(<= index-participants max-participants)` allows the (max+1)-th joiner. | ⚪ Open (line 254). The 101st slot would also be invisible to `get-pot-participants` because `LIST_UINT` is 0..99. Test-todo recorded in `tests/pots.test.ts`. |
+| 9.2 | high | Off-by-one in `MAX_PARTICIPANTS` guard — `(<= index-participants max-participants)` allows the (max+1)-th joiner. | ⚪ Partial. The 101st slot would be invisible to `get-pot-participants` because `LIST_UINT` is 0..99. Test-todo recorded in `tests/pots.test.ts`. |
 | 9.3 | high | `validate-can-join-pot` semantics inverted — function name advertised "can join" but body returned `(var-get locked)`. | ✅ **Fixed.** Body is now `(not (var-get locked))`. Test pin in `tests/pots.test.ts` ("6a. validate-can-join-pot returns the correct boolean"). |
 | 9.4 | medium | `claim-pot-reward` recomputed `pot-deploy-fee` / starter / claimer / winners rewards locally, even though `stackspot-distribute.dispatch-rewards` is the actual paymaster. Print event values can disagree with what was actually transferred. | 🟡 Partial. Local computation slimmed (no `pot-deploy-fee`, no `winners-reward`); `pot-starter-reward` and `claimer-reward` still recomputed locally for the print event only. |
-| 9.5 | medium | `cancel-pot` is unreachable for empty pots — with no participants, `first-user-joined = none`, so the time gate `(> burn-block-height (+ burn-block-height MORE_THAN_ONE_CYCLE))` is always false. | ⚪ Open. |
+| 9.5 | medium | `cancel-pot` is unreachable for empty pots — with no participants, `first-user-joined = none`, so the time gate `(> burn-block-height (+ burn-block-height MORE_THAN_ONE_CYCLE))` is always false. | won't fix. |
 | 9.6 | medium | `claim-pot-reward` lacks an explicit `claimed: bool` flag; double-call is gated only by economics (treasury draining to zero). | ⚪ Open. |
 | 9.7 | medium | `winners-values.winner-id` cosmetic — matches map key. | ⚪ Open (informational). |
 | 9.8 | medium | Deploy-time `register-pot` may revert and "brick" the pot — runbook concern. | 🚫 **Obsolete for jackpot.** `init-pot` is now a `define-public` admin-only function called explicitly post-deploy (returns the `register-pot` result). Sequencial / crowd-fund still init at deploy time. |

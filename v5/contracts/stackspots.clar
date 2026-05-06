@@ -89,10 +89,7 @@
     ;; Validate's if the contract hash is not empty
     ;; Mint NFT to pot address
     (asserts!
-      (default-to false
-        (contract-call? .stackspot-admin is-contract-allowed-hash
-          contract-address
-        ))
+      (contract-call? .stackspot-admin is-contract-allowed-hash contract-address)
       ERR_UNAUTHORIZED_CONTRACT_HASH
     )
     (asserts! (contract-call? .stackspot-admin can-deploy-pot) ERR_UNAUTHORIZED)
@@ -161,7 +158,6 @@
 )
 
 ;; NFT actions
-;; TODO: Implement get-token-uri and get-owner
 (define-read-only (get-last-token-id)
   (ok (var-get last-pot-index))
 )
@@ -247,8 +243,8 @@
 
 (define-public (dispatch-principals (contract <stackspot-trait>))
   (let (
-      (pot-detailes (unwrap! (get-pot-info (contract-of contract)) ERR_NOT_FOUND))
-      (pot-contract (get pot-contract pot-detailes))
+      (pot-details (unwrap! (get-pot-info (contract-of contract)) ERR_NOT_FOUND))
+      (pot-contract (get pot-contract pot-details))
     )
     (asserts! (is-eq pot-contract (contract-of contract)) ERR_UNAUTHORIZED)
     (asserts! (is-eq contract-caller (contract-of contract)) ERR_UNAUTHORIZED)
@@ -263,8 +259,8 @@
 
 (define-public (dispatch-rewards (contract <stackspot-trait>))
   (let (
-      (pot-detailes (unwrap! (get-pot-info (contract-of contract)) ERR_NOT_FOUND))
-      (pot-contract (get pot-contract pot-detailes))
+      (pot-details (unwrap! (get-pot-info (contract-of contract)) ERR_NOT_FOUND))
+      (pot-contract (get pot-contract pot-details))
     )
     (asserts! (is-eq pot-contract (contract-of contract)) ERR_UNAUTHORIZED)
     (asserts! (is-eq contract-caller (contract-of contract)) ERR_UNAUTHORIZED)
@@ -280,8 +276,8 @@
     (delegate-to principal)
   )
   (let (
-      (pot-detailes (unwrap! (get-pot-info (contract-of contract)) ERR_NOT_FOUND))
-      (pot-contract (get pot-contract pot-detailes))
+      (pot-details (unwrap! (get-pot-info (contract-of contract)) ERR_NOT_FOUND))
+      (pot-contract (get pot-contract pot-details))
     )
     (asserts! (is-eq pot-contract (contract-of contract)) ERR_UNAUTHORIZED)
     (asserts! (is-eq contract-caller (contract-of contract)) ERR_UNAUTHORIZED)

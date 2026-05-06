@@ -22,7 +22,7 @@
 (define-constant PRIMARY_ADMIN tx-sender)
 
 (define-data-var public-pot-deploy bool true)
-(define-fungible-token sec u0)
+(define-fungible-token sec)
 
 (define-public (add-update-admin-status
     (admin principal)
@@ -89,9 +89,10 @@
 )
 
 (define-read-only (is-contract-allowed-hash (contract-address principal))
-  (map-get? allowed-contract-hash
-    (unwrap! (contract-hash? contract-address) none)
-  )
+  (default-to false
+    (map-get? allowed-contract-hash
+      (unwrap! (contract-hash? contract-address) false)
+    ))
 )
 ;; Initialize admins
 (add-update-admin-status tx-sender true)

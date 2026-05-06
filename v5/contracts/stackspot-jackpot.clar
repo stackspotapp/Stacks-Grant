@@ -251,7 +251,7 @@
     (asserts! (not (is-eq participant POT_ADMIN)) ERR_UNAUTHORIZED)
     (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
 
-    (asserts! (<= index-participants max-participants)
+    (asserts! (< index-participants max-participants)
       ERR_MAX_PARTICIPANTS_REACHED
     )
     (asserts! (is-none (map-get? pot-participants-by-principal participant))

@@ -11,6 +11,7 @@
 (define-constant ERR_UNAUTHORIZED (err u1101))
 (define-constant ERR_POT_CLAIM_NOT_REACHED (err u1402))
 (define-constant ERR_INSUFFICIENT_POT_REWARD (err u1304))
+(define-constant ERR_WINNER_NOT_SET (err u1305))
 ;; Platform Address
 (define-constant PLATFORM_ADDRESS tx-sender)
 
@@ -131,7 +132,7 @@
       (claimer-reward (/ (* pot-yield u2) u100))
       ;; Winner Values
       (winner-address (unwrap! (get winner-address (get winners-values pot-details))
-        ERR_NOT_FOUND
+        ERR_WINNER_NOT_SET
       ))
       (winner-reward (- pot-yield platform-royalty-reward pot-fee pot-starter-reward
         claimer-reward

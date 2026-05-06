@@ -15,24 +15,24 @@
       (senders-principal-hash (unwrap! (to-consensus-buff? tx-sender) ERR_NOT_FOUND))
       (merged-buff (concat stacks-block-hash senders-principal-hash))
       (merged-sha256 (sha256 merged-buff))
-      (lower-16-le-sha256 (lower-16-le merged-sha256))
-      (uint-lower-16-le-sha256 (buff-to-uint-le lower-16-le-sha256))
+      (higher-16-le-sha256 (higher-16-le merged-sha256))
+      (uint-higher-16-le-sha256 (buff-to-uint-le higher-16-le-sha256))
     )
     (print {
       stacks-block-hash: stacks-block-hash,
       senders-principal-hash: senders-principal-hash,
       merged-buff: merged-buff,
       merged-sha256: merged-sha256,
-      lower-16-le-sha256: lower-16-le-sha256,
+      higher-16-le-sha256: higher-16-le-sha256,
     })
-    (ok uint-lower-16-le-sha256)
+    (ok uint-higher-16-le-sha256)
   )
 )
 
 ;;;;  UTILITIES
 
 ;;;;  Convert the lower 16 bytes of a buff into a little-endian uint.
-(define-read-only (lower-16-le (input (buff 32)))
+(define-read-only (higher-16-le (input (buff 32)))
   (unwrap-panic (as-max-len? (unwrap-panic (slice? input u16 u32)) u16))
 )
 

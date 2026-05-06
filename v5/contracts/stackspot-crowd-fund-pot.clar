@@ -1,4 +1,4 @@
-;; title: stackspot-jackpot
+;; title: stackspot-crowed-fund-pot
 ;; version:
 ;; summary:
 ;; description:
@@ -217,21 +217,6 @@
   (ok (var-get pot-claimer-principal))
 )
 
-;; Get random digit from VRF and return the winner index
-(define-read-only (get-random-index (participant-count uint))
-  (let (
-      ;; Get random digit from VRF
-      (vrf-random-digit (unwrap!
-        (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-vrf
-          get-random-uint-at-block stacks-block-height
-        )
-        ERR_NOT_FOUND
-      ))
-    )
-    (ok (mod vrf-random-digit participant-count))
-  )
-)
-
 ;; Private helper function that delegates to pot-treasury
 (define-private (delegate-to-pot
     (amount uint)
@@ -251,7 +236,7 @@
     (asserts! (not (is-eq participant pot-admin)) ERR_UNAUTHORIZED)
     (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
 
-    (asserts! (<= index-participants max-participants)
+    (asserts! (< index-participants max-participants)
       ERR_MAX_PARTICIPANTS_REACHED
     )
     (asserts! (is-none (map-get? pot-participants-by-principal participant))
@@ -345,8 +330,8 @@
   )
 )
 
-;; Public Function That Starts The Jackpot
-(define-public (start-stackspot-jackpot (pot-contract <stackspot-trait>))
+;; Public Function That Starts The Pot
+(define-public (start-stackspot-crowd-fund-pot (pot-contract <stackspot-trait>))
   (begin
     ;; Validates pot is not already started
     (asserts! (not (var-get locked)) ERR_POT_ALREADY_STARTED)
@@ -377,7 +362,7 @@
 
     ;; Print
     (print {
-      event: "start-stackspot-jackpot",
+      event: "start-stackspot-crowd-fund-pot",
       pot-starter-principal: tx-sender,
       pot-contract: (contract-of pot-contract),
       pot-treasury: pot-treasury-address,
@@ -642,7 +627,7 @@
 (define-public (test-start-twice-fails (pot-contract <stackspot-trait>))
   (begin
     (asserts! (var-get locked) (ok true))
-    (asserts! (is-err (start-stackspot-jackpot pot-contract)) (err u931))
+    (asserts! (is-err (start-stackspot-crowd-fund-pot pot-contract)) (err u931))
     (ok true)
   )
 )

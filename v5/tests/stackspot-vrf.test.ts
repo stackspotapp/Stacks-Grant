@@ -5,7 +5,7 @@ import { Cl } from "@stacks/transactions";
  * Tests for stackspot-vrf — pure read-only helpers.
  *
  *   - get-random-uint-at-block(height): block-hash-derived uint, mixed with tx-sender
- *   - lower-16-le(buff32): buff16 (high 16 bytes — the name is misleading)
+ *   - higher-16-le(buff32): buff16 (high 16 bytes — the name is misleading)
  *   - generate-list(start, length): slice of LIST_UINT (0..99)
  *
  * SECURITY NOTE: get-random-uint-at-block is NOT a secure VRF for lottery
@@ -179,14 +179,14 @@ describe("stackspot-vrf", () => {
     });
   });
 
-  describe("lower-16-le", () => {
+  describe("higher-16-le", () => {
     it("returns the high-16 bytes of a 32-byte input", () => {
       const buf32 = Cl.bufferFromHex(
         "00112233445566778899aabbccddeeff" + "0123456789abcdef0123456789abcdef",
       );
       const { result } = simnet.callReadOnlyFn(
         VRF,
-        "lower-16-le",
+        "higher-16-le",
         [buf32],
         deployer,
       );

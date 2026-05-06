@@ -7,7 +7,9 @@
   "scripts": {
     "test": "vitest run",
     "test:report": "vitest run -- --coverage --costs",
-    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\""
+    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
+    "errors": "node scripts/extract-error-codes.mjs",
+    "errors:check": "node scripts/extract-error-codes.mjs --check"
   },
   "author": "",
   "license": "ISC",
