@@ -6,9 +6,9 @@
 (define-constant ERR_UNAUTHORIZED (err u1101))
 
 (define-read-only (log-pot (participant-values (buff 250000)))
-    (begin
-        (asserts! (is-eq contract-caller .stackspots) ERR_UNAUTHORIZED)
-        (print participant-values) 
-        (ok true)
-    )
+  (begin
+    (asserts! (is-eq contract-caller .stackspots) ERR_UNAUTHORIZED)
+    (print participant-values)
+    (ok true)
+  )
 )

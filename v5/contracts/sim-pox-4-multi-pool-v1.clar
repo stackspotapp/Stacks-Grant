@@ -85,12 +85,11 @@
   )
   (let ((result-revoke
       ;; Calls revoke and ignores result
-      (contract-call? .sim-pox-4
-        revoke-delegate-stx
-      )))
+      (contract-call? .sim-pox-4 revoke-delegate-stx)
+    ))
     ;; Calls delegate-stx, converts any error to uint
-    (match (contract-call? .sim-pox-4
-      delegate-stx amount-ustx delegate-to until-burn-ht none
+    (match (contract-call? .sim-pox-4 delegate-stx amount-ustx delegate-to until-burn-ht
+      none
     )
       success (ok success)
       error (err (* u1000 (to-uint error)))
@@ -118,8 +117,8 @@
       ))
     )
     (asserts! (var-get active) err-pox-address-deactivated)
-    (match (contract-call? .sim-pox-4
-      delegate-stack-stx user amount-ustx pox-address start-burn-ht u1
+    (match (contract-call? .sim-pox-4 delegate-stack-stx user amount-ustx pox-address
+      start-burn-ht u1
     )
       stacker-details (ok stacker-details)
       error (if (is-eq error 3) ;; check whether user is already stacked
@@ -134,12 +133,13 @@
     (user principal)
     (result (list 30
       (response {
-      lock-amount: uint,
-      stacker: principal,
-      unlock-burn-height: uint,
-    }
-      uint
-    )))
+        lock-amount: uint,
+        stacker: principal,
+        unlock-burn-height: uint,
+      }
+        uint
+      )
+    ))
   )
   (let ((stack-result (lock-delegated-stx user)))
     (unwrap-panic (as-max-len? (append result stack-result) u30))
@@ -177,8 +177,8 @@
           )
           ;; else increase
           (let ((increase-by (- amount-ustx locked-amount)))
-            (match (contract-call? .sim-pox-4
-              delegate-stack-increase user pox-address increase-by
+            (match (contract-call? .sim-pox-4 delegate-stack-increase user pox-address
+              increase-by
             )
               success-increase (ok {
                 lock-amount: (get total-locked success-increase),
@@ -210,15 +210,11 @@
     })
   )
   (let (
-      (current-cycle (contract-call? .sim-pox-4
-        current-pox-reward-cycle
-      ))
+      (current-cycle (contract-call? .sim-pox-4 current-pox-reward-cycle))
       (unlock-height (get unlock-height status))
     )
     (if (not-locked-for-cycle unlock-height (+ u1 current-cycle))
-      (contract-call? .sim-pox-4
-        delegate-stack-extend user pox-address u1
-      )
+      (contract-call? .sim-pox-4 delegate-stack-extend user pox-address u1)
       ;; one cycle only
       (ok {
         stacker: user,
@@ -293,9 +289,9 @@
     (auth-id uint)
   )
   (let ((reward-cycle (+ u1 current-cycle)))
-    (as-contract (contract-call? .sim-pox-4
-      stack-aggregation-increase (var-get pool-pox-address) reward-cycle index
-      signer-sig signer-key max-amount auth-id
+    (as-contract (contract-call? .sim-pox-4 stack-aggregation-increase
+      (var-get pool-pox-address) reward-cycle index signer-sig signer-key
+      max-amount auth-id
     ))
   )
 )
@@ -309,9 +305,9 @@
     (auth-id uint)
   )
   (let ((reward-cycle (+ u1 current-cycle)))
-    (as-contract (contract-call? .sim-pox-4
-      stack-aggregation-commit-indexed (var-get pool-pox-address) reward-cycle
-      signer-sig signer-key max-amount auth-id
+    (as-contract (contract-call? .sim-pox-4 stack-aggregation-commit-indexed
+      (var-get pool-pox-address) reward-cycle signer-sig signer-key max-amount
+      auth-id
     ))
   )
 )
@@ -402,7 +398,9 @@
 
 ;; Returns currently delegated amount for a given user
 (define-read-only (get-delegated-amount (user principal))
-  (default-to u0 (get amount-ustx (contract-call? .sim-pox-4 get-delegation-info user)))
+  (default-to u0
+    (get amount-ustx (contract-call? .sim-pox-4 get-delegation-info user))
+  )
 )
 
 (define-read-only (not-locked-for-cycle
