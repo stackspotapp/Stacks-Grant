@@ -41,7 +41,7 @@
 
 (define-public (update-public-pot-deploy-status (enable bool))
   (begin
-    (asserts! (default-to false (map-get? admins tx-sender)) ERR_UNAUTHORIZED)
+    (asserts! (is-admin) ERR_UNAUTHORIZED)
     (var-set public-pot-deploy enable)
     (print {
       event: "public pot deploy status updated",
@@ -58,7 +58,7 @@
 
 (define-read-only (can-deploy-pot)
   (let (
-      (caller-is-admin (default-to false (map-get? admins tx-sender)))
+      (caller-is-admin (is-admin))
       (is-public-pot-deploy-enabled (var-get public-pot-deploy))
     )
     (or caller-is-admin is-public-pot-deploy-enabled)
@@ -70,7 +70,7 @@
     (state bool)
   )
   (let ((hash (unwrap! (contract-hash? (contract-of contract)) ERR_NOT_FOUND)))
-    (asserts! (default-to false (map-get? admins tx-sender)) ERR_UNAUTHORIZED)
+    (asserts! (is-admin) ERR_UNAUTHORIZED)
     (map-insert allowed-contract-hash hash state)
     (print {
       event: "pot contract hash added",
@@ -91,7 +91,7 @@
 ;; --- Rendezvous invariants & property tests ---
 
 ;; #[env(simnet)]
-(define-read-only (invariant-PRIMARY_ADMIN-always-enabled)
+(define-read-only (invariant-primary-admin-always-enabled)
   (default-to false (map-get? admins PRIMARY_ADMIN))
 )
 

@@ -11,28 +11,19 @@
 (define-constant ERR_NOT_FOUND (err u1001))
 (define-constant ERR_UNAUTHORIZED (err u1101))
 (define-constant ERR_ADMIN_ONLY (err u1102))
-(define-constant ERR_PARTICIPANT_ONLY (err u1105))
 (define-constant ERR_DUPLICATE_PARTICIPANT (err u1104))
-(define-constant ERR_INVALID_ADDRESS (err u1201))
-(define-constant ERR_INVALID_ARGUMENT_VALUE (err u1202))
-(define-constant ERR_INVALID_POT (err u1203))
-(define-constant ERR_INSUFFICIENT_BALANCE (err u1301))
 (define-constant ERR_INSUFFICIENT_AMOUNT (err u1302))
-(define-constant ERR_INSUFFICIENT_POT_BALANCE (err u1303))
 (define-constant ERR_INSUFFICIENT_POT_REWARD (err u1304))
 (define-constant ERR_POT_JOIN_CLOSED (err u1401))
 (define-constant ERR_POT_CLAIM_NOT_REACHED (err u1402))
 (define-constant ERR_POT_ALREADY_STARTED (err u1403))
 (define-constant ERR_POT_CANCELLED (err u1404))
 (define-constant ERR_MAX_PARTICIPANTS_REACHED (err u1405))
-(define-constant ERR_DELEGATE_FAILED (err u1406))
-(define-constant ERR_DISPATCH_FAILED (err u1108))
 (define-constant ERR_POT_JOIN_FAILED (err u1408))
 (define-constant ERR_TOO_EARLY (err u1409))
 (define-constant ERR_INSUFFICIENT_REWARD (err u1410))
 
 (define-constant JOIN_POT_MEMO (unwrap-panic (to-consensus-buff? "join pot")))
-(define-constant LEAVE_POT_MEMO (unwrap-panic (to-consensus-buff? "leave pot")))
 
 ;; Pot Starter Principal
 ;; Pot Claimer Principal
@@ -66,9 +57,6 @@
 (define-constant pox-data (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4 get-pox-info))
 (define-constant pox-details (unwrap! pox-data ERR_NOT_FOUND))
 (define-constant MORE_THAN_ONE_CYCLE (+ (get prepare-cycle-length pox-details) (get reward-cycle-length pox-details)))
-
-;; Get platform fee
-(define-constant platform-fee (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots get-fee))
 
 (define-read-only (get-pool-config)
   (let (
@@ -230,7 +218,7 @@
 )
 
 ;; Get random digit from VRF and return the winner index
-(define-public (get-random-index (participant-count uint))
+(define-read-only (get-random-index (participant-count uint))
   (let (
       ;; Get random digit from VRF
       (vrf-random-digit (unwrap!
@@ -250,7 +238,6 @@
     (participant principal)
   )
   (let (
-      (participants-stx-balance (stx-get-balance participant))
       (index-participants (var-get last-participant))
       (pot-config (get-configs))
       (max-participants (get max-participants pot-config))
@@ -422,14 +409,14 @@
           get-balance current-contract
         )
         (err u997)
-      )) ;; Get stacked reward
-      (pot-deploy-fee (/ (* pot-yield u5) u100))
-      (platform-royalty-reward (/ (* pot-yield u1) u100))
+      ))
+      ;; Get stacked reward
       (pot-starter (get pot-starter-address pot-details))
       (pot-starter-reward (if (> pot-yield u0)
         (* (/ pot-yield u100) u2)
         u0
-      )) ;; Calculate pot starter's reward
+      ))
+      ;; Calculate pot starter's reward
       (claimer tx-sender) ;; Calculate claimer's reward
       (claimer-reward (if (> pot-yield u0)
         (* (/ pot-yield u100) u2)
@@ -438,9 +425,6 @@
       (pot-winner-id (unwrap! (get-random-index total-participants) (err u996)))
       (winner-values (unwrap! (map-get? pot-participants-by-id pot-winner-id) (err u995)))
       (winner (get participant winner-values))
-      (winners-reward (- pot-yield platform-royalty-reward pot-deploy-fee pot-starter-reward
-        claimer-reward
-      )) ;; Calculate winner's reward 90% of stacked reward or 100% of stacked reward
     )
     ;; Validate can claim pot
     (asserts! (validate-can-claim-pot) ERR_POT_CLAIM_NOT_REACHED)
@@ -576,7 +560,6 @@
 
 ;; Initiate pot
 (init-pot)
-;; Register pot
 (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
   register-pot {
   owner: tx-sender,

@@ -101,11 +101,6 @@ plan:
       path: contracts/stackspot-admin.clar
       clarity-version: 5
     - transaction-type: emulated-contract-publish
-      contract-name: stackspot-audited-contracts
-      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      path: contracts/stackspot-audited-contracts.clar
-      clarity-version: 5
-    - transaction-type: emulated-contract-publish
       contract-name: stackspot-vrf
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
       path: contracts/stackspot-vrf.clar

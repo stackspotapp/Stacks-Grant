@@ -10,13 +10,16 @@
   )
   (get-pot-participants
     ()
-    (response (list 100 (optional {
+    (
+      response       (list 100 (optional {
       participant: principal,
       amount: uint,
-    })) (list 0 (optional {
+    }))
+      (list 0 (optional {
       participant: principal,
       amount: uint,
-    })))
+    }))
+    )
   )
   (get-pot-treasury
     ()
@@ -64,13 +67,16 @@
   )
   (get-by-id-helper
     (uint)
-    (response (optional {
+    (
+      response       (optional {
       participant: principal,
       amount: uint,
-    }) (optional {
+    })
+      (optional {
       participant: principal,
       amount: uint,
-    }))
+    })
+    )
   )
   (get-pot-details
     ()

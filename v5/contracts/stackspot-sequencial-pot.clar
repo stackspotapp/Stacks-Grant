@@ -222,21 +222,6 @@
   (ok (var-get pot-claimer-principal))
 )
 
-;; Get random digit from VRF and return the winner index
-(define-private (get-random-index (participant-count uint))
-  (let (
-      ;; Get random digit from VRF
-      (vrf-random-digit (unwrap!
-        (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-vrf
-          get-random-uint-at-block stacks-block-height
-        )
-        ERR_NOT_FOUND
-      ))
-    )
-    (ok (mod vrf-random-digit participant-count))
-  )
-)
-
 ;; Private helper function that delegates to pot-treasury
 (define-private (delegate-to-pot
     (amount uint)
@@ -416,14 +401,14 @@
           get-balance pot-treasury-address
         )
         (err u997)
-      )) ;; Get stacked reward
-      (pot-deploy-fee (/ (* pot-yield u5) u100))
-      (platform-royalty-reward (/ (* pot-yield u1) u100))
+      ))
+      ;; Get stacked reward
       (pot-starter (get pot-starter-address pot-details))
       (pot-starter-reward (if (> pot-yield u0)
         (* (/ pot-yield u100) u2)
         u0
-      )) ;; Calculate pot starter's reward
+      ))
+      ;; Calculate pot starter's reward
       (claimer tx-sender) ;; Calculate claimer's reward
       (claimer-reward (if (> pot-yield u0)
         (* (/ pot-yield u100) u2)
@@ -432,9 +417,6 @@
       (pot-winner-id (var-get next-payment-id))
       (winner-values (unwrap! (map-get? pot-participants-by-id pot-winner-id) (err u995)))
       (winner (get participant winner-values))
-      (winners-reward (- pot-yield platform-royalty-reward pot-deploy-fee pot-starter-reward
-        claimer-reward
-      )) ;; Calculate winner's reward 90% of stacked reward or 100% of stacked reward
     )
     ;; Validate can claim pot
     (asserts! (validate-can-claim-pot) ERR_POT_CLAIM_NOT_REACHED)
@@ -592,7 +574,6 @@
 
 ;; Initiate pot
 (init-pot)
-;; Register pot
 (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
   register-pot {
   owner: tx-sender,
