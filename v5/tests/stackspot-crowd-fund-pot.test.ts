@@ -128,10 +128,10 @@ describe("stackspot-crowd-fund-pot", () => {
       expect(result).toBeErr(Cl.uint(1409));
     });
 
-    it("start-stackspot-jackpot rejects with ERR_INSUFFICIENT_REWARD before pot-value target", () => {
+    it("start-stackspot-crowd-fund-pot rejects with ERR_INSUFFICIENT_REWARD before pot-value target", () => {
       const { result } = simnet.callPublicFn(
         POT,
-        "start-stackspot-jackpot",
+        "start-stackspot-crowd-fund-pot",
         [POT_TRAIT],
         wallet1,
       );
