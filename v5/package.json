@@ -7,16 +7,21 @@
   "scripts": {
     "test": "vitest run",
     "test:report": "vitest run -- --coverage --costs",
-    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\""
+    "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\"",
+    "errors": "node scripts/extract-error-codes.mjs",
+    "errors:check": "node scripts/extract-error-codes.mjs --check"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@stacks/clarinet-sdk": "^3.9.0",
     "@stacks/transactions": "^7.2.0",
-    "@types/node": "^24.4.0",
+    "@types/node": "^25.6.0",
     "chokidar-cli": "^3.0.0",
     "vitest": "^4.0.7",
     "vitest-environment-clarinet": "^3.0.0"
+  },
+  "devDependencies": {
+    "@stacks/rendezvous": "^1.0.0-rc.1"
   }
 }
