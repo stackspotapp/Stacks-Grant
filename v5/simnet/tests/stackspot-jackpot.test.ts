@@ -289,7 +289,7 @@ describe("stackspot-jackpot", () => {
   });
 
   describe("claim-pot-reward", () => {
-    it("with zero participants, panics on `(mod _ u0)` in get-random-index BEFORE validate-can-claim-pot fires", () => {
+    it("with zero participants, returns ERR_INVALID_PARTICIPANT_COUNT (u996) in get-random-index BEFORE validate-can-claim-pot fires", () => {
       // Discovered via this test: claim-pot-reward eagerly evaluates
       // `(get-random-index total-participants)` inside its `let`, before the
       // `validate-can-claim-pot` assertion. With no participants joined,
@@ -297,9 +297,13 @@ describe("stackspot-jackpot", () => {
       // ERR_POT_CLAIM_NOT_REACHED path is unreachable for the empty-pot case.
       // Worth tracking as a contract bug; the assertion order should be
       // flipped or the random index lazily computed.
-      expect(() =>
-        simnet.callPublicFn(POT, "claim-pot-reward", [POT_TRAIT], wallet1),
-      ).toThrow(/DivisionByZero/);
+      const { result } = simnet.callPublicFn(
+        POT,
+        "claim-pot-reward",
+        [POT_TRAIT],
+        wallet1,
+      );  
+      expect(result).toBeErr(Cl.uint(996));
     });
 
     it("after joins, rejects before lock with ERR_POT_CLAIM_NOT_REACHED (u1402)", () => {

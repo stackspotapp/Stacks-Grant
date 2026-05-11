@@ -23,6 +23,7 @@
 (define-constant ERR_TOO_EARLY (err u1409))
 (define-constant ERR_INSUFFICIENT_REWARD (err u1410))
 (define-constant ERR_ALREADY_INIT (err u1411))
+(define-constant ERR_INVALID_PARTICIPANT_COUNT (err u996))
 
 (define-constant JOIN_POT_MEMO (unwrap-panic (to-consensus-buff? "join pot")))
 
@@ -228,6 +229,7 @@
         ERR_NOT_FOUND
       ))
     )
+    (asserts! (> participant-count u0) ERR_INVALID_PARTICIPANT_COUNT)
     (ok (mod vrf-random-digit participant-count))
   )
 )
@@ -422,8 +424,8 @@
         (* (/ pot-yield u100) u2)
         u0
       ))
-      (pot-winner-id (unwrap! (get-random-index total-participants) (err u996)))
-      (winner-values (unwrap! (map-get? pot-participants-by-id pot-winner-id) (err u995)))
+      (pot-winner-id (unwrap! (get-random-index total-participants) ERR_INVALID_PARTICIPANT_COUNT))
+      (winner-values (unwrap! (map-get? pot-participants-by-id pot-winner-id) ERR_NOT_FOUND))
       (winner (get participant winner-values))
     )
     ;; Validate can claim pot

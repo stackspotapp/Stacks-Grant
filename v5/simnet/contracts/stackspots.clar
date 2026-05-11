@@ -83,7 +83,7 @@
       (new-pot-owner-balance (stx-get-balance owner))
       (platform-contracts-fee (var-get fee))
     )
-    ;; Validate's if the contract is audited
+    ;; Validate's if the contract hash is registered or logged by admin as true
     ;; Validate's if the owner has sufficient balance
     ;; Validate's if the owner is the same as the tx-sender
     ;; Validate's if the contract hash is not empty

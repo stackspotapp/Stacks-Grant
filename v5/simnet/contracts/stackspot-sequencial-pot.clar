@@ -1,4 +1,4 @@
-;; title: stackspot-crowed-fund-pot
+;; title: stackspot-jackpot
 ;; version:
 ;; summary:
 ;; description:
@@ -22,6 +22,7 @@
 (define-constant ERR_POT_JOIN_FAILED (err u1408))
 (define-constant ERR_TOO_EARLY (err u1409))
 (define-constant ERR_INSUFFICIENT_REWARD (err u1410))
+(define-constant ERR_ALREADY_INIT (err u1411))
 
 (define-constant JOIN_POT_MEMO (unwrap-panic (to-consensus-buff? "join pot")))
 
@@ -52,17 +53,22 @@
 (define-data-var lock-burn-height (optional uint) none)
 (define-data-var pot-cancelled bool false)
 (define-data-var first-user-joined (optional uint) none)
+(define-data-var next-payment-id uint u1)
 
 ;; Get PoX Info and return pool config
-(define-constant pox-data (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4 get-pox-info))
-(define-constant pox-details (unwrap! pox-data ERR_NOT_FOUND))
-(define-constant MORE_THAN_ONE_CYCLE (+ (get prepare-cycle-length pox-details) (get reward-cycle-length pox-details)))
+(define-constant POX_DETAILS (unwrap!
+  (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4
+    get-pox-info
+  )
+  ERR_NOT_FOUND
+))
+(define-constant MORE_THAN_ONE_CYCLE (+ (get prepare-cycle-length POX_DETAILS) (get reward-cycle-length POX_DETAILS)))
 
 (define-read-only (get-pool-config)
   (let (
-      (first (get first-burnchain-block-height pox-details))
-      (cycle-len (get reward-cycle-length pox-details))
-      (prepare-len (get prepare-cycle-length pox-details))
+      (first (get first-burnchain-block-height POX_DETAILS))
+      (cycle-len (get reward-cycle-length POX_DETAILS))
+      (prepare-len (get prepare-cycle-length POX_DETAILS))
       (cycle (/ (- (default-to burn-block-height (var-get lock-burn-height)) first)
         cycle-len
       ))
@@ -86,7 +92,7 @@
 (define-read-only (validate-can-claim-pot)
   (let (
       (pool-config (unwrap! (get-pool-config) false))
-      (reward-release (* (get reward-release pool-config) (var-get pot-cycle)))
+      (reward-release (* (get reward-release pool-config) (var-get next-payment-id)))
     )
     (asserts! (> burn-block-height reward-release) false)
   )
@@ -330,8 +336,8 @@
   )
 )
 
-;; Public Function That Starts The Pot
-(define-public (start-stackspot-crowd-fund-pot (pot-contract <stackspot-trait>))
+;; Public Function That Starts The Jackpot
+(define-public (start-stackspot-jackpot (pot-contract <stackspot-trait>))
   (begin
     ;; Validates pot is not already started
     (asserts! (not (var-get locked)) ERR_POT_ALREADY_STARTED)
@@ -362,7 +368,7 @@
 
     ;; Print
     (print {
-      event: "start-stackspot-crowd-fund-pot",
+      event: "start-stackspot-jackpot",
       pot-starter-principal: tx-sender,
       pot-contract: (contract-of pot-contract),
       pot-treasury: pot-treasury-address,
@@ -409,12 +415,16 @@
         (* (/ pot-yield u100) u2)
         u0
       ))
-      (winner (var-get funding-address))
-      ;; Calculate winner's reward 90% of stacked reward or 100% of stacked reward
+      (pot-winner-id (var-get next-payment-id))
+      (winner-values (unwrap! (map-get? pot-participants-by-id pot-winner-id) (err u995)))
+      (winner (get participant winner-values))
     )
     ;; Validate can claim pot
     (asserts! (validate-can-claim-pot) ERR_POT_CLAIM_NOT_REACHED)
     (asserts! (> pot-yield u0) ERR_INSUFFICIENT_POT_REWARD)
+    (asserts! (not (> (var-get next-payment-id) total-participants))
+      ERR_MAX_PARTICIPANTS_REACHED
+    )
 
     ;; Set pot claimer principal
     (var-set pot-claimer-principal (some tx-sender))
@@ -422,24 +432,43 @@
     ;; Set winners address
     (var-set winners-values
       (some {
-        winner-id: u0,
+        winner-id: pot-winner-id,
         winner-address: winner,
       })
     )
 
-    ;; Returns participants principals
-    (try! (as-contract? ()
-      (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
-        dispatch-principals pot-contract
-      ))
-    ))
+    (if (is-eq (var-get next-payment-id) total-participants)
+      (begin
+        ;; Returns participants principals
+        (try! (as-contract? ()
+          (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
+            dispatch-principals pot-contract
+          ))
+        ))
 
-    ;; Disburse rewards
-    (try! (as-contract? ()
-      (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
-        dispatch-rewards pot-contract
-      ))
-    ))
+        ;; Disburse rewards
+        (try! (as-contract? ()
+          (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
+            dispatch-rewards pot-contract
+          ))
+        ))
+
+        ;; Increment next payment id
+        (var-set next-payment-id (+ (var-get next-payment-id) u1))
+        ;; Execution complete
+        true
+      )
+      (begin
+        ;; Dispatch rewards
+        (try! (as-contract? ()
+          (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
+            dispatch-rewards pot-contract
+          ))
+        ))
+        ;; Increment next payment id
+        (var-set next-payment-id (+ (var-get next-payment-id) u1))
+      )
+    )
 
     ;; Print
     (print {
@@ -517,25 +546,37 @@
   ))
 )
 
-;; Pot Deployer Configuration
+;; Pot Configuration
 (define-data-var initiated bool false)
-(define-private (init-pot)
+(define-public (init-pot
+    (cycle uint)
+    (min-amount uint)
+    (max-participants uint)
+    (name (string-ascii 255))
+    (type (string-ascii 255))
+  )
   (begin
-    (if (not (var-get initiated))
-      (begin
-        (var-set pot-cycle u1)
-        (var-set pot-min-amount u100)
-        (var-set pot-max-participants u100)
-        (var-set pot-name "StackSpot Crowd Fund")
-        (var-set pot-type "StackSpot Crowd Fund")
-        (var-set funding-address tx-sender)
-        true
-      )
-      false
-    )
+    (asserts! (is-eq tx-sender pot-admin) ERR_ADMIN_ONLY)
+    (asserts! (not (var-get initiated)) ERR_ALREADY_INIT)
+
+    (var-set pot-cycle cycle)
+    (var-set pot-min-amount min-amount)
+    (var-set pot-max-participants max-participants)
+    (var-set pot-name name)
+    (var-set pot-type type)
+    
     (var-set initiated true)
-    ;; Execution complete
-    (ok true)
+
+    (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
+      register-pot {
+      owner: tx-sender,
+      contract: current-contract,
+      cycles: (var-get pot-cycle),
+      type: (var-get pot-type),
+      pot-reward-token: "sbtc",
+      min-amount: (var-get pot-min-amount),
+      max-participants: (var-get pot-max-participants),
+    })
   )
 )
 
@@ -544,22 +585,21 @@
 (define-data-var pot-max-participants uint u100)
 (define-data-var pot-name (string-ascii 255) "")
 (define-data-var pot-type (string-ascii 255) "")
-(define-data-var funding-address principal tx-sender)
-
-;; Initiate pot
-(init-pot)
-(contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
-  register-pot {
-  owner: tx-sender,
-  contract: current-contract,
-  cycles: (var-get pot-cycle),
-  type: (var-get pot-type),
-  pot-reward-token: "sbtc",
-  min-amount: (var-get pot-min-amount),
-  max-participants: (var-get pot-max-participants),
-})
 
 ;; --- Rendezvous invariants & property tests ---
+
+;; #[env(simnet)]
+(define-map context
+  (string-ascii 255)
+  { called: uint }
+)
+;; #[env(simnet)]
+(define-public (update-context
+    (function-name (string-ascii 100))
+    (called uint)
+  )
+  (ok (map-set context function-name { called: called }))
+)
 
 ;; #[env(simnet)]
 (define-read-only (invariant-locked-and-cancelled-exclusive)
@@ -602,23 +642,34 @@
 )
 
 ;; #[env(simnet)]
-(define-read-only (invariant-funding-address-not-platform-or-treasury)
-  (and
-    (not (is-eq (var-get funding-address) PLATFORM_ADDRESS))
-    (not (is-eq (var-get funding-address) pot-treasury-address))
+(define-read-only (invariant-next-payment-id-bounded)
+  (let ((claim-calls (default-to u0 (get called (map-get? context "claim-pot-reward")))))
+    (and
+      (>= (var-get next-payment-id) u1)
+      (<= (var-get next-payment-id) (+ u1 claim-calls))
+      (if (not (var-get locked))
+        (is-eq (var-get next-payment-id) u1)
+        true
+      )
+    )
   )
 )
 
 ;; #[env(simnet)]
-(define-read-only (invariant-initiated-true)
-  (var-get initiated)
+(define-read-only (invariant-current-target-is-real-participant)
+  (let ((target-id (var-get next-payment-id)))
+    (if (and (var-get locked) (>= (var-get last-participant) target-id))
+      (is-some (map-get? pot-participants-by-id target-id))
+      true
+    )
+  )
 )
 
 ;; #[env(simnet)]
 (define-public (test-join-pot-fails-when-locked (amount uint))
   (begin
     (asserts! (var-get locked) (ok true))
-    (asserts! (is-err (join-pot amount)) (err u930))
+    (asserts! (is-err (join-pot amount)) (err u920))
     (ok true)
   )
 )
@@ -627,7 +678,7 @@
 (define-public (test-start-twice-fails (pot-contract <stackspot-trait>))
   (begin
     (asserts! (var-get locked) (ok true))
-    (asserts! (is-err (start-stackspot-crowd-fund-pot pot-contract)) (err u931))
+    (asserts! (is-err (start-stackspot-jackpot pot-contract)) (err u921))
     (ok true)
   )
 )

@@ -36,6 +36,11 @@ path = "contracts/stackspot-sequencial-pot.clar"
 clarity_version = 5
 epoch = "latest"
 
+[contracts.stackspot-jackpot]
+path = "contracts/stackspot-jackpot.clar"
+clarity_version = 5
+epoch = "latest"
+
 [contracts.stackspot-trait]
 path = "contracts/stackspot-trait.clar"
 clarity_version = 5
@@ -53,11 +58,6 @@ epoch = "latest"
 
 [contracts.stackspot-registry]
 path = "contracts/stackspot-registry.clar"
-clarity_version = 5
-epoch = "latest"
-
-[contracts.stackspot-jackpot]
-path = "contracts/stackspot-jackpot.clar"
 clarity_version = 5
 epoch = "latest"
 
