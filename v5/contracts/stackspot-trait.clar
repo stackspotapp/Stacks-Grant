@@ -1,7 +1,8 @@
 ;; title: stackspot-trait
-;; version:
-;; summary:
-;; description:
+;; version: 1.0.0
+;; clarity-version: 5
+;; summary: Trait for stackspot contracts
+;; description: Trait for stackspot contracts
 
 (define-trait stackspot-trait (
   (get-pot-admin
