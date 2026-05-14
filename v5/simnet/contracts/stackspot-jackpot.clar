@@ -529,7 +529,7 @@
 (as-contract? ()
   (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4
     allow-contract-caller
-    'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox4-multi-pool-v1 none
+    'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4-multi-pool-v1 none
   ))
 )
 
@@ -573,7 +573,7 @@
 (define-data-var pot-name (string-ascii 255) "")
 (define-data-var pot-type (string-ascii 255) "")
 
-(init-pot u1 u100000 u100 "test-001" "stackspot-jackpot")
+;; (init-pot u1 u100000 u100 "test-001" "stackspot-jackpot")
 
 ;; --- Rendezvous invariants & property tests ---
 

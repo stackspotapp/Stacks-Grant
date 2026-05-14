@@ -7,7 +7,7 @@
 (use-trait stackspot-trait .stackspot-trait.stackspot-trait)
 
 ;; Platform address
-(define-constant platform-treasury tx-sender)
+(define-constant platform-treasury 'STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6)
 (define-read-only (get-platform-treasury)
   platform-treasury
 )

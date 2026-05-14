@@ -515,3 +515,8 @@
     contract-caller: calling-contract,
   })
 )
+
+
+(define-public (get-pox-address)
+  (ok (principal-construct? 0x01 0x7321b74e2b6a7e949e6c4ad313035b1665095017))
+)

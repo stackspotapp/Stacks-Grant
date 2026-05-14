@@ -71,6 +71,16 @@ plan:
   - id: 1
     transactions:
     - transaction-type: emulated-contract-publish
+      contract-name: stackspot-trait
+      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+      path: contracts/stackspot-trait.clar
+      clarity-version: 5
+    - transaction-type: emulated-contract-publish
+      contract-name: stackspot-admin
+      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+      path: contracts/stackspot-admin.clar
+      clarity-version: 5
+    - transaction-type: emulated-contract-publish
       contract-name: sbtc-registry
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
       path: contracts/sbtc-registry.clar
@@ -90,16 +100,6 @@ plan:
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
       path: contracts/sim-pox-4-multi-pool-v1.clar
       clarity-version: 3
-    - transaction-type: emulated-contract-publish
-      contract-name: stackspot-trait
-      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      path: contracts/stackspot-trait.clar
-      clarity-version: 5
-    - transaction-type: emulated-contract-publish
-      contract-name: stackspot-admin
-      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      path: contracts/stackspot-admin.clar
-      clarity-version: 5
     - transaction-type: emulated-contract-publish
       contract-name: stackspot-vrf
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
@@ -140,4 +140,26 @@ plan:
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
       path: contracts/stackspot-sequential-pot.clar
       clarity-version: 5
+
+    - transaction-type: emulated-contract-publish
+      contract-name: stackspot-crowdfund
+      emulated-sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+      path: contracts/stackspot-crowdfund.clar
+      clarity-version: 5
+    - transaction-type: emulated-contract-publish
+      contract-name: stackspot-jackpot
+      emulated-sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+      path: contracts/stackspot-jackpot.clar
+      clarity-version: 5
+    - transaction-type: emulated-contract-publish
+      contract-name: stackspot-sequential-pot
+      emulated-sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+      path: contracts/stackspot-sequential-pot.clar
+      clarity-version: 5
+
+    - transaction-type: emulated-contract-publish
+      contract-name: init-admin
+      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+      path: contracts/init-admin.clar
+      clarity-version: 5        
     epoch: '3.4'

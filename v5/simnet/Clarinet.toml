@@ -95,3 +95,8 @@ epoch = "latest"
 path = "contracts/sim-pox-4-multi-pool-v1.clar"
 clarity_version = 3
 epoch = "latest"
+
+[contracts.init-admin]
+path = "contracts/init-admin.clar"
+clarity_version = 5
+epoch = "latest"
