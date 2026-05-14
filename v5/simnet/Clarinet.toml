@@ -26,13 +26,13 @@ check_checker = { trusted_sender = false, trusted_caller = false, callee_filter 
 
 [contracts]
 
-[contracts.stackspot-crowd-fund-pot]
-path = "contracts/stackspot-crowd-fund-pot.clar"
+[contracts.stackspot-crowdfund]
+path = "contracts/stackspot-crowdfund.clar"
 clarity_version = 5
 epoch = "latest"
 
-[contracts.stackspot-sequencial-pot]
-path = "contracts/stackspot-sequencial-pot.clar"
+[contracts.stackspot-sequential-pot]
+path = "contracts/stackspot-sequential-pot.clar"
 clarity_version = 5
 epoch = "latest"
 

@@ -281,3 +281,48 @@
     )
   )
 )
+
+(define-public (extend-delegate-treasury (contract <stackspot-trait>))
+  (let (
+      (treasury-address (unwrap! (contract-call? contract get-pot-treasury) ERR_NOT_FOUND))
+    )
+    ;; Validate's if the pot treasury is the same as the pot treasury address
+    (asserts! (is-eq treasury-address tx-sender) ERR_UNAUTHORIZED)
+    (asserts! (is-eq contract-caller .stackspots) ERR_UNAUTHORIZED)
+
+    (try! (contract-call? .sim-pox-4-multi-pool-v1 delegate-stack-stx treasury-address))
+
+    (print {
+      event: "extend-delegate-treasury",
+      treasury-address: treasury-address,
+      contract: contract,
+      tx-sender: tx-sender,
+      contract-caller: contract-caller,
+    })
+
+    (ok true)
+  )
+)
+
+(define-public (revoke-delegate-treasury (contract <stackspot-trait>))
+  (let (
+      (treasury-address (unwrap! (contract-call? contract get-pot-treasury) ERR_NOT_FOUND))
+    )
+    ;; Validate's if the pot treasury is the same as the pot treasury address
+    (asserts! (is-eq treasury-address tx-sender) ERR_UNAUTHORIZED)
+    (asserts! (is-eq contract-caller .stackspots) ERR_UNAUTHORIZED)  
+
+    (print {
+      event: "revoke-delegate-treasury",
+      treasury-address: treasury-address,
+      contract: contract,
+      tx-sender: tx-sender,
+      contract-caller: contract-caller,
+    })
+
+    (match (contract-call? .sim-pox-4 revoke-delegate-stx) 
+      success (ok (some success))
+      error (err (to-uint error))
+    )
+  )
+)

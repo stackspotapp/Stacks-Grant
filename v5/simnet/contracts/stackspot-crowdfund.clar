@@ -332,7 +332,7 @@
 )
 
 ;; Public Function That Starts The Pot
-(define-public (start-stackspot-crowd-fund-pot (pot-contract <stackspot-trait>))
+(define-public (start-stackspot-crowdfund (pot-contract <stackspot-trait>))
   (begin
     ;; Validates pot is not already started
     (asserts! (not (var-get locked)) ERR_POT_ALREADY_STARTED)
@@ -363,7 +363,7 @@
 
     ;; Print
     (print {
-      event: "start-stackspot-crowd-fund-pot",
+      event: "start-stackspot-crowdfund",
       pot-starter-principal: tx-sender,
       pot-contract: (contract-of pot-contract),
       pot-treasury: pot-treasury-address,
@@ -561,6 +561,8 @@
 (define-data-var pot-type (string-ascii 255) "")
 (define-data-var funding-address principal tx-sender)
 
+(init-pot u1 u100000 u100 "StackSpot Crowd Fund Pot" "StackSpot Crowd Fund Pot" 'ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP)
+
 ;; --- Rendezvous invariants & property tests ---
 
 ;; #[env(simnet)]
@@ -629,7 +631,7 @@
 (define-public (test-start-twice-fails (pot-contract <stackspot-trait>))
   (begin
     (asserts! (var-get locked) (ok true))
-    (asserts! (is-err (start-stackspot-crowd-fund-pot pot-contract)) (err u931))
+    (asserts! (is-err (start-stackspot-crowdfund pot-contract)) (err u931))
     (ok true)
   )
 )

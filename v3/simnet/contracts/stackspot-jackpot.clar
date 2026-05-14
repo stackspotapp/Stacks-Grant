@@ -81,7 +81,7 @@
 (define-read-only (validate-can-claim-pot)
     (let (
             (pool-config (unwrap! (get-pool-config) false))
-            (reward-release (* (get reward-release pool-config) pot-cycle))
+            (reward-release (get reward-release pool-config))
         )
         (asserts! (> burn-block-height reward-release) false)
     )

@@ -23,6 +23,7 @@
 (define-constant ERR_TOO_EARLY (err u1409))
 (define-constant ERR_INSUFFICIENT_REWARD (err u1410))
 (define-constant ERR_ALREADY_INIT (err u1411))
+(define-constant ERR_POT_SESSION_ENDED (err u1412))
 
 (define-constant JOIN_POT_MEMO (unwrap-panic (to-consensus-buff? "join pot")))
 
@@ -54,6 +55,7 @@
 (define-data-var pot-cancelled bool false)
 (define-data-var first-user-joined (optional uint) none)
 (define-data-var next-payment-id uint u1)
+(define-data-var pot-session-ended bool false)
 
 ;; Get PoX Info and return pool config
 (define-constant POX_DETAILS (unwrap!
@@ -72,7 +74,7 @@
       (cycle (/ (- (default-to burn-block-height (var-get lock-burn-height)) first)
         cycle-len
       ))
-      (next-cycle-start (+ first (* (+ cycle u1) cycle-len)))
+      (next-cycle-start (+ first (* (+ cycle (var-get next-payment-id)) cycle-len)))
     )
     (ok {
       join-end: (- (- next-cycle-start prepare-len) u300),
@@ -92,7 +94,7 @@
 (define-read-only (validate-can-claim-pot)
   (let (
       (pool-config (unwrap! (get-pool-config) false))
-      (reward-release (* (get reward-release pool-config) (var-get next-payment-id)))
+      (reward-release (get reward-release pool-config))
     )
     (asserts! (> burn-block-height reward-release) false)
   )
@@ -337,7 +339,7 @@
 )
 
 ;; Public Function That Starts The Jackpot
-(define-public (start-stackspot-jackpot (pot-contract <stackspot-trait>))
+(define-public (start-stackspot-sequential-pot (pot-contract <stackspot-trait>))
   (begin
     ;; Validates pot is not already started
     (asserts! (not (var-get locked)) ERR_POT_ALREADY_STARTED)
@@ -420,11 +422,10 @@
       (winner (get participant winner-values))
     )
     ;; Validate can claim pot
+    ;; Validate pot yield is greater than 0
     (asserts! (validate-can-claim-pot) ERR_POT_CLAIM_NOT_REACHED)
     (asserts! (> pot-yield u0) ERR_INSUFFICIENT_POT_REWARD)
-    (asserts! (not (> (var-get next-payment-id) total-participants))
-      ERR_MAX_PARTICIPANTS_REACHED
-    )
+    (asserts! (not (var-get pot-session-ended)) ERR_POT_SESSION_ENDED)
 
     ;; Set pot claimer principal
     (var-set pot-claimer-principal (some tx-sender))
@@ -438,6 +439,7 @@
     )
 
     (if (is-eq (var-get next-payment-id) total-participants)
+      ;; If next payment id is total participants, dispatch rewards and increment next payment id
       (begin
         ;; Returns participants principals
         (try! (as-contract? ()
@@ -453,11 +455,20 @@
           ))
         ))
 
-        ;; Increment next payment id
-        (var-set next-payment-id (+ (var-get next-payment-id) u1))
+        ;; Revoke delegate treasury
+        (try! (as-contract? ()
+          (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
+            revoke-delegate-treasury pot-contract
+          ))
+        ))
+
+        ;; Set pot session ended to true
+        (var-set pot-session-ended true)
         ;; Execution complete
         true
       )
+
+      ;; If next payment id is not total participants, extend delegate treasury while cycles are not maxed out
       (begin
         ;; Dispatch rewards
         (try! (as-contract? ()
@@ -465,6 +476,14 @@
             dispatch-rewards pot-contract
           ))
         ))
+
+        ;; Extend delegate treasury while cycles are not maxed out
+        (try! (as-contract? ()
+          (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
+            extend-delegate-treasury pot-contract
+          ))
+        ))
+
         ;; Increment next payment id
         (var-set next-payment-id (+ (var-get next-payment-id) u1))
       )
@@ -510,6 +529,9 @@
   )
 )
 
+(define-read-only (get-pot-session-status)
+  (ok (var-get pot-session-ended))
+)
 (define-read-only (get-pot-cycle)
   (ok (var-get pot-cycle))
 )
@@ -585,6 +607,8 @@
 (define-data-var pot-max-participants uint u100)
 (define-data-var pot-name (string-ascii 255) "")
 (define-data-var pot-type (string-ascii 255) "")
+
+(init-pot u1 u100000 u100 "test-001" "stackspot-sequential-pot")
 
 ;; --- Rendezvous invariants & property tests ---
 
@@ -678,7 +702,7 @@
 (define-public (test-start-twice-fails (pot-contract <stackspot-trait>))
   (begin
     (asserts! (var-get locked) (ok true))
-    (asserts! (is-err (start-stackspot-jackpot pot-contract)) (err u921))
+    (asserts! (is-err (start-stackspot-sequential-pot pot-contract)) (err u921))
     (ok true)
   )
 )

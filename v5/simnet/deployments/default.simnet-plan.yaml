@@ -126,9 +126,9 @@ plan:
       path: contracts/stackspots.clar
       clarity-version: 5
     - transaction-type: emulated-contract-publish
-      contract-name: stackspot-crowd-fund-pot
+      contract-name: stackspot-crowdfund
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      path: contracts/stackspot-crowd-fund-pot.clar
+      path: contracts/stackspot-crowdfund.clar
       clarity-version: 5
     - transaction-type: emulated-contract-publish
       contract-name: stackspot-jackpot
@@ -136,8 +136,8 @@ plan:
       path: contracts/stackspot-jackpot.clar
       clarity-version: 5
     - transaction-type: emulated-contract-publish
-      contract-name: stackspot-sequencial-pot
+      contract-name: stackspot-sequential-pot
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      path: contracts/stackspot-sequencial-pot.clar
+      path: contracts/stackspot-sequential-pot.clar
       clarity-version: 5
     epoch: '3.4'

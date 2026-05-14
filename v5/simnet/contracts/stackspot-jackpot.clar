@@ -68,7 +68,7 @@
       (cycle (/ (- (default-to burn-block-height (var-get lock-burn-height)) first)
         cycle-len
       ))
-      (next-cycle-start (+ first (* (+ cycle u1) cycle-len)))
+      (next-cycle-start (+ first (* (+ cycle (var-get pot-cycle)) cycle-len)))
     )
     (ok {
       join-end: (- (- next-cycle-start prepare-len) u300),
@@ -88,7 +88,7 @@
 (define-read-only (validate-can-claim-pot)
   (let (
       (pool-config (unwrap! (get-pool-config) false))
-      (reward-release (* (get reward-release pool-config) (var-get pot-cycle)))
+      (reward-release (get reward-release pool-config))
     )
     (asserts! (> burn-block-height reward-release) false)
   )
@@ -572,6 +572,8 @@
 (define-data-var pot-max-participants uint u100)
 (define-data-var pot-name (string-ascii 255) "")
 (define-data-var pot-type (string-ascii 255) "")
+
+(init-pot u1 u100000 u100 "test-001" "stackspot-jackpot")
 
 ;; --- Rendezvous invariants & property tests ---
 

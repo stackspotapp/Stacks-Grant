@@ -288,6 +288,34 @@
   )
 )
 
+(define-public (extend-delegate-treasury (contract <stackspot-trait>))
+  (let (
+      (pot-details (unwrap! (get-pot-info (contract-of contract)) ERR_NOT_FOUND))
+      (pot-contract (get pot-contract pot-details))
+    )
+    (asserts! (is-eq pot-contract (contract-of contract)) ERR_UNAUTHORIZED)
+    (asserts! (is-eq contract-caller (contract-of contract)) ERR_UNAUTHORIZED)
+
+    (try! (contract-call? .stackspot-distribute extend-delegate-treasury contract))
+
+    (ok true)
+  )
+)
+
+(define-public (revoke-delegate-treasury (contract <stackspot-trait>))
+  (let (
+      (pot-details (unwrap! (get-pot-info (contract-of contract)) ERR_NOT_FOUND))
+      (pot-contract (get pot-contract pot-details))
+    )
+    (asserts! (is-eq pot-contract (contract-of contract)) ERR_UNAUTHORIZED)
+    (asserts! (is-eq contract-caller (contract-of contract)) ERR_UNAUTHORIZED)  
+    
+    (try! (contract-call? .stackspot-distribute revoke-delegate-treasury contract))
+    
+    (ok true)
+  )
+)
+
 ;; #[env(simnet)]
 (define-map context
   (string-ascii 255)
