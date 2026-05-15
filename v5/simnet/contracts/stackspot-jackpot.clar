@@ -323,11 +323,11 @@
     (asserts! (is-eq (contract-of pot-contract) current-contract) ERR_ADMIN_ONLY)
 
     ;; Returns participants principals
-    (try! (as-contract? ()
-      (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
-        dispatch-principals pot-contract
-      ))
-    ))
+    (try! 
+      (as-contract? ((with-stx (var-get total-pot-value)))
+        (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-principals pot-contract))
+      )
+    )
 
     ;; Set pot cancelled to true
     (var-set pot-cancelled true)

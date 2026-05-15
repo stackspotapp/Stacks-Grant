@@ -1,3 +1,5 @@
+ADDRESSES:
+
 ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
 ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
 ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
@@ -9,6 +11,11 @@ ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP
 ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ
 STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6 
 
+SCENERIO 1:
+Here we are runing the test flow sequentially as expected for good flow execution through from delegation to the end of claim.
+==============================================================================================================================
+==============================================================================================================================
+
 ::set_tx_sender ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
 
 (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-admin set-pot-contract-hash 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot true)
@@ -17,8 +24,6 @@ STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6
 ::set_tx_sender ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
 
 (contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot init-pot u1 u100000 u100 "test-001" "stackspot-jackpot")
-(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-crowdfund init-pot u1 u100000 u100 "test-001" "stackspot-crowdfund" 'STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6)
-(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-sequential-pot init-pot u1 u100000 u100 "test-001" "stackspot-sequential-pot")
 
 ::set_tx_sender ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC
 (contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot get-pot-details)
@@ -42,7 +47,50 @@ STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6
 
 ::set_tx_sender ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP
 (contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot claim-pot-reward 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot)
+(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot get-pot-details)
+(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot get-pot-participants)
+
+EDND
+==============================================================================================================================
+==============================================================================================================================
+
+
+SCENERIO 2:
+This flow tests the cancel functionality from contributions to cancelation after a full cycle of no delegations of contributions
+==============================================================================================================================
+==============================================================================================================================
+
+::set_tx_sender ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+
+(contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-admin set-pot-contract-hash 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot true)
+(contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4-multi-pool-v1 set-pool-pox-address-active (tuple (hashbytes 0x7321b74e2b6a7e949e6c4ad313035b1665095017) (version 0x01)))
+
+::set_tx_sender ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+
+(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot init-pot u1 u100000 u100 "test-001" "stackspot-jackpot")
+
+::set_tx_sender ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC
+(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot get-pot-details)
+(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot join-pot u100000000)
+::set_tx_sender ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND
+(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot join-pot u200000000)
+::set_tx_sender ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB
+(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot join-pot u300000000)
 
 (contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot get-pot-details)
 
 (contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot get-pot-participants)
+
+::advance_burn_chain_tip 2400
+
+::set_tx_sender ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0
+(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot cancel-pot 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot)
+
+::set_tx_sender ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP
+(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot claim-pot-reward 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot)
+(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot get-pot-details)
+(contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot get-pot-participants)
+
+EDND
+==============================================================================================================================
+==============================================================================================================================
