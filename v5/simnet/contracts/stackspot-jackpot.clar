@@ -180,9 +180,7 @@
 )
 
 (define-read-only (get-pot-participant-values (participant principal))
-  (map-get? pot-participants-by-id
-    (default-to u0 (map-get? pot-participants-by-principal participant))
-  )
+  (map-get? pot-participants-by-id (default-to (+ (var-get last-participant) u1) (map-get? pot-participants-by-principal participant)))
 )
 
 ;; Read-Only public function that gets all participants
@@ -444,18 +442,18 @@
     )
 
     ;; Returns participants principals
-    (try! (as-contract? ()
-      (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
-        dispatch-principals pot-contract
-      ))
-    ))
+    (try! 
+      (as-contract? ((with-stx (var-get total-pot-value)))
+        (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-principals pot-contract))
+      )
+    )
 
     ;; Disburse rewards
-    (try! (as-contract? ()
-      (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
-        dispatch-rewards pot-contract
-      ))
-    ))
+    (try! 
+      (as-contract? ((with-ft 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token "sbtc-token" pot-yield))
+        (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-rewards pot-contract))
+      )
+    )
 
     ;; Print
     (print {
