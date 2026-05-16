@@ -39,13 +39,10 @@
 )
 
 ;;;;  Pot Claim Start validation
-(define-read-only (validate-can-claim-pot
-    (lock-burn-height uint)
-    (pot-cycle uint)
-  )
+(define-read-only (validate-can-claim-pot (lock-burn-height uint))
   (let (
       (pool-config (unwrap! (get-pool-config lock-burn-height) false))
-      (reward-release (* (get reward-release pool-config) pot-cycle))
+      (reward-release (* (get reward-release pool-config) u1))
     )
     (asserts! (> burn-block-height reward-release) false)
     true
@@ -143,7 +140,7 @@
     ;; Validate's if the pot treasury is the same as the tx-sender
     ;; Validate's if the contract caller is the allowed caller
     (asserts!
-      (validate-can-claim-pot (get pot-lock-burn-height pot-details) pot-cycle)
+      (validate-can-claim-pot (get pot-lock-burn-height pot-details))
       ERR_POT_CLAIM_NOT_REACHED
     )
     (asserts! (> pot-yield u0) ERR_INSUFFICIENT_POT_REWARD)

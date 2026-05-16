@@ -311,11 +311,11 @@
     )
 
     ;; Returns participants principals
-    (try! (as-contract? ()
-      (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
-        dispatch-principals pot-contract
-      ))
-    ))
+    (try! 
+      (as-contract? ((with-stx (var-get total-pot-value)))
+        (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-principals pot-contract))
+      )
+    )
 
     ;; Set pot cancelled to true
     (var-set pot-cancelled true)
@@ -414,6 +414,7 @@
       ;; Calculate winner's reward 90% of stacked reward or 100% of stacked reward
     )
     ;; Validate can claim pot
+    (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
     (asserts! (validate-can-claim-pot) ERR_POT_CLAIM_NOT_REACHED)
     (asserts! (> pot-yield u0) ERR_INSUFFICIENT_POT_REWARD)
 
@@ -429,18 +430,18 @@
     )
 
     ;; Returns participants principals
-    (try! (as-contract? ()
-      (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
-        dispatch-principals pot-contract
-      ))
-    ))
+    (try! 
+      (as-contract? ((with-stx (var-get total-pot-value)))
+        (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-principals pot-contract))
+      )
+    )
 
     ;; Disburse rewards
-    (try! (as-contract? ()
-      (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
-        dispatch-rewards pot-contract
-      ))
-    ))
+    (try! 
+      (as-contract? ((with-ft 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token "sbtc-token" pot-yield))
+        (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-rewards pot-contract))
+      )
+    )
 
     ;; Print
     (print {
@@ -561,7 +562,7 @@
 (define-data-var pot-type (string-ascii 255) "")
 (define-data-var funding-address principal tx-sender)
 
-(init-pot u1 u100000 u100 "StackSpot Crowd Fund Pot" "StackSpot Crowd Fund Pot" 'ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP)
+;; (init-pot u1 u100000 u100 "StackSpot Crowd Fund Pot" "StackSpot Crowd Fund Pot" 'ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP)
 
 ;; --- Rendezvous invariants & property tests ---
 

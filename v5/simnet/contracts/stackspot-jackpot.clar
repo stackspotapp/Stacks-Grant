@@ -353,9 +353,7 @@
     ;; Validate pot is not cancelled
     (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
     ;; Validate pot treasury is the same as the pot contract
-    (asserts! (is-eq current-contract (contract-of pot-contract))
-      ERR_UNAUTHORIZED
-    )
+    (asserts! (is-eq current-contract (contract-of pot-contract)) ERR_UNAUTHORIZED)
 
     ;; Set lock burn height
     (var-set lock-burn-height (some burn-block-height))
@@ -404,29 +402,19 @@
       (pot-id (get-pot-id))
       (total-participants (get pot-participants-count pot-details))
       (participants (unwrap! (get-pot-participants) (err u998))) ;; Get participants list
-      (pot-yield (unwrap!
-        (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token
-          get-balance current-contract
-        )
-        (err u997)
-      ))
+      (pot-yield (unwrap! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token get-balance current-contract) (err u997)))
       ;; Get stacked reward
       (pot-starter (get pot-starter-address pot-details))
-      (pot-starter-reward (if (> pot-yield u0)
-        (* (/ pot-yield u100) u2)
-        u0
-      ))
+      (pot-starter-reward (if (> pot-yield u0) (* (/ pot-yield u100) u2) u0))
       ;; Calculate pot starter's reward
       (claimer tx-sender) ;; Calculate claimer's reward
-      (claimer-reward (if (> pot-yield u0)
-        (* (/ pot-yield u100) u2)
-        u0
-      ))
+      (claimer-reward (if (> pot-yield u0) (* (/ pot-yield u100) u2) u0))
       (pot-winner-id (unwrap! (get-random-index total-participants) ERR_INVALID_PARTICIPANT_COUNT))
       (winner-values (unwrap! (map-get? pot-participants-by-id pot-winner-id) ERR_NOT_FOUND))
       (winner (get participant winner-values))
     )
     ;; Validate can claim pot
+    (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
     (asserts! (validate-can-claim-pot) ERR_POT_CLAIM_NOT_REACHED)
     (asserts! (> pot-yield u0) ERR_INSUFFICIENT_POT_REWARD)
 
