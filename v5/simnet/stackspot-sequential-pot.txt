@@ -38,7 +38,7 @@ Here we are runing the test flow sequentially as expected for good flow executio
 ::set_tx_sender ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0
 (contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-sequential-pot start-stackspot-sequential-pot 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-sequential-pot)
 
-::advance_burn_chain_tip 523
+::advance_burn_chain_tip 1572
 
 (contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-sequential-pot extend-initialization 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-sequential-pot)
 

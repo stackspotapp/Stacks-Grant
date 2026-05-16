@@ -39,7 +39,7 @@ Here we are runing the test flow sequentially as expected for good flow executio
 ::set_tx_sender ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0
 (contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot start-stackspot-jackpot 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot)
 
-::advance_burn_chain_tip 2400
+::advance_burn_chain_tip 1480
 
 ::set_tx_sender ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
 (contract-call? .sbtc-token protocol-mint u2000 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot 0x01)
@@ -80,7 +80,7 @@ This flow tests the cancel functionality from contributions to cancelation after
 
 (contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot get-pot-participants)
 
-::advance_burn_chain_tip 2400
+::advance_burn_chain_tip 1480
 
 ::set_tx_sender ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0
 (contract-call? 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot cancel-pot 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.stackspot-jackpot)
