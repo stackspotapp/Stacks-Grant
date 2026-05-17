@@ -19,16 +19,30 @@ plan:
   - id: 1
     transactions:
     - transaction-type: contract-publish
+      contract-name: stackspot-trait
+      expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+      cost: 22630
+      path: contracts/stackspot-trait.clar
+      anchor-block-only: true
+      clarity-version: 5
+    - transaction-type: contract-publish
+      contract-name: stackspot-admin
+      expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+      cost: 24680
+      path: contracts/stackspot-admin.clar
+      anchor-block-only: true
+      clarity-version: 5
+    - transaction-type: contract-publish
       contract-name: sbtc-registry
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 115560
+      cost: 109190
       path: contracts/sbtc-registry.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
       contract-name: sbtc-token
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 51570
+      cost: 47590
       path: contracts/sbtc-token.clar
       anchor-block-only: true
       clarity-version: 5
@@ -42,24 +56,10 @@ plan:
     - transaction-type: contract-publish
       contract-name: sim-pox-4-multi-pool-v1
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 156140
+      cost: 157280
       path: contracts/sim-pox-4-multi-pool-v1.clar
       anchor-block-only: true
       clarity-version: 3
-    - transaction-type: contract-publish
-      contract-name: stackspot-trait
-      expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 21750
-      path: contracts/stackspot-trait.clar
-      anchor-block-only: true
-      clarity-version: 5
-    - transaction-type: contract-publish
-      contract-name: stackspot-admin
-      expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 24680
-      path: contracts/stackspot-admin.clar
-      anchor-block-only: true
-      clarity-version: 5
     - transaction-type: contract-publish
       contract-name: stackspot-vrf
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
@@ -77,7 +77,7 @@ plan:
     - transaction-type: contract-publish
       contract-name: stackspot-distribute
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 97910
+      cost: 111790
       path: contracts/stackspot-distribute.clar
       anchor-block-only: true
       clarity-version: 5
@@ -91,29 +91,59 @@ plan:
     - transaction-type: contract-publish
       contract-name: stackspots
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 88720
+      cost: 99130
       path: contracts/stackspots.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
-      contract-name: stackspot-crowd-fund-pot
+      contract-name: stackspot-crowdfund
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 171650
-      path: contracts/stackspot-crowd-fund-pot.clar
+      cost: 176830
+      path: contracts/stackspot-crowdfund.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
       contract-name: stackspot-jackpot
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 176470
+      cost: 180030
       path: contracts/stackspot-jackpot.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
-      contract-name: stackspot-sequencial-pot
+      contract-name: stackspot-sequential-pot
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 179180
-      path: contracts/stackspot-sequencial-pot.clar
+      cost: 203770
+      path: contracts/stackspot-sequential-pot.clar
+      anchor-block-only: true
+      clarity-version: 5
+
+    - transaction-type: contract-publish
+      contract-name: stackspot-crowdfund
+      expected-sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+      cost: 176830
+      path: contracts/stackspot-crowdfund.clar
+      anchor-block-only: true
+      clarity-version: 5
+    - transaction-type: contract-publish
+      contract-name: stackspot-jackpot
+      expected-sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+      cost: 180030
+      path: contracts/stackspot-jackpot.clar
+      anchor-block-only: true
+      clarity-version: 5
+    - transaction-type: contract-publish
+      contract-name: stackspot-sequential-pot
+      expected-sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+      cost: 203770
+      path: contracts/stackspot-sequential-pot.clar
+      anchor-block-only: true
+      clarity-version: 5
+
+    - transaction-type: contract-publish
+      contract-name: init-admin
+      expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+      cost: 13410
+      path: contracts/init-admin.clar
       anchor-block-only: true
       clarity-version: 5
     epoch: '3.4'
