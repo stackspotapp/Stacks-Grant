@@ -1,0 +1,40 @@
+{
+  "deployer": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+  "potDeployer": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5",
+  "wallets": {
+    "deployer": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+    "faucet": "STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6",
+    "wallet_1": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5",
+    "wallet_2": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+    "wallet_3": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+    "wallet_4": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+    "wallet_5": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+    "wallet_6": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+    "wallet_7": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+    "wallet_8": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP"
+  },
+  "contracts": [
+    { "name": "stackspot-trait", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "stackspot-admin", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "sbtc-registry", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "sbtc-token", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "sim-pox-4", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "sim-pox-4-multi-pool-v1", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "stackspot-vrf", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "stackspot-winners", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "stackspot-distribute", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "stackspot-registry", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "stackspots", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "stackspot-crowdfund", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "stackspot-jackpot", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "stackspot-sequential-pot", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" },
+    { "name": "stackspot-crowdfund", "address": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5", "label": "wallet_1" },
+    { "name": "stackspot-jackpot", "address": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5", "label": "wallet_1" },
+    { "name": "stackspot-sequential-pot", "address": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5", "label": "wallet_1" },
+    { "name": "init-admin", "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM" }
+  ],
+  "poolPoxAddress": {
+    "version": "0x01",
+    "hashbytes": "0x7321b74e2b6a7e949e6c4ad313035b1665095017"
+  }
+}

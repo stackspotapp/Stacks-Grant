@@ -124,28 +124,3 @@ plan:
       anchor-block-only: true
       clarity-version: 5
     epoch: '3.4'
-    
-  - id: 2
-    transactions:
-    - transaction-type: contract-publish
-      contract-name: stackspot-crowdfund
-      expected-sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
-      cost: 176830
-      path: contracts/stackspot-crowdfund.clar
-      anchor-block-only: true
-      clarity-version: 5
-    - transaction-type: contract-publish
-      contract-name: stackspot-jackpot
-      expected-sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
-      cost: 180030
-      path: contracts/stackspot-jackpot.clar
-      anchor-block-only: true
-      clarity-version: 5
-    - transaction-type: contract-publish
-      contract-name: stackspot-sequential-pot
-      expected-sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
-      cost: 203770
-      path: contracts/stackspot-sequential-pot.clar
-      anchor-block-only: true
-      clarity-version: 5
-    epoch: '3.5'
