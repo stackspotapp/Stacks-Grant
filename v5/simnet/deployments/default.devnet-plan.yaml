@@ -105,7 +105,7 @@ plan:
     - transaction-type: contract-publish
       contract-name: stackspot-jackpot
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 180030
+      cost: 180050
       path: contracts/stackspot-jackpot.clar
       anchor-block-only: true
       clarity-version: 5
@@ -119,7 +119,7 @@ plan:
     - transaction-type: contract-publish
       contract-name: init-admin
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 13410
+      cost: 17990
       path: contracts/init-admin.clar
       anchor-block-only: true
       clarity-version: 5

@@ -7,10 +7,10 @@ import {
   request,
 } from "@stacks/connect";
 import {
-  Pc,
   serializeCV,
   type ClarityValue,
   type ContractIdString,
+  type PostCondition,
   type PostConditionModeName,
 } from "@stacks/transactions";
 import { safeJsonStringify } from "./clarityDisplay";
@@ -30,6 +30,7 @@ export type StxCallContractRequest = {
   functionArgs: ClarityValue[];
   address: string;
   postConditionMode: PostConditionModeName;
+  postConditions?: PostCondition[];
 };
 
 /** Log-safe payload (hex args only — no ClarityValue / bigint). */
@@ -39,6 +40,7 @@ export type StxCallContractLogPayload = {
   functionName: string;
   address: string;
   postConditionMode: PostConditionModeName;
+  postConditionCount: number;
   functionArgsSerialized: string[];
 };
 
@@ -47,6 +49,8 @@ export type WalletCallContractParams = {
   functionName: string;
   functionArgs: ClarityValue[];
   senderAddress: string;
+  postConditionMode?: PostConditionModeName;
+  postConditions?: PostCondition[];
   onBeforeRequest?: (payload: StxCallContractLogPayload) => void;
 };
 
@@ -138,17 +142,16 @@ export function disconnectWallet() {
 }
 
 function buildCallContractRequest(
-  params: Pick<
-    WalletCallContractParams,
-    "contractId" | "functionName" | "functionArgs" | "senderAddress"
-  >,
+  params: WalletCallContractParams,
 ): StxCallContractRequest {
+  const postConditions = params.postConditions;
   return {
     contract: params.contractId as ContractIdString,
     functionName: params.functionName,
     functionArgs: params.functionArgs,
     address: params.senderAddress,
-    postConditionMode: "allow" as PostConditionModeName,
+    postConditionMode: params.postConditionMode ?? "deny",
+    ...(postConditions?.length ? { postConditions } : {}),
   };
 }
 
@@ -167,6 +170,7 @@ export async function walletCallContract(
     functionName: requestParams.functionName,
     address: requestParams.address,
     postConditionMode: requestParams.postConditionMode,
+    postConditionCount: requestParams.postConditions?.length ?? 0,
     functionArgsSerialized,
   };
 
@@ -190,9 +194,9 @@ export async function walletDeployContract(params: {
   const deployParams = {
     name: params.name,
     clarityCode: params.clarityCode,
-    clarityVersion: params.clarityVersion ?? 3,
+    clarityVersion: params.clarityVersion ?? 4,
     postConditionMode: "deny" as PostConditionModeName,
-    postConditions: [Pc.origin().willSendLte(100000).ustx()],
+    // postConditions: [Pc.origin().willSendLte(100000).ustx()],
     ...(params.senderAddress ? { address: params.senderAddress } : {}),
   };
 

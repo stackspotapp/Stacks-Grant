@@ -6,7 +6,14 @@ import { parseContractId } from "../config/contracts";
 import { abiTypeIncludes, formatAbiType } from "../lib/abiTypes";
 import { parseArgInput } from "../lib/args";
 import type { RegisteredPot } from "../lib/events";
+import {
+  buildPostConditions,
+  defaultPostConditionsState,
+  type PostConditionsState,
+} from "../lib/postConditions";
+import { walletErrorMessage } from "../lib/walletErrors";
 import { ActionButton } from "./ActionButton";
+import { PostConditionsPanel } from "./PostConditionsPanel";
 import { ResultBox } from "./ResultBox";
 import { useApp } from "../context/AppContext";
 import { Eye, Send } from "lucide-react";
@@ -15,12 +22,14 @@ type Props = {
   contractId: string;
   pot?: RegisteredPot;
   filterAccess?: "read_only" | "public" | "all";
+  showPostConditions?: boolean;
 };
 
 export function FunctionExecutor({
   contractId,
   pot,
   filterAccess = "all",
+  showPostConditions = false,
 }: Props) {
   const { isWalletConnected } = useApp();
   const { read, write, loading, lastResult } = useContractAction();
@@ -28,10 +37,16 @@ export function FunctionExecutor({
   const [fnName, setFnName] = useState("");
   const [argInputs, setArgInputs] = useState<string[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [postConditions, setPostConditions] = useState<PostConditionsState>(
+    defaultPostConditionsState,
+  );
+  const [executeError, setExecuteError] = useState<string | null>(null);
 
   useEffect(() => {
     const { address, name } = parseContractId(contractId);
     setLoadError(null);
+    setExecuteError(null);
+    setPostConditions(defaultPostConditionsState());
     void fetchContractInterface(address, name).then((i) => {
       if (!i) setLoadError("Contract not deployed or API unreachable");
       setIface(i);
@@ -63,6 +78,24 @@ export function FunctionExecutor({
     return fn.args.map((a, i) =>
       parseArgInput(a.type, argInputs[i] ?? "", { pot }),
     );
+  };
+
+  const handleExecute = async () => {
+    if (!fn) return;
+    setExecuteError(null);
+    try {
+      const writeOptions = showPostConditions
+        ? {
+            postConditionMode: postConditions.mode,
+            ...(postConditions.drafts.length > 0
+              ? { postConditions: buildPostConditions(postConditions) }
+              : {}),
+          }
+        : undefined;
+      await write(contractId, fn.name, buildArgs(), writeOptions);
+    } catch (e) {
+      setExecuteError(walletErrorMessage(e));
+    }
   };
 
   return (
@@ -115,6 +148,13 @@ export function FunctionExecutor({
         </div>
       )}
 
+      {fn && showPostConditions && fn.access === "public" && (
+        <PostConditionsPanel
+          value={postConditions}
+          onChange={setPostConditions}
+        />
+      )}
+
       {fn && (
         <div className="flex flex-wrap gap-2">
           {(fn.access === "read_only" || fn.access === "read-only") && (
@@ -131,13 +171,17 @@ export function FunctionExecutor({
             <ActionButton
               loading={loading}
               disabled={!isWalletConnected}
-              onClick={() => void write(contractId, fn.name, buildArgs())}
+              onClick={() => void handleExecute()}
             >
               <Send size={14} />
               Execute
             </ActionButton>
           )}
         </div>
+      )}
+
+      {executeError && (
+        <p className="text-sm text-[var(--color-error)]">{executeError}</p>
       )}
 
       {!isWalletConnected && fn?.access === "public" && (

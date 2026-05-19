@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import type { ClarityValue } from "@stacks/transactions";
+import type { ClarityValue, PostCondition, PostConditionModeName } from "@stacks/transactions";
 import { parseContractId } from "../config/contracts";
 import { useApp } from "../context/AppContext";
 import { formatClarityJson, safeJsonStringify } from "../lib/clarityDisplay";
@@ -25,6 +25,11 @@ async function waitForTx(txid: string, maxAttempts = 60): Promise<unknown> {
   }
   throw new Error(`Transaction ${txid} not confirmed in time`);
 }
+
+export type WriteOptions = {
+  postConditionMode?: PostConditionModeName;
+  postConditions?: PostCondition[];
+};
 
 export function useContractAction() {
   const { network, appendLog, userAddress } = useApp();
@@ -75,6 +80,7 @@ export function useContractAction() {
       contractId: string,
       functionName: string,
       functionArgs: ClarityValue[],
+      options?: WriteOptions,
     ) => {
       if (!userAddress) {
         throw new Error(
@@ -88,6 +94,8 @@ export function useContractAction() {
           functionName,
           functionArgs,
           senderAddress: userAddress,
+          postConditionMode: options?.postConditionMode,
+          postConditions: options?.postConditions,
           onBeforeRequest: (payload) => {
             appendLog({
               label: `${functionName} (pre-sign)`,

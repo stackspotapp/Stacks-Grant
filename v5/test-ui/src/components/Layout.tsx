@@ -9,7 +9,7 @@ const nav = [
   { to: "/", label: "Pots", icon: LayoutDashboard },
   { to: "/deploy", label: "Deploy pot", icon: Rocket },
   { to: "/core", label: "Core contracts", icon: Settings2 },
-  { to: "/call", label: "Advanced call", icon: Boxes },
+  { to: "/call", label: "Contract call", icon: Boxes },
 ];
 
 export function Layout() {
