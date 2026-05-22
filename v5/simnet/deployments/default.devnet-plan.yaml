@@ -42,21 +42,14 @@ plan:
     - transaction-type: contract-publish
       contract-name: sbtc-token
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 47590
+      cost: 48410
       path: contracts/sbtc-token.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
-      contract-name: sim-pox-4
-      expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 729500
-      path: contracts/sim-pox-4.clar
-      anchor-block-only: true
-      clarity-version: 3
-    - transaction-type: contract-publish
       contract-name: sim-pox-4-multi-pool-v1
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 157280
+      cost: 159880
       path: contracts/sim-pox-4-multi-pool-v1.clar
       anchor-block-only: true
       clarity-version: 3
@@ -66,7 +59,7 @@ plan:
       cost: 19320
       path: contracts/stackspot-vrf.clar
       anchor-block-only: true
-      clarity-version: 5
+      clarity-version: 5    
     - transaction-type: contract-publish
       contract-name: stackspot-winners
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
@@ -98,21 +91,21 @@ plan:
     - transaction-type: contract-publish
       contract-name: stackspot-crowdfund
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 176830
+      cost: 174000
       path: contracts/stackspot-crowdfund.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
       contract-name: stackspot-jackpot
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 180050
+      cost: 177580
       path: contracts/stackspot-jackpot.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
       contract-name: stackspot-sequential-pot
       expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      cost: 203770
+      cost: 201340
       path: contracts/stackspot-sequential-pot.clar
       anchor-block-only: true
       clarity-version: 5

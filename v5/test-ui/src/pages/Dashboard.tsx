@@ -7,6 +7,7 @@ import { PotCard } from "../components/PotCard";
 import { STACKS_API_URL } from "../config/network";
 import { fetchRegisteredPots, type RegisteredPot } from "../lib/events";
 import { useLivePotPolling } from "../hooks/useLivePotPolling";
+import { usePoxInfo } from "../hooks/usePoxInfo";
 
 export function Dashboard() {
   const { apiOnline, chainInfo, refreshChain, userAddress, network } = useApp();
@@ -16,6 +17,7 @@ export function Dashboard() {
 
   const { liveByPot, liveRefreshing, lastLiveRefresh, refreshLive } =
     useLivePotPolling(pots, network, apiOnline, userAddress);
+  const { poxInfo } = usePoxInfo(network, apiOnline, userAddress);
 
   const loadPots = useCallback(async () => {
     setLoading(true);
@@ -81,6 +83,8 @@ export function Dashboard() {
               pot={pot}
               live={liveByPot[pot.potAddress]}
               refreshing={liveRefreshing}
+              currentBurnHeight={chainInfo?.burn_block_height}
+              poxInfo={poxInfo}
             />
           ))}
         </div>

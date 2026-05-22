@@ -171,11 +171,21 @@ export function PotDetail() {
         title="Public functions"
         description="Execute with your connected wallet (Leather, Xverse, etc.)"
       >
-        <FunctionExecutor contractId={contractId} pot={pot} filterAccess="public" />
+        <FunctionExecutor
+          contractId={contractId}
+          pot={pot}
+          filterAccess="public"
+          showPostConditions
+        />
       </Card>
 
       <Card title="All contract functions" description="Including read-only via ABI">
-        <FunctionExecutor contractId={contractId} pot={pot} filterAccess="all" />
+        <FunctionExecutor
+          contractId={contractId}
+          pot={pot}
+          filterAccess="all"
+          showPostConditions
+        />
       </Card>
     </div>
   );

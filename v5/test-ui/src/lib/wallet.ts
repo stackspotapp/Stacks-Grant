@@ -175,8 +175,8 @@ export async function walletCallContract(
   };
 
   console.log("[wallet] stx_callContract", safeJsonStringify(logPayload, 2));
+  console.log("requestParams", safeJsonStringify(requestParams, 2));
   params.onBeforeRequest?.(logPayload);
-
   const response = await request("stx_callContract", requestParams);
 
   if (!response?.txid) {
@@ -194,7 +194,7 @@ export async function walletDeployContract(params: {
   const deployParams = {
     name: params.name,
     clarityCode: params.clarityCode,
-    clarityVersion: params.clarityVersion ?? 4,
+    clarityVersion: params.clarityVersion ?? 5,
     postConditionMode: "deny" as PostConditionModeName,
     // postConditions: [Pc.origin().willSendLte(100000).ustx()],
     ...(params.senderAddress ? { address: params.senderAddress } : {}),

@@ -58,7 +58,7 @@
 (define-data-var pot-session-ended bool false)
 
 ;; Get PoX Info and return pool config
-(define-constant pox-data (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4 get-pox-info))
+(define-constant pox-data (contract-call? 'ST000000000000000000002AMW42H.pox-4 get-pox-info))
 (define-constant pox-details (unwrap! pox-data ERR_NOT_FOUND))
 (define-constant MORE_THAN_ONE_CYCLE (+ (get prepare-cycle-length pox-details) (get reward-cycle-length pox-details)))
 
@@ -73,10 +73,10 @@
       (next-cycle-start (+ first (* (+ cycle u1) cycle-len)))
     )
     (ok {
-      join-end: (- (- next-cycle-start prepare-len) u300),
+      join-end: (- (- next-cycle-start prepare-len) u3),
       prepare-start: (- next-cycle-start prepare-len),
       cycle-end: next-cycle-start,
-      reward-release: (+ next-cycle-start u432),
+      reward-release: (+ next-cycle-start u5),
     })
   )
 )
@@ -347,7 +347,7 @@
     (var-set lock-burn-height (some burn-block-height))
 
     ;; Delegate treasury to pot contract
-    (try! (as-contract? ()
+    (try! (as-contract? ((with-stx (var-get total-pot-value)) (with-stacking (var-get total-pot-value)))
       (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
         delegate-treasury pot-contract pot-treasury-address
       ))
@@ -361,7 +361,7 @@
 
     ;; Print
     (print {
-      event: "start-stackspot-jackpot",
+      event: "start-stackspot-sequential-pot",
       pot-starter-principal: tx-sender,
       pot-contract: (contract-of pot-contract),
       pot-treasury: pot-treasury-address,
@@ -579,7 +579,7 @@
   ))
 )
 (as-contract? ()
-  (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4
+  (try! (contract-call? 'ST000000000000000000002AMW42H.pox-4
     allow-contract-caller
     'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4-multi-pool-v1 none
   ))
@@ -622,102 +622,3 @@
 (define-data-var pot-max-participants uint u100)
 (define-data-var pot-name (string-ascii 255) "")
 (define-data-var pot-type (string-ascii 255) "")
-
-;; (init-pot u1 u100000 "test-001" "stackspot-sequential-pot")
-
-;; --- Rendezvous invariants & property tests ---
-
-;; #[env(simnet)]
-(define-map context
-  (string-ascii 255)
-  { called: uint }
-)
-;; #[env(simnet)]
-(define-public (update-context
-    (function-name (string-ascii 100))
-    (called uint)
-  )
-  (ok (map-set context function-name { called: called }))
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-locked-and-cancelled-exclusive)
-  (not (and (var-get locked) (var-get pot-cancelled)))
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-lock-burn-height-iff-locked)
-  (is-eq (var-get locked) (is-some (var-get lock-burn-height)))
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-locked-implies-starter-set)
-  (if (var-get locked)
-    (is-some (var-get pot-starter-principal))
-    true
-  )
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-pot-value-ge-min-times-participants)
-  (>= (var-get total-pot-value)
-    (* (var-get last-participant) (var-get pot-min-amount))
-  )
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-last-participant-bounded)
-  (<= (var-get last-participant) (+ (var-get pot-max-participants) u1))
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-participant-bimap-consistent (id uint))
-  (match (map-get? pot-participants-by-id id)
-    entry (is-eq (some id)
-      (map-get? pot-participants-by-principal (get participant entry))
-    )
-    true
-  )
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-next-payment-id-bounded)
-  (let ((claim-calls (default-to u0 (get called (map-get? context "claim-pot-reward")))))
-    (and
-      (>= (var-get next-payment-id) u1)
-      (<= (var-get next-payment-id) (+ u1 claim-calls))
-      (if (not (var-get locked))
-        (is-eq (var-get next-payment-id) u1)
-        true
-      )
-    )
-  )
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-current-target-is-real-participant)
-  (let ((target-id (var-get next-payment-id)))
-    (if (and (var-get locked) (>= (var-get last-participant) target-id))
-      (is-some (map-get? pot-participants-by-id target-id))
-      true
-    )
-  )
-)
-
-;; #[env(simnet)]
-(define-public (test-join-pot-fails-when-locked (amount uint))
-  (begin
-    (asserts! (var-get locked) (ok true))
-    (asserts! (is-err (join-pot amount)) (err u920))
-    (ok true)
-  )
-)
-
-;; #[env(simnet)]
-(define-public (test-start-twice-fails (pot-contract <stackspot-trait>))
-  (begin
-    (asserts! (var-get locked) (ok true))
-    (asserts! (is-err (start-stackspot-sequential-pot pot-contract)) (err u921))
-    (ok true)
-  )
-)

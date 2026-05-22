@@ -45,7 +45,11 @@ export function CoreContracts() {
             </option>
           ))}
         </select>
-        <FunctionExecutor contractId={selected} filterAccess="all" />
+        <FunctionExecutor
+          contractId={selected}
+          filterAccess="all"
+          showPostConditions
+        />
       </Card>
 
       {selected === IDS.stackspots && (

@@ -18,7 +18,7 @@
 ;; Get PoX Info and return pool config
 ;; Testnet version
 (define-read-only (get-pox-info)
-  (unwrap-panic (contract-call? .sim-pox-4 get-pox-info))
+  (unwrap-panic (contract-call? 'ST000000000000000000002AMW42H.pox-4 get-pox-info))
 )
 (define-read-only (get-pool-config (lock-burn-height uint))
   (let (
@@ -30,10 +30,10 @@
       (next-cycle-start (+ first (* (+ cycle u1) cycle-len)))
     )
     (ok {
-      join-end: (- (- next-cycle-start prepare-len) u300),
+      join-end: (- (- next-cycle-start prepare-len) u3),
       prepare-start: (- next-cycle-start prepare-len),
       cycle-end: next-cycle-start,
-      reward-release: (+ next-cycle-start u432),
+      reward-release: (+ next-cycle-start u5),
     })
   )
 )
@@ -317,7 +317,7 @@
       contract-caller: contract-caller,
     })
 
-    (match (contract-call? .sim-pox-4 revoke-delegate-stx) 
+    (match (contract-call? 'ST000000000000000000002AMW42H.pox-4 revoke-delegate-stx) 
       success (ok (some success))
       error (err (to-uint error))
     )

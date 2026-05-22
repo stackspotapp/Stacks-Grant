@@ -51,7 +51,7 @@
 })
 (define-data-var stx-buffer uint u1000000) ;; 1 STX
 
-(define-constant pox-info (unwrap-panic (contract-call? .sim-pox-4 get-pox-info)))
+(define-constant pox-info (unwrap-panic (contract-call? 'ST000000000000000000002AMW42H.pox-4 get-pox-info)))
 ;; Half cycle lenght is 1050 for mainnet
 (define-constant half-cycle-length (/ (get reward-cycle-length pox-info) u2))
 
@@ -85,10 +85,10 @@
   )
   (let ((result-revoke
       ;; Calls revoke and ignores result
-      (contract-call? .sim-pox-4 revoke-delegate-stx)
+      (contract-call? 'ST000000000000000000002AMW42H.pox-4 revoke-delegate-stx)
     ))
     ;; Calls delegate-stx, converts any error to uint
-    (match (contract-call? .sim-pox-4 delegate-stx amount-ustx delegate-to until-burn-ht
+    (match (contract-call? 'ST000000000000000000002AMW42H.pox-4 delegate-stx amount-ustx delegate-to until-burn-ht
       none
     )
       success (ok success)
@@ -117,7 +117,7 @@
       ))
     )
     (asserts! (var-get active) err-pox-address-deactivated)
-    (match (contract-call? .sim-pox-4 delegate-stack-stx user amount-ustx pox-address
+    (match (contract-call? 'ST000000000000000000002AMW42H.pox-4 delegate-stack-stx user amount-ustx pox-address
       start-burn-ht u1
     )
       stacker-details (ok stacker-details)
@@ -177,7 +177,7 @@
           )
           ;; else increase
           (let ((increase-by (- amount-ustx locked-amount)))
-            (match (contract-call? .sim-pox-4 delegate-stack-increase user pox-address
+            (match (contract-call? 'ST000000000000000000002AMW42H.pox-4 delegate-stack-increase user pox-address
               increase-by
             )
               success-increase (ok {
@@ -210,11 +210,11 @@
     })
   )
   (let (
-      (current-cycle (contract-call? .sim-pox-4 current-pox-reward-cycle))
+      (current-cycle (contract-call? 'ST000000000000000000002AMW42H.pox-4 current-pox-reward-cycle))
       (unlock-height (get unlock-height status))
     )
     (if (not-locked-for-cycle unlock-height (+ u1 current-cycle))
-      (contract-call? .sim-pox-4 delegate-stack-extend user pox-address u1)
+      (contract-call? 'ST000000000000000000002AMW42H.pox-4 delegate-stack-extend user pox-address u1)
       ;; one cycle only
       (ok {
         stacker: user,
@@ -289,7 +289,7 @@
     (auth-id uint)
   )
   (let ((reward-cycle (+ u1 current-cycle)))
-    (as-contract (contract-call? .sim-pox-4 stack-aggregation-increase
+    (as-contract (contract-call? 'ST000000000000000000002AMW42H.pox-4 stack-aggregation-increase
       (var-get pool-pox-address) reward-cycle index signer-sig signer-key
       max-amount auth-id
     ))
@@ -305,7 +305,7 @@
     (auth-id uint)
   )
   (let ((reward-cycle (+ u1 current-cycle)))
-    (as-contract (contract-call? .sim-pox-4 stack-aggregation-commit-indexed
+    (as-contract (contract-call? 'ST000000000000000000002AMW42H.pox-4 stack-aggregation-commit-indexed
       (var-get pool-pox-address) reward-cycle signer-sig signer-key max-amount
       auth-id
     ))
@@ -399,7 +399,7 @@
 ;; Returns currently delegated amount for a given user
 (define-read-only (get-delegated-amount (user principal))
   (default-to u0
-    (get amount-ustx (contract-call? .sim-pox-4 get-delegation-info user))
+    (get amount-ustx (contract-call? 'ST000000000000000000002AMW42H.pox-4 get-delegation-info user))
   )
 )
 

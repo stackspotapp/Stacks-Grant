@@ -8,6 +8,9 @@ cache_dir = "./.cache"
 [[project.requirements]]
 contract_id = "SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait"
 
+[[project.requirements]]
+contract_id = "ST000000000000000000002AMW42H.pox-4"
+
 # [contracts.counter]
 # path = "contracts/counter.clar"
 # epoch = "latest"

@@ -156,3 +156,5 @@
 (define-read-only (get-token-uri)
 	(ok (var-get token-uri))
 )
+
+(protocol-mint u100000000000000 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM 0x01)

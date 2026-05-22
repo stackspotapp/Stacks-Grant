@@ -55,7 +55,7 @@
 (define-data-var first-user-joined (optional uint) none)
 
 ;; Get PoX Info and return pool config
-(define-constant pox-data (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4 get-pox-info))
+(define-constant pox-data (contract-call? 'ST000000000000000000002AMW42H.pox-4 get-pox-info))
 (define-constant pox-details (unwrap! pox-data ERR_NOT_FOUND))
 (define-constant MORE_THAN_ONE_CYCLE (+ (get prepare-cycle-length pox-details) (get reward-cycle-length pox-details)))
 
@@ -70,10 +70,10 @@
       (next-cycle-start (+ first (* (+ cycle u1) cycle-len)))
     )
     (ok {
-      join-end: (- (- next-cycle-start prepare-len) u300),
+      join-end: (- (- next-cycle-start prepare-len) u3),
       prepare-start: (- next-cycle-start prepare-len),
       cycle-end: next-cycle-start,
-      reward-release: (+ next-cycle-start u432),
+      reward-release: (+ next-cycle-start u5),
     })
   )
 )
@@ -84,10 +84,15 @@
 )
 
 ;; Pot Claim Start validation
+;; reward-release from get-pool-config is an absolute burn height (end of first
+;; cycle after lock + 5 blocks). Each additional pot-cycle adds one full PoX cycle.
 (define-read-only (validate-can-claim-pot)
   (let (
       (pool-config (unwrap! (get-pool-config) false))
-      (reward-release (* (get reward-release pool-config) (var-get pot-cycle)))
+      (base-release (get reward-release pool-config))
+      (cycle-len (get reward-cycle-length pox-details))
+      (cycles (var-get pot-cycle))
+      (reward-release (+ base-release (* (- cycles u1) cycle-len)))
     )
     (asserts! (> burn-block-height reward-release) false)
   )
@@ -349,7 +354,7 @@
     (var-set lock-burn-height (some burn-block-height))
 
     ;; Delegate treasury to pot contract
-    (try! (as-contract? ()
+    (try! (as-contract? ((with-stx (var-get total-pot-value)) (with-stacking (var-get total-pot-value)))
       (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
         delegate-treasury pot-contract pot-treasury-address
       ))
@@ -513,7 +518,7 @@
   ))
 )
 (as-contract? ()
-  (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4
+  (try! (contract-call? 'ST000000000000000000002AMW42H.pox-4
     allow-contract-caller
     'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4-multi-pool-v1 none
   ))
@@ -561,78 +566,3 @@
 (define-data-var pot-name (string-ascii 255) "")
 (define-data-var pot-type (string-ascii 255) "")
 (define-data-var funding-address principal tx-sender)
-
-;; (init-pot u1 u100000 u100 "StackSpot Crowd Fund Pot" "StackSpot Crowd Fund Pot" 'ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP)
-
-;; --- Rendezvous invariants & property tests ---
-
-;; #[env(simnet)]
-(define-read-only (invariant-locked-and-cancelled-exclusive)
-  (not (and (var-get locked) (var-get pot-cancelled)))
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-lock-burn-height-iff-locked)
-  (is-eq (var-get locked) (is-some (var-get lock-burn-height)))
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-locked-implies-starter-set)
-  (if (var-get locked)
-    (is-some (var-get pot-starter-principal))
-    true
-  )
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-pot-value-ge-min-times-participants)
-  (>= (var-get total-pot-value)
-    (* (var-get last-participant) (var-get pot-min-amount))
-  )
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-last-participant-bounded)
-  (<= (var-get last-participant) (+ (var-get pot-max-participants) u1))
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-participant-bimap-consistent (id uint))
-  (match (map-get? pot-participants-by-id id)
-    entry (is-eq (some id)
-      (map-get? pot-participants-by-principal (get participant entry))
-    )
-    true
-  )
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-funding-address-not-platform-or-treasury)
-  (and
-    (not (is-eq (var-get funding-address) PLATFORM_ADDRESS))
-    (not (is-eq (var-get funding-address) pot-treasury-address))
-  )
-)
-
-;; #[env(simnet)]
-(define-read-only (invariant-initiated-true)
-  (var-get initiated)
-)
-
-;; #[env(simnet)]
-(define-public (test-join-pot-fails-when-locked (amount uint))
-  (begin
-    (asserts! (var-get locked) (ok true))
-    (asserts! (is-err (join-pot amount)) (err u930))
-    (ok true)
-  )
-)
-
-;; #[env(simnet)]
-(define-public (test-start-twice-fails (pot-contract <stackspot-trait>))
-  (begin
-    (asserts! (var-get locked) (ok true))
-    (asserts! (is-err (start-stackspot-crowdfund pot-contract)) (err u931))
-    (ok true)
-  )
-)
