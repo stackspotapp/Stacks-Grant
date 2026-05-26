@@ -22,6 +22,19 @@
     }))
     )
   )
+  (get-sponsors-addresses
+    ()
+    (
+      response       (list 100 (optional {
+      participant: principal,
+      amount: uint,
+    }))
+      (list 0 (optional {
+      participant: principal,
+      amount: uint,
+    }))
+    )
+  )
   (get-pot-treasury
     ()
     (response principal principal)

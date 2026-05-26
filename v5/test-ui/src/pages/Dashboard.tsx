@@ -11,14 +11,13 @@ import { usePoxInfo } from "../hooks/usePoxInfo";
 
 export function Dashboard() {
   const { apiOnline, chainInfo, refreshChain, userAddress, network } = useApp();
+  const { poxInfo } = usePoxInfo(network, apiOnline, userAddress);
   const [pots, setPots] = useState<RegisteredPot[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const { liveByPot, liveRefreshing, lastLiveRefresh, refreshLive } =
     useLivePotPolling(pots, network, apiOnline, userAddress);
-  const { poxInfo } = usePoxInfo(network, apiOnline, userAddress);
-
   const loadPots = useCallback(async () => {
     setLoading(true);
     setError(null);

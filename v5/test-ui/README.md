@@ -32,6 +32,17 @@ Open http://localhost:5173 → **Connect wallet** → browse pots or use **Core 
 
 - Point your wallet at the local API (`http://localhost:3999`) when using devnet. Transaction network is taken from the wallet (no `VITE_CONNECT_NETWORK` in the app).
 
+### PoX timing (local devnet)
+
+This harness assumes a **20 burn-block** PoX reward cycle and **10 minutes per burn block** (`VITE_POX_REWARD_CYCLE_LENGTH=20`, `VITE_BITCOIN_BLOCK_MS=600000`). Countdowns read live params from boot `pox-4` `get-pox-info` when available, then derive a wall-clock target: `Date.now() + blocksRemaining × 600s`.
+
+| Milestone | Burns (cycle len 20) | Wall clock |
+|-----------|----------------------|------------|
+| Half-cycle (`can-lock-now`, `u500` if too early) | 10 after cycle start | 1h 40m |
+| Full cycle | 20 | 3h 20m |
+| First sequential claim | `reward-release` + 10 | varies |
+| Second sequential claim (mid cycle 2) | `cycle-end` + 30 | varies |
+
 ## Deploying a pot
 
 1. **Deploy pot** → pick template → review source + AUDIT.md notes → acknowledge → **Deploy via wallet**

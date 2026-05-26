@@ -131,15 +131,33 @@ export async function isContractDeployed(
   return iface !== null && (iface.functions?.length ?? 0) > 0;
 }
 
-export function formatMicroStx(micro: number | string | bigint): string {
+function microToDisplayAmount(micro: number | string | bigint): number | null {
   const n =
     typeof micro === "bigint"
       ? Number(micro)
       : typeof micro === "string"
         ? Number(micro)
         : micro;
-  if (!Number.isFinite(n)) return "— STX";
-  return `${(n / 1_000_000).toLocaleString(undefined, { maximumFractionDigits: 6 })} STX`;
+  return Number.isFinite(n) ? n : null;
+}
+
+/** Display label for a pot reward token (e.g. registration `pot-reward-token`). */
+export function rewardTokenSymbol(rewardToken: string): string {
+  if (rewardToken.toLowerCase().includes("sbtc")) return "sBTC";
+  return "STX";
+}
+
+export function formatMicroAmount(
+  micro: number | string | bigint,
+  unit: string,
+): string {
+  const n = microToDisplayAmount(micro);
+  if (n === null) return `— ${unit}`;
+  return `${(n / 1_000_000).toLocaleString(undefined, { maximumFractionDigits: 6 })} ${unit}`;
+}
+
+export function formatMicroStx(micro: number | string | bigint): string {
+  return formatMicroAmount(micro, "STX");
 }
 
 /** Shorten a principal for compact UI (full value in title). */

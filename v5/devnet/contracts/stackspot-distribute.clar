@@ -97,6 +97,37 @@
   )
 )
 
+(define-public (dispatch-sponsor-principals (contract <stackspot-trait>))
+  (let (
+      (pot-id (unwrap! (contract-call? contract get-pot-id) ERR_NOT_FOUND))
+      (pot-treasury (unwrap! (contract-call? contract get-pot-treasury) ERR_NOT_FOUND))
+      (sponsors-addresses (unwrap! (contract-call? contract get-sponsors-addresses) ERR_NOT_FOUND))
+    )
+    ;; Validate's if the pot treasury is the same as the pot treasury address
+    (asserts! (is-eq pot-treasury tx-sender) ERR_UNAUTHORIZED)
+    ;; Validate's if the contract caller is the allowed caller
+    (asserts! (is-eq contract-caller .stackspots) ERR_UNAUTHORIZED)
+
+    ;; Dispatch sponsors principals
+    ;;;;  Dispatch participants principals
+    (try! (fold return-participant-principals sponsors-addresses (ok true)))
+
+    ;; Print event
+    (print {
+      event: "dispatch-sponsor-principals",
+      pot-id: pot-id,
+      sponsors-addresses: sponsors-addresses,
+      contract: pot-treasury,
+      pot-treasury: pot-treasury,
+      contract-caller: contract-caller,
+      tx-sender: tx-sender,
+    })
+
+    ;; Execution complete
+    (ok true)
+  )
+)
+
 (define-private (dispatch-rewards-with-sbtc
     (amount uint)
     (from principal)

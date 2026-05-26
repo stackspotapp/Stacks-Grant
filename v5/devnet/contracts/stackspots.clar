@@ -248,10 +248,21 @@
     )
     (asserts! (is-eq pot-contract (contract-of contract)) ERR_UNAUTHORIZED)
     (asserts! (is-eq contract-caller (contract-of contract)) ERR_UNAUTHORIZED)
-    (asserts!
-      (is-ok (contract-call? .stackspot-distribute dispatch-principals contract))
-      ERR_DISPATCH_FAILED
+    (try! (contract-call? .stackspot-distribute dispatch-principals contract))  
+
+    (ok true)
+  )
+)
+
+(define-public (dispatch-sponsor-principals (contract <stackspot-trait>))
+  (let (
+      (pot-details (unwrap! (get-pot-info (contract-of contract)) ERR_NOT_FOUND))
+      (pot-contract (get pot-contract pot-details))
     )
+    (asserts! (is-eq pot-contract (contract-of contract)) ERR_UNAUTHORIZED)
+    (asserts! (is-eq contract-caller (contract-of contract)) ERR_UNAUTHORIZED)
+    
+    (try!  (contract-call? .stackspot-distribute dispatch-sponsor-principals contract))
 
     (ok true)
   )

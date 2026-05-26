@@ -1,22 +1,20 @@
 import { Link } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Layers, Lock, Loader2, Trophy, Users } from "lucide-react";
 import type { RegisteredPot } from "../lib/events";
+import { type PotLiveState, isSequentialPotType } from "../lib/potDetails";
 import {
-  type PotLiveState,
-  SEQUENTIAL_CLAIM_DELEGATE_BUFFER_BLOCKS,
-  firstClaimableBurnHeight,
-  isSequentialPotType,
-} from "../lib/potDetails";
-import { formatMicroStx, shortPrincipal } from "../lib/stacks";
-import {
-  burnBlockDurationSec,
-  formatApproxDuration,
-} from "../lib/lockCountdown";
-import {
-  firstClaimableBurnHeightFromPox,
-  type PoxInfo,
-} from "../lib/poxInfo";
+  formatMicroAmount,
+  formatMicroStx,
+  rewardTokenSymbol,
+  shortPrincipal,
+} from "../lib/stacks";
+import { formatCountdownParts } from "../lib/lockCountdown";
+import type { PoolConfigCountdownState } from "../lib/poolConfigCountdown";
+import { POOL_CONFIG_SECONDS_PER_BURN_BLOCK } from "../lib/poolConfigCountdown";
+import { rewardCycleLengthFromPox } from "../lib/poxInfo";
+import type { PoxInfo } from "../lib/poxInfo";
+import { usePoolConfigCountdowns } from "../hooks/usePoolConfigCountdowns";
 
 function DetailCell({
   label,
@@ -35,6 +33,44 @@ function DetailCell({
   );
 }
 
+function PoolConfigCountdownRow({
+  label,
+  countdown,
+  highlight,
+}: {
+  label: string;
+  countdown: PoolConfigCountdownState;
+  highlight?: boolean;
+}) {
+  return (
+    <div
+      className={
+        highlight
+          ? "rounded bg-amber-500/10 px-2 py-1 font-mono text-[10px] text-amber-100"
+          : "font-mono text-[10px] text-slate-400"
+      }
+    >
+      <span className="text-[var(--color-muted)]">{label}</span>{" "}
+      <span className="text-slate-300">burn {countdown.targetBlock}</span>
+      {countdown.reached ? (
+        <span className="text-emerald-300"> · reached</span>
+      ) : (
+        <>
+          <span className="tabular-nums text-amber-100">
+            {" "}
+            · {formatCountdownParts(countdown.parts)}
+          </span>
+          <span className="text-slate-500">
+            {" "}
+            (~{countdown.blocksRemaining} burn
+            {countdown.blocksRemaining === 1 ? "" : "s"})
+          </span>
+        </>
+      )}
+    </div>
+  );
+}
+
 export function PotCard({
   pot,
   live,
@@ -45,48 +81,27 @@ export function PotCard({
   pot: RegisteredPot;
   live?: PotLiveState;
   refreshing?: boolean;
-  /** Chain burn tip from /v2/info — used to count down to claimable burn. */
+  /** Chain burn tip from /v2/info (maps to pox `current_burnchain_block_height`). */
   currentBurnHeight?: number;
-  /** Live get-pox-info from ST000…pox-4 (or VITE_POX_4_CONTRACT). */
+  /** Live `get-pox-info` from boot pox-4 for reward-cycle-length. */
   poxInfo?: PoxInfo | null;
 }) {
   const potId = `${pot.contractAddress}.${pot.contractName}`;
   const hasLive = live && live.errors.length === 0 && live.fetchedAt;
   const liveError = live?.errors[0];
-
-  const secPerBurn = useMemo(() => burnBlockDurationSec(poxInfo), [poxInfo]);
   const isSequential = isSequentialPotType(pot.potType);
 
-  const claimOpenAfterBurn = useMemo(() => {
-    if (!live || !hasLive) return null;
-    if (isSequential && live.sessionEnded) return null;
-    // On-chain pool-config from get-pot-details uses the pot's lock burn height.
-    if (live.poolConfig?.rewardRelease) {
-      return firstClaimableBurnHeight(
-        live,
-        pot.potType,
-        poxInfo?.rewardCycleLength,
-      );
-    }
-    if (
-      poxInfo &&
-      live.lockBurnHeight !== undefined &&
-      live.lockBurnHeight > 0
-    ) {
-      return firstClaimableBurnHeightFromPox(
-        poxInfo,
-        live.lockBurnHeight,
-        pot.potType,
-        live.potCycle,
-        live.nextPaymentId,
-      );
-    }
-    return firstClaimableBurnHeight(
-      live,
-      pot.potType,
-      poxInfo?.rewardCycleLength,
-    );
-  }, [live, hasLive, pot.potType, poxInfo, isSequential]);
+  const rewardCycleLength = useMemo(
+    () => rewardCycleLengthFromPox(poxInfo),
+    [poxInfo],
+  );
+
+  const poolCountdowns = usePoolConfigCountdowns(
+    live?.poolConfig,
+    currentBurnHeight,
+    rewardCycleLength,
+    POOL_CONFIG_SECONDS_PER_BURN_BLOCK,
+  );
 
   const sequentialPayoutLabel = useMemo(() => {
     if (!isSequential || !live || !hasLive) return null;
@@ -97,36 +112,22 @@ export function PotCard({
     return `Next payout ${next} of ${total}`;
   }, [isSequential, live, hasLive]);
 
-  const blocksUntilClaimable = useMemo(() => {
-    if (
-      claimOpenAfterBurn === null ||
-      currentBurnHeight === undefined ||
-      !Number.isFinite(currentBurnHeight)
-    ) {
-      return null;
-    }
-    return Math.max(0, claimOpenAfterBurn - currentBurnHeight);
-  }, [claimOpenAfterBurn, currentBurnHeight]);
+  const activePhase = useMemo(() => {
+    if (!poolCountdowns) return null;
+    const {
+      joinEndCountdown,
+      prepareCountdown,
+      cycleEndCountdown,
+      rewardReleaseCountdown,
+    } = poolCountdowns;
+    if (!joinEndCountdown.reached) return "join" as const;
+    if (!prepareCountdown.reached) return "prepare" as const;
+    if (!cycleEndCountdown.reached) return "cycle" as const;
+    if (!rewardReleaseCountdown.reached) return "reward" as const;
+    return "done" as const;
+  }, [poolCountdowns]);
 
-  const [approxSecondsLeft, setApproxSecondsLeft] = useState(0);
-
-  useEffect(() => {
-    if (blocksUntilClaimable === null) {
-      setApproxSecondsLeft(0);
-      return;
-    }
-    if (blocksUntilClaimable <= 0) {
-      setApproxSecondsLeft(0);
-      return;
-    }
-    const initial = Math.round(blocksUntilClaimable * secPerBurn);
-    setApproxSecondsLeft(initial);
-    const id = setInterval(
-      () => setApproxSecondsLeft((s) => Math.max(0, s - 1)),
-      1000,
-    );
-    return () => clearInterval(id);
-  }, [blocksUntilClaimable, secPerBurn]);
+  const { rewardReleaseCountdown } = poolCountdowns ?? {};
 
   return (
     <Link
@@ -191,7 +192,10 @@ export function PotCard({
             />
             <DetailCell
               label="Reward pool"
-              value={formatMicroStx(live.rewardAmount ?? 0)}
+              value={formatMicroAmount(
+                live.rewardAmount ?? 0,
+                rewardTokenSymbol(pot.potRewardToken),
+              )}
             />
             <DetailCell
               label="Lock burn"
@@ -211,14 +215,38 @@ export function PotCard({
             </div>
           )}
 
-          {live.poolConfig && (
-            <div className="mt-2 rounded border border-[var(--color-border)]/50 bg-black/10 p-2 text-[10px] text-slate-400">
-              <p className="mb-1 text-[var(--color-muted)]">Pool timing (burn height)</p>
-              <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 font-mono">
-                <span>join-end {live.poolConfig.joinEnd}</span>
-                <span>prepare {live.poolConfig.prepareStart}</span>
-                <span>cycle-end {live.poolConfig.cycleEnd}</span>
-                <span>release {live.poolConfig.rewardRelease}</span>
+          {poolCountdowns && (
+            <div className="mt-2 rounded border border-[var(--color-border)]/50 bg-black/10 p-2">
+              <p className="mb-1.5 text-[10px] font-medium text-[var(--color-muted)]">
+                Pool lifecycle · get-pool-config
+                {currentBurnHeight !== undefined && (
+                  <span className="font-mono font-normal text-slate-500">
+                    {" "}
+                    · tip {currentBurnHeight}
+                  </span>
+                )}
+              </p>
+              <div className="space-y-1">
+                <PoolConfigCountdownRow
+                  label="Join ends"
+                  countdown={poolCountdowns.joinEndCountdown}
+                  highlight={activePhase === "join"}
+                />
+                <PoolConfigCountdownRow
+                  label="Prepare starts"
+                  countdown={poolCountdowns.prepareCountdown}
+                  highlight={activePhase === "prepare"}
+                />
+                <PoolConfigCountdownRow
+                  label="Cycle ends"
+                  countdown={poolCountdowns.cycleEndCountdown}
+                  highlight={activePhase === "cycle"}
+                />
+                <PoolConfigCountdownRow
+                  label="Reward release"
+                  countdown={poolCountdowns.rewardReleaseCountdown}
+                  highlight={activePhase === "reward" || activePhase === "done"}
+                />
               </div>
             </div>
           )}
@@ -250,58 +278,37 @@ export function PotCard({
           {live.locked &&
             !live.cancelled &&
             !(isSequential && live.sessionEnded) &&
-            claimOpenAfterBurn !== null &&
-            (blocksUntilClaimable !== null ? (
+            rewardReleaseCountdown && (
               <div className="mt-2 rounded border border-amber-500/30 bg-amber-500/10 px-2 py-1.5 text-[10px] text-amber-100">
                 {sequentialPayoutLabel && (
                   <p className="mb-1 font-medium text-amber-50/90">
                     {sequentialPayoutLabel}
                   </p>
                 )}
-                {blocksUntilClaimable > 0 ? (
-                  <>
-                    <span className="font-medium">Until claimable: </span>
-                    <span className="font-mono tabular-nums">
-                      {formatApproxDuration(approxSecondsLeft)}
-                    </span>
-                    <span className="text-amber-200/80">
-                      {" "}
-                      (~{blocksUntilClaimable} burn
-                      {blocksUntilClaimable === 1 ? "" : "s"}
-                      {poxInfo ? ` · PoX cycle ${poxInfo.rewardCycleId}` : ""}
-                      {isSequential
-                        ? ` · +${SEQUENTIAL_CLAIM_DELEGATE_BUFFER_BLOCKS} burns for extend`
-                        : ""}
-                      )
-                    </span>
-                  </>
-                ) : (
+                {rewardReleaseCountdown.reached ? (
                   <span className="font-medium text-emerald-200">
-                    Claimable now (burn {">"} reward-release
-                    {isSequential
-                      ? ` +${SEQUENTIAL_CLAIM_DELEGATE_BUFFER_BLOCKS}`
-                      : ""}
+                    Reward release reached (burn ≥{" "}
+                    {rewardReleaseCountdown.targetBlock})
                     {isSequential && live.nextPaymentId !== undefined
                       ? ` · round ${live.nextPaymentId + 1}`
                       : ""}
-                    )
                   </span>
+                ) : (
+                  <>
+                    <span className="font-medium">Until reward release: </span>
+                    <span className="font-mono tabular-nums">
+                      {formatCountdownParts(rewardReleaseCountdown.parts)}
+                    </span>
+                    <span className="text-amber-200/80">
+                      {" "}
+                      (~{rewardReleaseCountdown.blocksRemaining} burn
+                      {rewardReleaseCountdown.blocksRemaining === 1 ? "" : "s"}{" "}
+                      · target {rewardReleaseCountdown.targetBlock})
+                    </span>
+                  </>
                 )}
               </div>
-            ) : (
-              <div className="mt-2 rounded border border-amber-500/20 bg-black/20 px-2 py-1.5 text-[10px] text-amber-100/90">
-                {sequentialPayoutLabel && (
-                  <p className="mb-1 font-medium">{sequentialPayoutLabel}</p>
-                )}
-                <span className="font-medium">Claim opens after burn </span>
-                <span className="font-mono">{claimOpenAfterBurn}</span>
-                <span className="block text-[9px] text-[var(--color-muted)]">
-                  {poxInfo
-                    ? `PoX cycle ${poxInfo.rewardCycleId} · ${secPerBurn}s/burn (VITE_BITCOIN_BLOCK_MS)`
-                    : "Loading PoX-4 get-pox-info for ETA…"}
-                </span>
-              </div>
-            ))}
+            )}
 
           {live.fetchedAt && (
             <p className="mt-2 text-[10px] text-[var(--color-muted)]">

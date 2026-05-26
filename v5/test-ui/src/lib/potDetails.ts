@@ -4,6 +4,13 @@ import { callReadOnly } from "./stacks";
 import { clarityToDisplay } from "./clarityDisplay";
 import type { RegisteredPot } from "./events";
 
+export type PoolConfig = {
+  joinEnd: number;
+  prepareStart: number;
+  cycleEnd: number;
+  rewardRelease: number;
+};
+
 export type PotLiveState = {
   potValue?: number;
   participantsCount?: number;
@@ -19,12 +26,8 @@ export type PotLiveState = {
   sessionEnded?: boolean;
   winnerId?: number;
   winnerAddress?: string;
-  poolConfig?: {
-    joinEnd: number;
-    prepareStart: number;
-    cycleEnd: number;
-    rewardRelease: number;
-  };
+  /** On-chain `get-pool-config` (also embedded in get-pot-details as pool-config). */
+  poolConfig?: PoolConfig;
   rawDetails?: unknown;
   errors: string[];
   fetchedAt?: number;
@@ -38,13 +41,29 @@ export function isSequentialPotType(potType: string): boolean {
  * Extra burn blocks after reward-release before the UI treats a sequential pot as
  * claimable. Non-final claims call extend-delegate-treasury → delegate-stack-stx,
  * which only succeeds in the second half of the PoX cycle (can-lock-now); this
- * buffer approximates that window after each payout round.
+ * buffer approximates that window after each payout round. On a 20-block devnet
+ * cycle, half-cycle is 10 burns — same value as this buffer.
  */
 export const SEQUENTIAL_CLAIM_DELEGATE_BUFFER_BLOCKS = 10;
 
 /**
+ * Sequential claim threshold after the first payout.
+ * Mirrors extend-initialization: midpoint of PoX reward cycle (k + 1) after lock,
+ * where cycle-end from pool-config is the start of the first post-lock cycle.
+ */
+export function sequentialMidCycleThreshold(
+  cycleEnd: number,
+  nextPaymentId: number,
+  rewardCycleLength: number,
+): number {
+  const k = Math.max(1, nextPaymentId);
+  return cycleEnd + k * rewardCycleLength + Math.floor(rewardCycleLength / 2);
+}
+
+/**
  * Absolute burn height threshold for claim (`current_burn > threshold`).
- * Sequential: base reward-release + next-payment-id × reward-cycle-length + extend buffer.
+ * Sequential: first payout after reward-release + extend buffer; later payouts at
+ * the midpoint of the (next-payment-id + 1) PoX cycle (see extend-initialization).
  * Crowdfund: base reward-release + (pot-cycle - 1) × reward-cycle-length.
  * Jackpot: reward-release from pool-config (cycles baked into get-pool-config).
  */
@@ -57,11 +76,12 @@ export function claimThresholdBurnHeight(
   if (rr === undefined || rr <= 0) return null;
   if (isSequentialPotType(potType) && rewardCycleLength) {
     const k = live.nextPaymentId ?? 0;
-    return (
-      rr +
-      k * rewardCycleLength +
-      SEQUENTIAL_CLAIM_DELEGATE_BUFFER_BLOCKS
-    );
+    if (k === 0) {
+      return rr + SEQUENTIAL_CLAIM_DELEGATE_BUFFER_BLOCKS;
+    }
+    const cycleEnd = live.poolConfig?.cycleEnd;
+    if (cycleEnd === undefined || cycleEnd <= 0) return null;
+    return sequentialMidCycleThreshold(cycleEnd, k, rewardCycleLength);
   }
   const isCrowdfund = potType.toLowerCase().includes("crowdfund");
   const cycles = live.potCycle ?? 1;
@@ -125,6 +145,44 @@ function toRecord(value: unknown): Record<string, unknown> | null {
   return null;
 }
 
+function parsePoolConfig(raw: unknown): PoolConfig | undefined {
+  const o = toRecord(raw);
+  if (!o) return undefined;
+  const joinEnd = toNumber(o["join-end"]);
+  const prepareStart = toNumber(o["prepare-start"]);
+  const cycleEnd = toNumber(o["cycle-end"]);
+  const rewardRelease = toNumber(o["reward-release"]);
+  if (
+    joinEnd === undefined ||
+    prepareStart === undefined ||
+    cycleEnd === undefined ||
+    rewardRelease === undefined
+  ) {
+    return undefined;
+  }
+  return { joinEnd, prepareStart, cycleEnd, rewardRelease };
+}
+
+async function fetchPoolConfig(
+  base: {
+    contractAddress: string;
+    contractName: string;
+    senderAddress: string;
+    network: StacksNetwork;
+  },
+): Promise<PoolConfig | undefined> {
+  try {
+    const raw = await callReadOnly({
+      ...base,
+      functionName: "get-pool-config",
+      functionArgs: [],
+    });
+    return parsePoolConfig(clarityToDisplay(raw));
+  } catch {
+    return undefined;
+  }
+}
+
 export async function fetchPotLiveState(
   pot: RegisteredPot,
   senderAddress: string,
@@ -158,7 +216,10 @@ export async function fetchPotLiveState(
     return { rawDetails, errors, fetchedAt: Date.now() };
   }
 
-  const poolConfigRaw = toRecord(details["pool-config"]);
+  let poolConfig = parsePoolConfig(details["pool-config"]);
+  if (!poolConfig) {
+    poolConfig = await fetchPoolConfig(base);
+  }
   const winners = toRecord(details["winners-values"]);
 
   let potCycle: number | undefined;
@@ -218,14 +279,7 @@ export async function fetchPotLiveState(
     winnerAddress: winners
       ? toPrincipal(winners["winner-address"])
       : undefined,
-    poolConfig: poolConfigRaw
-      ? {
-          joinEnd: toNumber(poolConfigRaw["join-end"]) ?? 0,
-          prepareStart: toNumber(poolConfigRaw["prepare-start"]) ?? 0,
-          cycleEnd: toNumber(poolConfigRaw["cycle-end"]) ?? 0,
-          rewardRelease: toNumber(poolConfigRaw["reward-release"]) ?? 0,
-        }
-      : undefined,
+    poolConfig,
     errors,
     fetchedAt: Date.now(),
   };
