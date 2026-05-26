@@ -1,0 +1,105 @@
+[project]
+name = "stackspot-contracts"
+description = ""
+authors = []
+telemetry = true
+cache_dir = "./.cache"
+
+[[project.requirements]]
+contract_id = "SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait"
+
+[[project.requirements]]
+contract_id = "ST000000000000000000002AMW42H.pox-4"
+
+# [contracts.counter]
+# path = "contracts/counter.clar"
+# epoch = "latest"
+
+# Check-checker settings:
+# trusted_sender: if true, inputs are trusted after tx_sender has been checked.
+# trusted_caller: if true, inputs are trusted after contract-caller has been checked.
+# callee_filter: if true, untrusted data may be passed into a private function without a
+# warning, if it gets checked inside. This check will also propagate up to the
+# caller.
+# More informations: https://www.hiro.so/blog/new-safety-checks-in-clarinet
+
+[repl.analysis]
+passes = ["check_checker"]
+check_checker = { trusted_sender = false, trusted_caller = false, callee_filter = false }
+
+[contracts]
+
+[contracts.stackspot-crowdfund]
+path = "contracts/stackspot-crowdfund.clar"
+clarity_version = 5
+epoch = "latest"
+
+[contracts.stackspot-sequential-pot]
+path = "contracts/stackspot-sequential-pot.clar"
+clarity_version = 5
+epoch = "latest"
+
+[contracts.stackspot-jackpot]
+path = "contracts/stackspot-jackpot.clar"
+clarity_version = 5
+epoch = "latest"
+
+[contracts.stackspot-trait]
+path = "contracts/stackspot-trait.clar"
+clarity_version = 5
+epoch = "latest"
+
+[contracts.stackspots]
+path = "contracts/stackspots.clar"
+clarity_version = 5
+epoch = "latest"
+
+[contracts.stackspot-vrf]
+path = "contracts/stackspot-vrf.clar"
+clarity_version = 5
+epoch = "latest"
+
+[contracts.stackspot-registry]
+path = "contracts/stackspot-registry.clar"
+clarity_version = 5
+epoch = "latest"
+
+[contracts.stackspot-winners]
+path = "contracts/stackspot-winners.clar"
+clarity_version = 5
+epoch = "latest"
+
+[contracts.stackspot-distribute]
+path = "contracts/stackspot-distribute.clar"
+clarity_version = 5
+epoch = "latest"
+
+[contracts.stackspot-admin]
+path = "contracts/stackspot-admin.clar"
+clarity_version = 5
+epoch = "latest"
+
+[contracts.sbtc-registry]
+path = "contracts/sbtc-registry.clar"
+clarity_version = 5
+epoch = "latest"
+
+[contracts.sbtc-token]
+path = "contracts/sbtc-token.clar"
+clarity_version = 5
+epoch = "latest"
+
+[contracts.sim-pox-4]
+path = "contracts/sim-pox-4.clar"
+clarity_version = 3
+epoch = "latest"
+
+[contracts.sim-pox-4-multi-pool-v1]
+path = "contracts/sim-pox-4-multi-pool-v1.clar"
+clarity_version = 3
+epoch = "latest"
+
+[contracts.init-admin]
+path = "contracts/init-admin.clar"
+clarity_version = 5
+epoch = "latest"
