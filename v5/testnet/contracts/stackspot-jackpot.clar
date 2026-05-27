@@ -49,6 +49,7 @@
 (define-data-var lock-burn-height (optional uint) none)
 (define-data-var pot-cancelled bool false)
 (define-data-var first-user-joined (optional uint) none)
+(define-data-var pot-session-ended bool false)
 
 ;; Get PoX Info and return pool config
 (define-constant pox-data (contract-call? 'ST000000000000000000002AMW42H.pox-4 get-pox-info))
@@ -60,16 +61,14 @@
       (first (get first-burnchain-block-height pox-details))
       (cycle-len (get reward-cycle-length pox-details))
       (prepare-len (get prepare-cycle-length pox-details))
-      (cycle (/ (- (default-to burn-block-height (var-get lock-burn-height)) first)
-        cycle-len
-      ))
+      (cycle (/ (- (default-to burn-block-height (var-get lock-burn-height)) first) cycle-len))
       (next-cycle-start (+ first (* (+ cycle (var-get pot-cycle)) cycle-len)))
     )
     (ok {
-      join-end: (- (- next-cycle-start prepare-len) u3),
+      join-end: (- (- next-cycle-start prepare-len) u300),
       prepare-start: (- next-cycle-start prepare-len),
       cycle-end: next-cycle-start,
-      reward-release: (+ next-cycle-start u5),
+      reward-release: (+ next-cycle-start u432),
     })
   )
 )
@@ -476,24 +475,42 @@
     ;; Set winners address
     (var-set winners-values (some {winner-id: pot-winner-id, winner-address: winner}))
 
-    ;; Returns participants principals
-    (try! 
-      (as-contract? ((with-stx (- (var-get total-pot-value) (var-get sponsor-amount))))
-        (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-principals pot-contract))
-      )
-    )
+    (if (not (var-get pot-session-ended)) 
+      (begin
+        ;; Returns participants principals
+        (try! 
+          (as-contract? ((with-stx (- (var-get total-pot-value) (var-get sponsor-amount))))
+            (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-principals pot-contract))
+          )
+        )
 
-    ;; Returns sponsors principals
-    (try! 
-      (as-contract? ((with-stx (var-get sponsor-amount)))
-        (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-sponsor-principals pot-contract))
-      )
-    )
+        ;; Returns sponsors principals
+        (try! 
+          (as-contract? ((with-stx (var-get sponsor-amount)))
+            (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-sponsor-principals pot-contract))
+          )
+        )
 
-    ;; Disburse rewards
-    (try! 
-      (as-contract? ((with-ft 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token "sbtc-token" pot-yield))
-        (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-rewards pot-contract))
+        ;; Disburse rewards
+        (try! 
+          (as-contract? ((with-ft 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token "sbtc-token" pot-yield))
+            (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-rewards pot-contract))
+          )
+        )
+
+        (var-set pot-session-ended true)
+
+        true
+      )
+      (begin 
+        ;; Disburse rewards
+        (try! 
+          (as-contract? ((with-ft 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token "sbtc-token" pot-yield))
+            (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots dispatch-rewards pot-contract))
+          )
+        )
+        
+        false
       )
     )
 
@@ -572,7 +589,7 @@
 
 ;; Pot Configuration
 (define-data-var initiated bool false)
-(define-public (init-pot (cycle uint) (min-amount uint) (max-participants uint) (name (string-ascii 255)) (type (string-ascii 255)))
+(define-public (init-pot (cycle uint) (min-amount uint) (max-participants uint) (name (string-ascii 255)))
   (begin
     (asserts! (is-eq tx-sender POT_ADMIN) ERR_ADMIN_ONLY)
     (asserts! (not (var-get initiated)) ERR_ALREADY_INIT)
@@ -581,7 +598,7 @@
     (var-set pot-min-amount min-amount)
     (var-set pot-max-participants max-participants)
     (var-set pot-name name)
-    (var-set pot-type type)
+    (var-set pot-type "stackspot-jackpot")
 
     (var-set initiated true)
 

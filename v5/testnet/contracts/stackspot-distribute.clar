@@ -30,10 +30,10 @@
       (next-cycle-start (+ first (* (+ cycle u1) cycle-len)))
     )
     (ok {
-      join-end: (- (- next-cycle-start prepare-len) u3),
+      join-end: (- (- next-cycle-start prepare-len) u300),
       prepare-start: (- next-cycle-start prepare-len),
       cycle-end: next-cycle-start,
-      reward-release: (+ next-cycle-start u5),
+      reward-release: (+ next-cycle-start u432),
     })
   )
 )

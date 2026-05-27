@@ -89,11 +89,6 @@ path = "contracts/sbtc-token.clar"
 clarity_version = 5
 epoch = "latest"
 
-[contracts.sim-pox-4]
-path = "contracts/sim-pox-4.clar"
-clarity_version = 3
-epoch = "latest"
-
 [contracts.sim-pox-4-multi-pool-v1]
 path = "contracts/sim-pox-4-multi-pool-v1.clar"
 clarity_version = 3
