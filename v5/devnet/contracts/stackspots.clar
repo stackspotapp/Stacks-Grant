@@ -59,15 +59,7 @@
   (var-get fee)
 )
 
-(define-public (register-pot (pot-values {
-  owner: principal,
-  contract: principal,
-  cycles: uint,
-  type: (string-ascii 255),
-  pot-reward-token: (string-ascii 16),
-  min-amount: uint,
-  max-participants: uint,
-}))
+(define-public (register-pot (pot-values {owner: principal, contract: principal,  cycles: uint,  type: (string-ascii 255),  pot-reward-token: (string-ascii 16),  min-amount: uint, max-participants: uint}))
   (let (
       ;; Pot Deploy Values
       (owner (get owner pot-values))
@@ -88,19 +80,15 @@
     ;; Validate's if the owner is the same as the tx-sender
     ;; Validate's if the contract hash is not empty
     ;; Mint NFT to pot address
-    (asserts!
-      (contract-call? .stackspot-admin is-contract-allowed-hash contract-address)
-      ERR_UNAUTHORIZED_CONTRACT_HASH
-    )
+    (asserts! (contract-call? .stackspot-admin is-contract-allowed-hash contract-address) ERR_UNAUTHORIZED_CONTRACT_HASH)
     (asserts! (contract-call? .stackspot-admin can-deploy-pot) ERR_UNAUTHORIZED)
-    (asserts! (>= new-pot-owner-balance platform-contracts-fee)
-      ERR_INSUFFICIENT_BALANCE
-    )
+    (asserts! (>= new-pot-owner-balance platform-contracts-fee) ERR_INSUFFICIENT_BALANCE)
     (asserts! (is-eq tx-sender owner) ERR_UNAUTHORIZED)
     (asserts! (> (len contract-hash) u0) ERR_INVALID_ARGUMENT_VALUE)
+    
     (let ((pot-id (unwrap! (mint contract-address) ERR_MINT_FAILED)))
       ;; Log pot registered
-      (try! (log-pot (unwrap!
+      (try! (contract-call? .stackspot-registry log-pot (unwrap!
         (to-consensus-buff? {
           ;; Pot Values
           pot-id: pot-id,
@@ -145,15 +133,6 @@
 
       (ok true)
     )
-  )
-)
-
-(define-private (log-pot (pot-values (buff 2048)))
-  (begin
-    (asserts! (is-ok (contract-call? .stackspot-registry log-pot pot-values))
-      ERR_LOG_FAILED
-    )
-    (ok true)
   )
 )
 

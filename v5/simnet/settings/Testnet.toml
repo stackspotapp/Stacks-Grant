@@ -14,4 +14,4 @@ deployment_fee_rate = 10
 #
 [accounts.deployer]
 mnemonic = "warrior bless mango day sausage cheap crack fork kiss orphan distance skin trade vast tent task pretty battle boat human often wood deer empty"
-derivation = "m/44'/5757'/0'/0/10"
+derivation = "m/44'/5757'/0'/0/7"

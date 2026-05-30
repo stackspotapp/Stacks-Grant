@@ -1,8 +1,9 @@
 [network]
-name = "testnet"
-stacks_node_rpc_address = "https://api.testnet.hiro.so"
+name = "mainnet"
+stacks_node_rpc_address = "https://api.hiro.so"
 deployment_fee_rate = 10
 
+[accounts.deployer]
 # It is strongly suggested to use encrypted mnemonics to avoid putting
 # seed phrases directly into TOML files.  To do so, run:
 #
@@ -11,7 +12,4 @@ deployment_fee_rate = 10
 # Enter your seed phrase and a password, then paste the encrypted mnemonic here.
 #
 # Otherwise, use the mnemonic field below:
-#
-[accounts.deployer]
-mnemonic = "warrior bless mango day sausage cheap crack fork kiss orphan distance skin trade vast tent task pretty battle boat human often wood deer empty"
-derivation = "m/44'/5757'/0'/0/10"
+mnemonic = "<YOUR PRIVATE MAINNET MNEMONIC HERE>"

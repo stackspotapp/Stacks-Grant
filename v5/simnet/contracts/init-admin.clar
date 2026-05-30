@@ -3,6 +3,9 @@
 ;; summary:
 ;; description:
 
+;; --- Traits
+(use-trait stackspot-trait .stackspot-trait.stackspot-trait)
+
 ;; Errors
 (define-constant ERR_UNAUTHORIZED (err u1101))
 (define-constant admin tx-sender)
@@ -10,9 +13,9 @@
 (define-public (update-contract-hash) 
   (begin
     (asserts! (is-eq tx-sender admin) ERR_UNAUTHORIZED)
-    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspot-jackpot true))
-    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspot-crowdfund true))
-    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspot-sequential-pot true))
+    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-jackpot true))
+    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-crowdfund true))
+    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sequential-pot true))
     ;; (try! (stx-transfer? u1000000000 tx-sender 'ST140MXYA1DSF1R0VZ5YGGQ5XR9FT5H7YTWVGFMJQ))
     ;; (try! (stx-transfer? u1000000000 tx-sender 'STT4SQP5RC1BFAJEQKBHZMXQ8NQ7G118F0XRWTMV))
     ;; (try! (stx-transfer? u1000000000 tx-sender 'ST2QZEVVWS4XDZYHX511A4P8E964RXXCYJ1T5EGQ8))
