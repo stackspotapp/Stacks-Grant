@@ -284,8 +284,7 @@
     ;; Delegate to pot
     (asserts! (var-get initiated) ERR_NOT_INITIATED)
     (asserts! (validate-can-join-pot) ERR_POT_JOIN_CLOSED)
-    (asserts! (> amount u0) ERR_INSUFFICIENT_AMOUNT)
-    (asserts! (<= (var-get last-sponsors-count) (var-get pot-max-participants)) ERR_MAX_PARTICIPANTS_REACHED)
+    (asserts! (<= (var-get last-participant) (var-get pot-max-participants)) ERR_MAX_PARTICIPANTS_REACHED)
 
     (try! (delegate-to-pot amount tx-sender))
     ;; Set first user joined burn height
@@ -580,6 +579,7 @@
     (asserts! (is-eq tx-sender POT_ADMIN) ERR_ADMIN_ONLY)
     (asserts! (not (var-get initiated)) ERR_ALREADY_INIT)
     (asserts! (is-eq (contract-of contract) current-contract) ERR_UNAUTHORIZED)
+    (asserts! (<= max-participants u100) ERR_INVALID_ARGUMENT_VALUE)
     
     (var-set pot-cycle cycle)
     (var-set pot-min-amount min-amount)

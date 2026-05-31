@@ -235,14 +235,14 @@
       (min-amount (get min-amount pot-config))
     )
     ;; Participants Eligibility Validations
-    (asserts! (is-eq amount min-amount) ERR_INSUFFICIENT_AMOUNT)
+    (asserts! (>= amount min-amount) ERR_INSUFFICIENT_AMOUNT)
 
     (asserts! (not (is-eq participant pot-treasury-address)) ERR_UNAUTHORIZED)
     (asserts! (not (is-eq participant PLATFORM_ADDRESS)) ERR_UNAUTHORIZED)
     (asserts! (not (is-eq participant POT_ADMIN)) ERR_UNAUTHORIZED)
     (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
 
-    (asserts! (< index-participants max-participants) ERR_MAX_PARTICIPANTS_REACHED)
+    (asserts! (<= index-participants max-participants) ERR_MAX_PARTICIPANTS_REACHED)
     (asserts! (is-none (map-get? pot-participants-by-principal participant)) ERR_DUPLICATE_PARTICIPANT)
 
     ;; Registers Participants Values To The Pot Maps
@@ -250,7 +250,7 @@
     (map-insert pot-participants-by-id index-participants {participant: participant, amount: amount})
 
     ;; Transfers User's Delegated Amount To Pot Treasury
-    (asserts! (is-ok (stx-transfer-memo? amount participant pot-treasury-address JOIN_POT_MEMO)) ERR_POT_JOIN_FAILED)
+    (try! (stx-transfer-memo? amount participant pot-treasury-address JOIN_POT_MEMO))
 
     ;; Updates Pot Value
     (add-pot-value amount)
@@ -286,8 +286,7 @@
     ;; Delegate to pot
     (asserts! (var-get initiated) ERR_NOT_INITIATED)
     (asserts! (validate-can-join-pot) ERR_POT_JOIN_CLOSED)
-    (asserts! (> amount u0) ERR_INSUFFICIENT_AMOUNT)
-    (asserts! (<= (var-get last-sponsors-count) (var-get pot-max-participants)) ERR_MAX_PARTICIPANTS_REACHED)
+    (asserts! (<= (var-get last-participant) (var-get pot-max-participants)) ERR_MAX_PARTICIPANTS_REACHED)
 
     (try! (delegate-to-pot amount tx-sender))
     ;; Set first user joined burn height
@@ -350,16 +349,8 @@
 (define-public (cancel-pot (pot-contract <stackspot-trait>))
   (begin
     (asserts! (not (var-get locked)) ERR_POT_ALREADY_STARTED)
-    (asserts!
-      (> burn-block-height
-        (+ (default-to burn-block-height (var-get first-user-joined))
-          MORE_THAN_ONE_CYCLE
-        ))
-      ERR_TOO_EARLY
-    )
-    (asserts! (is-eq (contract-of pot-contract) pot-treasury-address)
-      ERR_ADMIN_ONLY
-    )
+    (asserts! (> burn-block-height (+ (default-to burn-block-height (var-get first-user-joined)) MORE_THAN_ONE_CYCLE)) ERR_TOO_EARLY)
+    (asserts! (is-eq (contract-of pot-contract) current-contract) ERR_ADMIN_ONLY)
 
     ;; Returns participants principals
     (try! 
@@ -427,34 +418,6 @@
       pot-lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
       pot-cancelled: (var-get pot-cancelled),
     })
-
-    ;; Execution complete
-    (ok true)
-  )
-)
-
-(define-public (extend-initialization (pot-contract <stackspot-trait>)) 
-  (let (
-      (pool-config (unwrap! (get-pool-config) (err u999)))
-      (cycle-end (get cycle-end pool-config))
-      (cycle-len (get reward-cycle-length pox-details))
-      (current-cycle-mid-point (- cycle-end (/ cycle-len u2)))
-    )
-    ;; Validate last participant is greater than 1
-    ;; Validate pot is locked
-    ;; Validate pot is not cancelled
-    (asserts! (var-get initiated) ERR_NOT_INITIATED)
-    (asserts! (var-get locked) ERR_POT_ALREADY_STARTED)
-    (asserts! (> (var-get last-participant) u1) ERR_UNAUTHORIZED)
-    (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
-    (asserts! (> burn-block-height current-cycle-mid-point) ERR_TOO_EARLY)
-
-    ;; Extend delegate treasury while cycles are not maxed out
-    (try! 
-      (as-contract? ((with-stx (var-get total-pot-value)) (with-stacking (var-get total-pot-value)))
-        (try! (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspots extend-delegate-treasury pot-contract 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.sim-pox-4-multi-pool-v1))
-      )
-    )
 
     ;; Execution complete
     (ok true)
@@ -658,6 +621,7 @@
     (asserts! (is-eq tx-sender POT_ADMIN) ERR_ADMIN_ONLY)
     (asserts! (not (var-get initiated)) ERR_ALREADY_INIT)
     (asserts! (is-eq (contract-of contract) current-contract) ERR_UNAUTHORIZED)
+    (asserts! (<= max-participants u100) ERR_INVALID_ARGUMENT_VALUE)
     
     (var-set pot-min-amount min-amount)
     (var-set pot-max-participants max-participants)
