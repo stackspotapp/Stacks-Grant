@@ -84,4 +84,4 @@
 )
 ;; Initialize admins
 (add-update-admin-status tx-sender true)
-(add-update-admin-status 'SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG true)
+(add-update-admin-status 'SP3BRVGWXWWE92AHXRDPZM855BJ9Q8DXCQSTA9J1Y true)

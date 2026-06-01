@@ -15,9 +15,9 @@
     (asserts! (is-eq tx-sender admin) ERR_UNAUTHORIZED)
     (asserts! (not (var-get initialized)) ERR_ALREADY_INITIALIZED)
     ;; Set the contract hash for the jackpot, crowdfund, and sequential pot contracts
-    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG.stackspot-jackpot true))
-    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG.stackspot-crowdfund true))
-    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG.stackspot-sequential-pot true))
+    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'SP3BRVGWXWWE92AHXRDPZM855BJ9Q8DXCQSTA9J1Y.stackspot-jackpot true))
+    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'SP3BRVGWXWWE92AHXRDPZM855BJ9Q8DXCQSTA9J1Y.stackspot-crowdfund true))
+    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'SP3BRVGWXWWE92AHXRDPZM855BJ9Q8DXCQSTA9J1Y.stackspot-sequential-pot true))
     (var-set initialized true)
     (ok true)
   )

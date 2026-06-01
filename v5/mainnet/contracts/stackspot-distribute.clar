@@ -100,7 +100,7 @@
 )
 
 (define-private (dispatch-rewards-with-sbtc (amount uint) (from principal) (to principal) (memo (optional (buff 32))))
-  (contract-call? .sbtc-token transfer amount from to memo)
+  (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token transfer amount from to memo)
 )
 
 (define-public (dispatch-rewards (contract <stackspot-trait>))
@@ -108,7 +108,7 @@
       (pot-details (unwrap! (contract-call? contract get-pot-details) ERR_NOT_FOUND))
       (pot-cycle (unwrap! (contract-call? contract get-pot-cycle) ERR_NOT_FOUND))
       (pot-treasury (unwrap! (contract-call? contract get-pot-treasury) ERR_NOT_FOUND))
-      (pot-yield (unwrap! (contract-call? .sbtc-token get-balance pot-treasury) ERR_NOT_FOUND))
+      (pot-yield (unwrap! (contract-call? 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token get-balance pot-treasury) ERR_NOT_FOUND))
       (pot-id (unwrap! (contract-call? contract get-pot-id) ERR_NOT_FOUND))
       ;; Pot Fee
       (pot-owner-address (unwrap! (contract-call? contract get-pot-admin) ERR_NOT_FOUND))

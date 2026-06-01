@@ -13,4 +13,4 @@ deployment_fee_rate = 10
 #
 # Otherwise, use the mnemonic field below:
 mnemonic = ""
-derivation = "m/44'/5757'/0'/0/3"
+derivation = "m/44'/5757'/0'/0/0"
