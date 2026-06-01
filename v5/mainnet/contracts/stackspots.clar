@@ -7,7 +7,7 @@
 (use-trait stackspot-trait .stackspot-trait.stackspot-trait)
 
 ;; Platform address
-(define-constant platform-treasury 'STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6)
+(define-constant platform-treasury 'SM2X6FPWK6746NDDAS21DVS17KQWWNFEK05V8SP20)
 (define-read-only (get-platform-treasury) platform-treasury)
 
 ;; Core errors
@@ -172,7 +172,7 @@
     (var-set last-pot-index token-id)
 
     ;; Print event
-    (print {
+    (print (to-consensus-buff? {
       event: "pot mint",
       contract-name: contract-name,
       recipient: recipient,
@@ -180,7 +180,7 @@
       tx-sender: tx-sender,
       contract-caller: contract-caller,
       platform-contracts-fee: platform-contracts-fee,
-    })
+    }))
 
     (ok token-id)
   )

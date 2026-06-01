@@ -12,4 +12,5 @@ deployment_fee_rate = 10
 # Enter your seed phrase and a password, then paste the encrypted mnemonic here.
 #
 # Otherwise, use the mnemonic field below:
-mnemonic = "<YOUR PRIVATE MAINNET MNEMONIC HERE>"
+mnemonic = "begin message assist viable police furnace toilet rude armed verb immune ozone copper dash claw until script arrest fringe token old aware guilt news"
+derivation = "m/44'/5757'/0'/0/3"

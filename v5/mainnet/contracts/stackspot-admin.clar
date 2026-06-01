@@ -24,11 +24,11 @@
     (map-set admins admin enable)
     (try! (ft-mint? sec u1 tx-sender))
     (try! (ft-burn? sec u1 tx-sender))
-    (print {
+    (print (to-consensus-buff? {
       event: "admin added/updated",
       admin: admin,
       enable: enable,
-    })
+    }))
     (ok true)
   )
 )
@@ -39,11 +39,11 @@
     (var-set public-pot-deploy enable)
     (try! (ft-mint? sec u1 tx-sender))
     (try! (ft-burn? sec u1 tx-sender))
-    (print {
+    (print (to-consensus-buff? {
       event: "public pot deploy status updated",
       enable: enable,
       admin: tx-sender,
-    })
+    }))
     (ok true)
   )
 )
@@ -67,11 +67,11 @@
     (map-set allowed-contract-hash hash state)
     (try! (ft-mint? sec u1 tx-sender))
     (try! (ft-burn? sec u1 tx-sender))
-    (print {
+    (print (to-consensus-buff? {
       event: "pot contract hash set",
       hash: hash,
       state: state,
-    })
+    }))
     (ok true)
   )
 )
@@ -84,4 +84,4 @@
 )
 ;; Initialize admins
 (add-update-admin-status tx-sender true)
-(add-update-admin-status 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15 true)
+(add-update-admin-status 'SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG true)

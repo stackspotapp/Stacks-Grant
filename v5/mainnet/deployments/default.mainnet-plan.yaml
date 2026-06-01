@@ -1,0 +1,73 @@
+id: 0
+name: Mainnet deployment
+network: mainnet
+stacks-node: https://api.hiro.so
+bitcoin-node: http://blockstack:blockstacksystem@bitcoin.blockstack.com:8332
+plan:
+  batches:
+  - id: 0
+    transactions:
+    - transaction-type: contract-publish
+      contract-name: stackspot-trait
+      expected-sender: SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG
+      cost: 80886644
+      path: contracts/stackspot-trait.clar
+      anchor-block-only: true
+      clarity-version: 5
+    - transaction-type: contract-publish
+      contract-name: stackspot-admin
+      expected-sender: SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG
+      cost: 80883337
+      path: contracts/stackspot-admin.clar
+      anchor-block-only: true
+      clarity-version: 5
+    - transaction-type: contract-publish
+      contract-name: init-admin
+      expected-sender: SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG
+      cost: 80856882
+      path: contracts/init-admin.clar
+      anchor-block-only: true
+      clarity-version: 5
+    - transaction-type: contract-publish
+      contract-name: stackspot-crowdfund
+      expected-sender: SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG
+      cost: 81204106
+      path: contracts/stackspot-crowdfund.clar
+      anchor-block-only: true
+      clarity-version: 5
+    - transaction-type: contract-publish
+      contract-name: stackspot-distribute
+      expected-sender: SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG
+      cost: 80982544
+      path: contracts/stackspot-distribute.clar
+      anchor-block-only: true
+      clarity-version: 5
+    - transaction-type: contract-publish
+      contract-name: stackspot-jackpot
+      expected-sender: SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG
+      cost: 81204106
+      path: contracts/stackspot-jackpot.clar
+      anchor-block-only: true
+      clarity-version: 5
+    - transaction-type: contract-publish
+      contract-name: stackspot-sequential-pot
+      expected-sender: SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG
+      cost: 81230561
+      path: contracts/stackspot-sequential-pot.clar
+      anchor-block-only: true
+      clarity-version: 5
+    - transaction-type: contract-publish
+      contract-name: stackspot-vrf
+      expected-sender: SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG
+      cost: 80876723
+      path: contracts/stackspot-vrf.clar
+      anchor-block-only: true
+      clarity-version: 5
+    - transaction-type: contract-publish
+      contract-name: stackspots
+      expected-sender: SP3F296T61SMXRKR93BYMBCVF967MXBBTP1V5S4NG
+      cost: 81051989
+      path: contracts/stackspots.clar
+      anchor-block-only: true
+      clarity-version: 5
+    epoch: '3.4'
