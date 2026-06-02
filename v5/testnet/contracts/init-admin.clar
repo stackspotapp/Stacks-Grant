@@ -10,9 +10,9 @@
 (define-public (update-contract-hash) 
   (begin
     (asserts! (is-eq tx-sender admin) ERR_UNAUTHORIZED)
-    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspot-jackpot true))
-    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspot-crowdfund true))
-    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspot-sequential-pot true))
+    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspot-jackpot true))
+    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspot-crowdfund true))
+    (try! (contract-call? .stackspot-admin set-pot-contract-hash 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspot-sequential-pot true))
     ;; (try! (stx-transfer? u1000000000 tx-sender 'ST140MXYA1DSF1R0VZ5YGGQ5XR9FT5H7YTWVGFMJQ))
     ;; (try! (stx-transfer? u1000000000 tx-sender 'STT4SQP5RC1BFAJEQKBHZMXQ8NQ7G118F0XRWTMV))
     ;; (try! (stx-transfer? u1000000000 tx-sender 'ST2QZEVVWS4XDZYHX511A4P8E964RXXCYJ1T5EGQ8))

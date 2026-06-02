@@ -3,7 +3,7 @@
 ;; summary:
 ;; description:
 
-(impl-trait 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.nft-trait.nft-trait)
+(impl-trait 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.nft-trait.nft-trait)
 (use-trait stackspot-trait .stackspot-trait.stackspot-trait)
 
 ;; Platform address

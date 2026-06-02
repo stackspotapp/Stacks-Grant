@@ -4,8 +4,8 @@
 ;; description:
 
 ;; --- Traits
-(impl-trait 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspot-trait.stackspot-trait)
-(use-trait stackspot-trait 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspot-trait.stackspot-trait)
+(impl-trait 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspot-trait.stackspot-trait)
+(use-trait stackspot-trait 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspot-trait.stackspot-trait)
 
 ;; Errors
 (define-constant ERR_NOT_FOUND (err u1001))
@@ -13,6 +13,7 @@
 (define-constant ERR_ADMIN_ONLY (err u1102))
 (define-constant ERR_DUPLICATE_PARTICIPANT (err u1104))
 (define-constant ERR_DUPLICATE_SPONSOR (err u1105))
+(define-constant ERR_INVALID_ARGUMENT_VALUE (err u1202))
 (define-constant ERR_INSUFFICIENT_AMOUNT (err u1302))
 (define-constant ERR_INSUFFICIENT_POT_REWARD (err u1304))
 (define-constant ERR_POT_JOIN_CLOSED (err u1401))
@@ -103,7 +104,7 @@
   (ok {
     pot-participants-count: (var-get last-participant),
     pot-value: (var-get total-pot-value),
-    pot-reward-amount: (unwrap! (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.sbtc-token get-balance current-contract) ERR_NOT_FOUND),
+    pot-reward-amount: (unwrap! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.sbtc-token get-balance current-contract) ERR_NOT_FOUND),
     pot-participant-values: (get-pot-participant-values tx-sender),
     ;; Winner Values
     winners-values: (var-get winners-values),
@@ -122,7 +123,7 @@
 ;; Total Max Participants
 ;; Platform Address
 ;; Pot Treasury Address
-(define-constant PLATFORM_ADDRESS (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspots get-platform-treasury))
+(define-constant PLATFORM_ADDRESS (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots get-platform-treasury))
 
 (define-read-only (get-pot-treasury)
   (ok current-contract)
@@ -178,7 +179,7 @@
 (define-read-only (get-pot-participants)
   (let (
       (participants-count (var-get last-participant))
-      (n (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspot-vrf generate-list u0 participants-count))
+      (n (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspot-vrf generate-list u0 participants-count))
       (participants (match n
         value (map get-by-id-helper-private value)
         (list)
@@ -192,7 +193,7 @@
 (define-read-only (get-sponsors-addresses)
   (let 
     (
-      (n (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
+      (n (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
       (participants 
         (match n
           value (map get-by-id-helper-sponsor value)
@@ -206,7 +207,7 @@
 
 ;; Get Pot ID
 (define-read-only (get-pot-id)
-  (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspots get-token-id current-contract)
+  (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots get-token-id current-contract)
 )
 
 ;; Get Pot Starter Principal
@@ -223,7 +224,7 @@
 (define-read-only (get-random-index (participant-count uint))
   (let (
       ;; Get random digit from VRF
-      (vrf-random-digit (unwrap! (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspot-vrf get-random-uint-at-block stacks-block-height) ERR_NOT_FOUND))
+      (vrf-random-digit (unwrap! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspot-vrf get-random-uint-at-block stacks-block-height) ERR_NOT_FOUND))
     )
     (asserts! (> participant-count u0) ERR_INVALID_PARTICIPANT_COUNT)
     (ok (mod vrf-random-digit participant-count))
@@ -263,12 +264,12 @@
     (var-set last-participant (+ index-participants u1))
 
     ;; Action Log
-    (print {
+    (print (to-consensus-buff? {
       event: "delegate-to-pot",
       participant: participant,
       amount: amount,
       index: index-participants,
-    })
+    }))
 
     ;; Execution Complete
     (ok true)
@@ -332,12 +333,12 @@
     (var-set last-sponsors-count (+ (var-get last-sponsors-count) u1))
 
     ;; Action Log
-    (print {
+    (print (to-consensus-buff? {
       event: "join-pot-as-sponsor",
       sponsor: sponsor,
       amount: amount,
       sponsors-count: (var-get last-sponsors-count),
-    })
+    }))
 
     ;; Execution Complete
     (ok true)
@@ -353,14 +354,14 @@
     ;; Returns participants principals
     (try! 
       (as-contract? ((with-stx (- (var-get total-pot-value) (var-get sponsor-amount))))
-        (try! (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspots dispatch-principals pot-contract))
+        (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-principals pot-contract))
       )
     )
 
     ;; Returns sponsors principals
     (try! 
       (as-contract? ((with-stx (var-get sponsor-amount)))
-        (try! (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspots dispatch-sponsor-principals pot-contract))
+        (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-sponsor-principals pot-contract))
       )
     )
 
@@ -368,10 +369,10 @@
     (var-set pot-cancelled true)
 
     ;; Print
-    (print {
+    (print (to-consensus-buff? {
       event: "cancel-pot",
       pot-cancelled: (var-get pot-cancelled),
-    })
+    }))
 
     ;; Execution complete
     (ok true)
@@ -395,7 +396,7 @@
 
     ;; Delegate treasury to pot contract
     (try! (as-contract? ((with-stx (var-get total-pot-value)) (with-stacking (var-get total-pot-value)))
-      (try! (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspots delegate-treasury pot-contract current-contract))
+      (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots delegate-treasury pot-contract current-contract))
     ))
 
     ;; Set pot starter principal
@@ -405,7 +406,7 @@
     (var-set locked true)
 
     ;; Print
-    (print {
+    (print (to-consensus-buff? {
       event: "start-stackspot-jackpot",
       pot-starter-principal: tx-sender,
       pot-contract: (contract-of pot-contract),
@@ -415,7 +416,7 @@
       pot-locked: (var-get locked),
       pot-lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
       pot-cancelled: (var-get pot-cancelled),
-    })
+    }))
 
     ;; Execution complete
     (ok true)
@@ -435,7 +436,7 @@
       (pot-id (get-pot-id))
       (total-participants (get pot-participants-count pot-details))
       (participants (unwrap! (get-pot-participants) (err u998))) ;; Get participants list
-      (pot-yield (unwrap! (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.sbtc-token get-balance current-contract) (err u997)))
+      (pot-yield (unwrap! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.sbtc-token get-balance current-contract) (err u997)))
       ;; Get stacked reward
       (pot-starter (get pot-starter-address pot-details))
       (pot-starter-reward (if (> pot-yield u0) (* (/ pot-yield u100) u2) u0))
@@ -462,21 +463,21 @@
         ;; Returns participants principals
         (try! 
           (as-contract? ((with-stx (- (var-get total-pot-value) (var-get sponsor-amount))))
-            (try! (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspots dispatch-principals pot-contract))
+            (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-principals pot-contract))
           )
         )
 
         ;; Returns sponsors principals
         (try! 
           (as-contract? ((with-stx (var-get sponsor-amount)))
-            (try! (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspots dispatch-sponsor-principals pot-contract))
+            (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-sponsor-principals pot-contract))
           )
         )
 
         ;; Disburse rewards
         (try! 
-          (as-contract? ((with-ft 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.sbtc-token "sbtc-token" pot-yield))
-            (try! (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspots dispatch-rewards pot-contract))
+          (as-contract? ((with-ft 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.sbtc-token "sbtc-token" pot-yield))
+            (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-rewards pot-contract))
           )
         )
 
@@ -487,8 +488,8 @@
       (begin 
         ;; Disburse rewards
         (try! 
-          (as-contract? ((with-ft 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.sbtc-token "sbtc-token" pot-yield))
-            (try! (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspots dispatch-rewards pot-contract))
+          (as-contract? ((with-ft 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.sbtc-token "sbtc-token" pot-yield))
+            (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-rewards pot-contract))
           )
         )
         
@@ -497,7 +498,7 @@
     )
 
     ;; Print
-    (print {
+    (print (to-consensus-buff? {
       ;; Pot Values
       event: "claim-pot-reward",
       ;; Pot Round Values
@@ -530,7 +531,7 @@
       burn-block-height: burn-block-height,
       lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
       pot-cancelled: (var-get pot-cancelled),
-    })
+    }))
     ;; Execution complete
     (ok true)
   )
@@ -563,12 +564,12 @@
 
 (try!
   (as-contract? ()
-    (try! (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.sim-pox-4-multi-pool-v1 allow-contract-caller 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspot-distribute none))
+    (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.sim-pox-4-multi-pool-v1 allow-contract-caller 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspot-distribute none))
   )
 )
 (try!
   (as-contract? ()
-    (try! (contract-call? 'ST000000000000000000002AMW42H.pox-4 allow-contract-caller 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.sim-pox-4-multi-pool-v1 none))
+    (try! (contract-call? 'ST000000000000000000002AMW42H.pox-4 allow-contract-caller 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.sim-pox-4-multi-pool-v1 none))
   )
 )
 
@@ -588,7 +589,21 @@
 
     (var-set initiated true)
 
-    (contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspots register-pot 
+    (print (to-consensus-buff? {
+      event: "init-pot",
+      owner: tx-sender,
+      pot-admin: POT_ADMIN,
+      pot-treasury: current-contract,
+      contract: current-contract,
+      cycles: (var-get pot-cycle),
+      type: (var-get pot-type),
+      pot-reward-token: "sbtc",
+      min-amount: (var-get pot-min-amount),
+      max-participants: (var-get pot-max-participants),
+      pot-is-init: (var-get initiated),
+    }))
+
+    (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots register-pot 
       {
         owner: tx-sender,
         contract: current-contract,
@@ -609,7 +624,7 @@
 (define-data-var pot-type (string-ascii 255) "stackspot-jackpot")
 
 ;; Pre init
-(contract-call? 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15.stackspots pot-deploys 
+(contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots pot-deploys 
   (to-consensus-buff? 
       {
         event: "pre-init",

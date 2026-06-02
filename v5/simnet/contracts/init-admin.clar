@@ -3,9 +3,6 @@
 ;; summary:
 ;; description:
 
-;; --- Traits
-(use-trait stackspot-trait .stackspot-trait.stackspot-trait)
-
 ;; Errors
 (define-constant ERR_UNAUTHORIZED (err u1101))
 (define-constant admin tx-sender)

@@ -13,6 +13,7 @@
 (define-constant ERR_ADMIN_ONLY (err u1102))
 (define-constant ERR_DUPLICATE_PARTICIPANT (err u1104))
 (define-constant ERR_DUPLICATE_SPONSOR (err u1105))
+(define-constant ERR_INVALID_ARGUMENT_VALUE (err u1202))
 (define-constant ERR_INSUFFICIENT_AMOUNT (err u1302))
 (define-constant ERR_INSUFFICIENT_POT_REWARD (err u1304))
 (define-constant ERR_POT_JOIN_CLOSED (err u1401))
@@ -257,12 +258,12 @@
     (var-set last-participant (+ index-participants u1))
 
     ;; Action Log
-    (print {
+    (print (to-consensus-buff? {
       event: "delegate-to-pot",
       participant: participant,
       amount: amount,
       index: index-participants,
-    })
+    }))
 
     ;; Execution Complete
     (ok true)
@@ -278,7 +279,7 @@
     ;; Delegate to pot
     (asserts! (var-get initiated) ERR_NOT_INITIATED)
     (asserts! (validate-can-join-pot) ERR_POT_JOIN_CLOSED)
-    (asserts! (> amount u0) ERR_INSUFFICIENT_AMOUNT)
+    (asserts! (<= (var-get last-participant) (var-get pot-max-participants)) ERR_MAX_PARTICIPANTS_REACHED)
 
     (try! (delegate-to-pot amount tx-sender))
     ;; Set first user joined burn height
@@ -326,12 +327,12 @@
     (var-set last-sponsors-count (+ (var-get last-sponsors-count) u1))
 
     ;; Action Log
-    (print {
+    (print (to-consensus-buff? {
       event: "join-pot-as-sponsor",
       sponsor: sponsor,
       amount: amount,
       sponsors-count: (var-get last-sponsors-count),
-    })
+    }))
 
     ;; Execution Complete
     (ok true)
@@ -342,7 +343,7 @@
   (begin
     (asserts! (not (var-get locked)) ERR_POT_ALREADY_STARTED)
     (asserts! (> burn-block-height (+ (default-to burn-block-height (var-get first-user-joined)) MORE_THAN_ONE_CYCLE)) ERR_TOO_EARLY)
-    (asserts! (is-eq (contract-of pot-contract) pot-treasury-address) ERR_ADMIN_ONLY)
+    (asserts! (is-eq (contract-of pot-contract) current-contract) ERR_ADMIN_ONLY)
 
     ;; Returns participants principals
     (try! 
@@ -362,10 +363,10 @@
     (var-set pot-cancelled true)
 
     ;; Print
-    (print {
+    (print (to-consensus-buff? {
       event: "cancel-pot",
       pot-cancelled: (var-get pot-cancelled),
-    })
+    }))
 
     ;; Execution complete
     (ok true)
@@ -399,7 +400,7 @@
     (var-set locked true)
 
     ;; Print
-    (print {
+    (print (to-consensus-buff? {
       event: "start-stackspot-crowdfund",
       pot-starter-principal: tx-sender,
       pot-contract: (contract-of pot-contract),
@@ -409,7 +410,7 @@
       pot-locked: (var-get locked),
       pot-lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
       pot-cancelled: (var-get pot-cancelled),
-    })
+    }))
 
     ;; Execution complete
     (ok true)
@@ -490,7 +491,7 @@
     )
 
     ;; Print
-    (print {
+    (print (to-consensus-buff? {
       ;; Pot Values
       event: "claim-pot-reward",
       ;; Pot Round Values
@@ -523,7 +524,7 @@
       burn-block-height: burn-block-height,
       lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
       pot-cancelled: (var-get pot-cancelled),
-    })
+    }))
     ;; Execution complete
     (ok true)
   )
@@ -568,15 +569,29 @@
     (asserts! (is-eq tx-sender POT_ADMIN) ERR_ADMIN_ONLY)
     (asserts! (not (var-get initiated)) ERR_ALREADY_INIT)
     (asserts! (is-eq (contract-of contract) current-contract) ERR_UNAUTHORIZED)
+    (asserts! (<= max-participants u100) ERR_INVALID_ARGUMENT_VALUE)
     
     (var-set pot-cycle cycle)
     (var-set pot-min-amount min-amount)
     (var-set pot-max-participants max-participants)
     (var-set pot-name name)
-    (var-set pot-type "stackspot-crowdfund")
     (var-set funding-address address-to-fund)
     
     (var-set initiated true)
+
+    (print (to-consensus-buff? {
+      event: "init-pot",
+      owner: tx-sender,
+      pot-admin: POT_ADMIN,
+      pot-treasury: current-contract,
+      contract: current-contract,
+      cycles: (var-get pot-cycle),
+      type: (var-get pot-type),
+      pot-reward-token: "sbtc",
+      min-amount: (var-get pot-min-amount),
+      max-participants: (var-get pot-max-participants),
+      pot-is-init: (var-get initiated),
+    }))
 
     (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
       register-pot {
@@ -592,10 +607,10 @@
 )
 
 (define-data-var pot-cycle uint u1)
-(define-data-var pot-min-amount uint u100)
+(define-data-var pot-min-amount uint u100000000)
 (define-data-var pot-max-participants uint u100)
 (define-data-var pot-name (string-ascii 255) "")
-(define-data-var pot-type (string-ascii 255) "")
+(define-data-var pot-type (string-ascii 255) "stackspot-crowdfund")
 (define-data-var funding-address principal tx-sender)
 
 ;; Pre init

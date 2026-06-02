@@ -1,4 +1,4 @@
-;; title: stackspot-jackpot
+;; title: stackspot-crowed-fund-pot
 ;; version:
 ;; summary:
 ;; description:
@@ -26,7 +26,6 @@
 (define-constant ERR_INSUFFICIENT_REWARD (err u1410))
 (define-constant ERR_ALREADY_INIT (err u1411))
 (define-constant ERR_NOT_INITIATED (err u1412))
-(define-constant ERR_POT_SESSION_ENDED (err u1413))
 
 (define-constant JOIN_POT_MEMO (unwrap-panic (to-consensus-buff? "join pot")))
 (define-constant JOIN_POT_AS_SPONSOR_MEMO (unwrap-panic (to-consensus-buff? "join pot as sponsor")))
@@ -35,10 +34,7 @@
 ;; Pot Claimer Principal
 (define-data-var pot-starter-principal (optional principal) none)
 (define-data-var pot-claimer-principal (optional principal) none)
-(define-data-var winners-values (optional {
-  winner-id: uint,
-  winner-address: principal,
-}) none)
+(define-data-var winners-values (optional {winner-id: uint, winner-address: principal}) none)
 
 ;; Pot Participants Maps
 (define-map pot-participants-by-principal principal uint)
@@ -53,7 +49,6 @@
 (define-data-var lock-burn-height (optional uint) none)
 (define-data-var pot-cancelled bool false)
 (define-data-var first-user-joined (optional uint) none)
-(define-data-var next-payment-id uint u0)
 (define-data-var pot-session-ended bool false)
 
 ;; Get PoX Info and return pool config
@@ -84,10 +79,15 @@
 )
 
 ;; Pot Claim Start validation
+;; reward-release from get-pool-config is an absolute burn height (end of first
+;; cycle after lock + 5 blocks). Each additional pot-cycle adds one full PoX cycle.
 (define-read-only (validate-can-claim-pot)
   (let (
       (pool-config (unwrap! (get-pool-config) false))
-      (reward-release (get reward-release pool-config))
+      (base-release (get reward-release pool-config))
+      (cycle-len (get reward-cycle-length pox-details))
+      (cycles (var-get pot-cycle))
+      (reward-release (+ base-release (* (- cycles u1) cycle-len)))
     )
     (asserts! (> burn-block-height reward-release) false)
   )
@@ -177,16 +177,14 @@
 )
 
 (define-read-only (get-pot-participant-values (participant principal))
-  (map-get? pot-participants-by-id
-    (default-to u0 (map-get? pot-participants-by-principal participant))
-  )
+  (map-get? pot-participants-by-id (default-to u0 (map-get? pot-participants-by-principal participant)))
 )
 
 ;; Read-Only public function that gets all participants
 (define-read-only (get-pot-participants)
   (let (
       (participants-count (var-get last-participant))
-      (n (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspot-vrf generate-list u0 participants-count)) 
+      (n (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspot-vrf generate-list u0 participants-count))
       (participants (match n
         value (map get-by-id-helper-private value)
         (list)
@@ -259,19 +257,13 @@
     ;; Updates Last Participant To Next Pot Joiner
     (var-set last-participant (+ index-participants u1))
 
-    ;; Updates Pot Cycle
-    (if (> (var-get last-participant) u1) 
-      (begin (var-set pot-cycle (+ (var-get pot-cycle) u1)) true)
-      false    
-    )
-
     ;; Action Log
-    (print (to-consensus-buff? {
+    (print {
       event: "delegate-to-pot",
       participant: participant,
       amount: amount,
       index: index-participants,
-    }))
+    })
 
     ;; Execution Complete
     (ok true)
@@ -335,12 +327,12 @@
     (var-set last-sponsors-count (+ (var-get last-sponsors-count) u1))
 
     ;; Action Log
-    (print (to-consensus-buff? {
+    (print {
       event: "join-pot-as-sponsor",
       sponsor: sponsor,
       amount: amount,
       sponsors-count: (var-get last-sponsors-count),
-    }))
+    })
 
     ;; Execution Complete
     (ok true)
@@ -371,18 +363,18 @@
     (var-set pot-cancelled true)
 
     ;; Print
-    (print (to-consensus-buff? {
+    (print {
       event: "cancel-pot",
       pot-cancelled: (var-get pot-cancelled),
-    }))
+    })
 
     ;; Execution complete
     (ok true)
   )
 )
 
-;; Public Function That Starts The Jackpot
-(define-public (start-stackspot-sequential-pot (pot-contract <stackspot-trait>))
+;; Public Function That Starts The Pot
+(define-public (start-stackspot-crowdfund (pot-contract <stackspot-trait>))
   (begin
     ;; Validates pot is not already started
     (asserts! (not (var-get locked)) ERR_POT_ALREADY_STARTED)
@@ -408,8 +400,8 @@
     (var-set locked true)
 
     ;; Print
-    (print (to-consensus-buff? {
-      event: "start-stackspot-sequential-pot",
+    (print {
+      event: "start-stackspot-crowdfund",
       pot-starter-principal: tx-sender,
       pot-contract: (contract-of pot-contract),
       pot-treasury: pot-treasury-address,
@@ -418,7 +410,7 @@
       pot-locked: (var-get locked),
       pot-lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
       pot-cancelled: (var-get pot-cancelled),
-    }))
+    })
 
     ;; Execution complete
     (ok true)
@@ -445,13 +437,10 @@
       ;; Calculate pot starter's reward
       (claimer tx-sender) ;; Calculate claimer's reward
       (claimer-reward (if (> pot-yield u0) (* (/ pot-yield u100) u2) u0))
-      (pot-winner-id (var-get next-payment-id))
-      (winner-values (unwrap! (map-get? pot-participants-by-id pot-winner-id) (err u995)))
-      (winner (get participant winner-values))
+      (winner (var-get funding-address))
+      ;; Calculate winner's reward 90% of stacked reward or 100% of stacked reward
     )
-    ;; Validate pot is not cancelled
     ;; Validate can claim pot
-    ;; Validate pot yield is greater than 0
     (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
     (asserts! (validate-can-claim-pot) ERR_POT_CLAIM_NOT_REACHED)
     (asserts! (> pot-yield u0) ERR_INSUFFICIENT_POT_REWARD)
@@ -460,85 +449,49 @@
     (var-set pot-claimer-principal (some tx-sender))
 
     ;; Set winners address
-    (var-set winners-values (some {winner-id: pot-winner-id, winner-address: winner}))
+    (var-set winners-values (some {winner-id: u0, winner-address: winner}))
 
-    (if (not (var-get pot-session-ended))       
-      (if (is-eq (+ (var-get next-payment-id) u1) total-participants)
-        ;; If next payment id is total participants, dispatch rewards and increment next payment id
-        (begin
-          ;; Returns participants principals
-          (try! 
-            (as-contract? ((with-stx (- (var-get total-pot-value) (var-get sponsor-amount))))
-              (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-principals pot-contract))
-            )
+    (if (not (var-get pot-session-ended)) 
+      (begin
+        ;; Returns participants principals
+        (try! 
+          (as-contract? ((with-stx (- (var-get total-pot-value) (var-get sponsor-amount))))
+            (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-principals pot-contract))
           )
-
-          ;; Returns sponsors principals
-          (try! 
-            (as-contract? ((with-stx (var-get sponsor-amount)))
-              (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-sponsor-principals pot-contract))
-            )
-          )
-
-          ;; Disburse rewards
-          (try! 
-            (as-contract? ((with-ft 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.sbtc-token "sbtc-token" pot-yield))
-              (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-rewards pot-contract))
-            )
-          )
-
-          ;; Revoke delegate treasury if cycles is greater than 1
-          (if (> (var-get pot-cycle) u1)
-            (begin 
-              (try! (as-contract? ()
-                (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots revoke-delegate-treasury pot-contract)))
-              )
-              true
-            )
-            false
-          )
-          ;; Set pot session ended to true
-          (var-set pot-session-ended true)
-          ;; Execution complete
-          true
         )
-        ;; If next payment id is not total participants, extend delegate treasury while cycles are not maxed out
-        (begin
-          ;; Disburse rewards
-          (try! 
-            (as-contract? ((with-ft 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.sbtc-token "sbtc-token" pot-yield))
-              (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-rewards pot-contract))
-            )
+
+        ;; Returns sponsors principals
+        (try! 
+          (as-contract? ((with-stx (var-get sponsor-amount)))
+            (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-sponsor-principals pot-contract))
           )
-
-          ;; Extend delegate treasury while cycles are not maxed out
-          (try! (as-contract? ()
-            (try! 
-              (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots extend-delegate-treasury pot-contract 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.sim-pox-4-multi-pool-v1)
-            )
-          ))
-
-          ;; Set lock burn height
-          (var-set lock-burn-height (some burn-block-height))
-
-          ;; Increment next payment id
-          (var-set next-payment-id (+ (var-get next-payment-id) u1))
-
-          false
         )
+
+        ;; Disburse rewards
+        (try! 
+          (as-contract? ((with-ft 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.sbtc-token "sbtc-token" pot-yield))
+            (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-rewards pot-contract))
+          )
+        )
+
+        (var-set pot-session-ended true)
+
+        true
       )
-      (begin 
-          ;; Disburse rewards
-          (try! 
-            (as-contract? ((with-ft 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.sbtc-token "sbtc-token" pot-yield))
-              (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-rewards pot-contract))
-            )
+      (begin
+        ;; Disburse rewards
+        (try! 
+          (as-contract? ((with-ft 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.sbtc-token "sbtc-token" pot-yield))
+            (try! (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots dispatch-rewards pot-contract))
           )
+        )
+
+        false
       )
     )
 
     ;; Print
-    (print (to-consensus-buff? {
+    (print {
       ;; Pot Values
       event: "claim-pot-reward",
       ;; Pot Round Values
@@ -571,20 +524,14 @@
       burn-block-height: burn-block-height,
       lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
       pot-cancelled: (var-get pot-cancelled),
-    }))
+    })
     ;; Execution complete
     (ok true)
   )
 )
 
-(define-read-only (get-next-payment-id)
-  (ok (var-get next-payment-id))
-)
-(define-read-only (get-pot-session-status)
-  (ok (var-get pot-session-ended))
-)
 (define-read-only (get-pot-cycle)
-  (ok (var-get last-participant))
+  (ok (var-get pot-cycle))
 )
 (define-read-only (get-pot-min-amount)
   (ok (var-get pot-min-amount))
@@ -617,32 +564,20 @@
 
 ;; Pot Configuration
 (define-data-var initiated bool false)
-(define-public (init-pot (min-amount uint) (max-participants uint) (name (string-ascii 255)) (contract <stackspot-trait>))
+(define-public (init-pot (cycle uint) (min-amount uint) (max-participants uint) (name (string-ascii 255)) (address-to-fund principal) (contract <stackspot-trait>))
   (begin
     (asserts! (is-eq tx-sender POT_ADMIN) ERR_ADMIN_ONLY)
     (asserts! (not (var-get initiated)) ERR_ALREADY_INIT)
     (asserts! (is-eq (contract-of contract) current-contract) ERR_UNAUTHORIZED)
     (asserts! (<= max-participants u100) ERR_INVALID_ARGUMENT_VALUE)
     
+    (var-set pot-cycle cycle)
     (var-set pot-min-amount min-amount)
     (var-set pot-max-participants max-participants)
     (var-set pot-name name)
+    (var-set funding-address address-to-fund)
     
     (var-set initiated true)
-
-    (print (to-consensus-buff? {
-      event: "init-pot",
-      owner: tx-sender,
-      pot-admin: POT_ADMIN,
-      pot-treasury: current-contract,
-      contract: current-contract,
-      cycles: (var-get pot-cycle),
-      type: (var-get pot-type),
-      pot-reward-token: "sbtc",
-      min-amount: (var-get pot-min-amount),
-      max-participants: (var-get pot-max-participants),
-      pot-is-init: (var-get initiated),
-    }))
 
     (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots
       register-pot {
@@ -661,7 +596,8 @@
 (define-data-var pot-min-amount uint u100000000)
 (define-data-var pot-max-participants uint u100)
 (define-data-var pot-name (string-ascii 255) "")
-(define-data-var pot-type (string-ascii 255) "stackspot-sequential-pot")
+(define-data-var pot-type (string-ascii 255) "stackspot-crowdfund")
+(define-data-var funding-address principal tx-sender)
 
 ;; Pre init
 (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots pot-deploys 
@@ -672,6 +608,7 @@
         pot-min-amount: (var-get pot-min-amount),
         pot-max-participants: (var-get pot-max-participants),
         pot-name: (var-get pot-name),
+        funding-address: (var-get funding-address),
         pot-type: (var-get pot-type),
         pot-is-init: (var-get initiated),
         pot-admin: POT_ADMIN,

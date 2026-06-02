@@ -266,12 +266,12 @@
     )
 
     ;; Action Log
-    (print (to-consensus-buff? {
+    (print {
       event: "delegate-to-pot",
       participant: participant,
       amount: amount,
       index: index-participants,
-    }))
+    })
 
     ;; Execution Complete
     (ok true)
@@ -335,12 +335,12 @@
     (var-set last-sponsors-count (+ (var-get last-sponsors-count) u1))
 
     ;; Action Log
-    (print (to-consensus-buff? {
+    (print {
       event: "join-pot-as-sponsor",
       sponsor: sponsor,
       amount: amount,
       sponsors-count: (var-get last-sponsors-count),
-    }))
+    })
 
     ;; Execution Complete
     (ok true)
@@ -371,10 +371,10 @@
     (var-set pot-cancelled true)
 
     ;; Print
-    (print (to-consensus-buff? {
+    (print {
       event: "cancel-pot",
       pot-cancelled: (var-get pot-cancelled),
-    }))
+    })
 
     ;; Execution complete
     (ok true)
@@ -408,7 +408,7 @@
     (var-set locked true)
 
     ;; Print
-    (print (to-consensus-buff? {
+    (print {
       event: "start-stackspot-sequential-pot",
       pot-starter-principal: tx-sender,
       pot-contract: (contract-of pot-contract),
@@ -418,7 +418,7 @@
       pot-locked: (var-get locked),
       pot-lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
       pot-cancelled: (var-get pot-cancelled),
-    }))
+    })
 
     ;; Execution complete
     (ok true)
@@ -538,7 +538,7 @@
     )
 
     ;; Print
-    (print (to-consensus-buff? {
+    (print {
       ;; Pot Values
       event: "claim-pot-reward",
       ;; Pot Round Values
@@ -571,7 +571,7 @@
       burn-block-height: burn-block-height,
       lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
       pot-cancelled: (var-get pot-cancelled),
-    }))
+    })
     ;; Execution complete
     (ok true)
   )
@@ -629,20 +629,6 @@
     (var-set pot-name name)
     
     (var-set initiated true)
-
-    (print (to-consensus-buff? {
-      event: "init-pot",
-      owner: tx-sender,
-      pot-admin: POT_ADMIN,
-      pot-treasury: current-contract,
-      contract: current-contract,
-      cycles: (var-get pot-cycle),
-      type: (var-get pot-type),
-      pot-reward-token: "sbtc",
-      min-amount: (var-get pot-min-amount),
-      max-participants: (var-get pot-max-participants),
-      pot-is-init: (var-get initiated),
-    }))
 
     (contract-call? 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT.stackspots
       register-pot {

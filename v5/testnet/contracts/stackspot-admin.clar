@@ -84,4 +84,4 @@
 )
 ;; Initialize admins
 (add-update-admin-status tx-sender true)
-(add-update-admin-status 'ST1CYDSYCSDJ86BJ3MZCPHR9HH362XMCJXQV45Q15 true)
+(add-update-admin-status 'ST1C5022X28DRM7PVNG94YY1VXFHZZKCNBQPMHXJT true)
