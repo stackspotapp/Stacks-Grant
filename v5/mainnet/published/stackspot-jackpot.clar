@@ -1,11 +1,11 @@
 ;; title: stackspot-jackpot
-;; version:
-;; summary:
-;; description:
+;; version: 5
+;; summary: Stackspot Jackpot Contract for Mainnet
+;; description: Verified Random Function(VRF)-based random winner at reward release.
 
 ;; --- Traits
-(impl-trait 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspot-trait.stackspot-trait)
-(use-trait stackspot-trait 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspot-trait.stackspot-trait)
+(impl-trait 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspot-trait.stackspot-trait)
+(use-trait stackspot-trait 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspot-trait.stackspot-trait)
 
 ;; Errors
 (define-constant ERR_NOT_FOUND (err u1001))
@@ -124,7 +124,7 @@
 ;; Total Max Participants
 ;; Platform Address
 ;; Pot Treasury Address
-(define-constant PLATFORM_ADDRESS (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspots get-platform-treasury))
+(define-constant PLATFORM_ADDRESS (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspots get-platform-treasury))
 
 (define-read-only (get-pot-treasury)
   (ok current-contract)
@@ -180,7 +180,7 @@
 (define-read-only (get-pot-participants)
   (let (
       (participants-count (var-get last-participant))
-      (n (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspot-vrf generate-list u0 participants-count))
+      (n (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspot-vrf generate-list u0 participants-count))
       (participants (match n
         value (map get-by-id-helper-private value)
         (list)
@@ -194,7 +194,7 @@
 (define-read-only (get-sponsors-addresses)
   (let 
     (
-      (n (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
+      (n (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
       (participants 
         (match n
           value (map get-by-id-helper-sponsor value)
@@ -208,7 +208,7 @@
 
 ;; Get Pot ID
 (define-read-only (get-pot-id)
-  (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspots get-token-id current-contract)
+  (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspots get-token-id current-contract)
 )
 
 ;; Get Pot Starter Principal
@@ -225,7 +225,7 @@
 (define-read-only (get-random-index (participant-count uint))
   (let (
       ;; Get random digit from VRF
-      (vrf-random-digit (unwrap! (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspot-vrf get-random-uint-at-block stacks-block-height) ERR_NOT_FOUND))
+      (vrf-random-digit (unwrap! (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspot-vrf get-random-uint-at-block stacks-block-height) ERR_NOT_FOUND))
     )
     (asserts! (> participant-count u0) ERR_INVALID_PARTICIPANT_COUNT)
     (ok (mod vrf-random-digit participant-count))
@@ -354,14 +354,14 @@
     ;; Returns participants principals
     (try! 
       (as-contract? ((with-stx (- (var-get total-pot-value) (var-get sponsor-amount))))
-        (try! (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspots dispatch-principals pot-contract))
+        (try! (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspots dispatch-principals pot-contract))
       )
     )
 
     ;; Returns sponsors principals
     (try! 
       (as-contract? ((with-stx (var-get sponsor-amount)))
-        (try! (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspots dispatch-sponsor-principals pot-contract))
+        (try! (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspots dispatch-sponsor-principals pot-contract))
       )
     )
 
@@ -396,7 +396,7 @@
 
     ;; Delegate treasury to pot contract
     (try! (as-contract? ((with-stx (var-get total-pot-value)) (with-stacking (var-get total-pot-value)))
-      (try! (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspots delegate-treasury pot-contract current-contract))
+      (try! (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspots delegate-treasury pot-contract current-contract))
     ))
 
     ;; Set pot starter principal
@@ -463,21 +463,21 @@
         ;; Returns participants principals
         (try! 
           (as-contract? ((with-stx (- (var-get total-pot-value) (var-get sponsor-amount))))
-            (try! (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspots dispatch-principals pot-contract))
+            (try! (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspots dispatch-principals pot-contract))
           )
         )
 
         ;; Returns sponsors principals
         (try! 
           (as-contract? ((with-stx (var-get sponsor-amount)))
-            (try! (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspots dispatch-sponsor-principals pot-contract))
+            (try! (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspots dispatch-sponsor-principals pot-contract))
           )
         )
 
         ;; Disburse rewards
         (try! 
           (as-contract? ((with-ft 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token "sbtc-token" pot-yield))
-            (try! (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspots dispatch-rewards pot-contract))
+            (try! (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspots dispatch-rewards pot-contract))
           )
         )
 
@@ -489,7 +489,7 @@
         ;; Disburse rewards
         (try! 
           (as-contract? ((with-ft 'SM3VDXK3WZZSA84XXFKAFAF15NNZX32CTSG82JFQ4.sbtc-token "sbtc-token" pot-yield))
-            (try! (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspots dispatch-rewards pot-contract))
+            (try! (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspots dispatch-rewards pot-contract))
           )
         )
         
@@ -564,7 +564,7 @@
 
 (try!
   (as-contract? ()
-    (try! (contract-call? 'SPMPMA1V6P430M8C91QS1G9XJ95S59JS1TZFZ4Q4.pox4-multi-pool-v1 allow-contract-caller 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspot-distribute none))
+    (try! (contract-call? 'SPMPMA1V6P430M8C91QS1G9XJ95S59JS1TZFZ4Q4.pox4-multi-pool-v1 allow-contract-caller 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspot-distribute none))
   )
 )
 (try!
@@ -603,7 +603,7 @@
       pot-is-init: (var-get initiated),
     }))
 
-    (contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspots register-pot 
+    (contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspots register-pot 
       {
         owner: tx-sender,
         contract: current-contract,
@@ -624,7 +624,7 @@
 (define-data-var pot-type (string-ascii 255) "stackspot-jackpot")
 
 ;; Pre init
-(contract-call? 'SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE.stackspots pot-deploys 
+(contract-call? 'SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1.stackspots pot-deploys 
   (to-consensus-buff? 
       {
         event: "pre-init",

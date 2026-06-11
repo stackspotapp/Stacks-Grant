@@ -9,64 +9,64 @@ plan:
     transactions:
     - transaction-type: contract-publish
       contract-name: stackspot-trait
-      expected-sender: SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE
+      expected-sender: SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1
       cost: 24970
       path: contracts/stackspot-trait.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
       contract-name: stackspot-admin
-      expected-sender: SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE
-      cost: 25600
+      expected-sender: SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1
+      cost: 25610
       path: contracts/stackspot-admin.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
       contract-name: stackspot-vrf
-      expected-sender: SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE
+      expected-sender: SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1
       cost: 19320
       path: contracts/stackspot-vrf.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
       contract-name: stackspot-distribute
-      expected-sender: SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE
+      expected-sender: SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1
       cost: 88210
       path: contracts/stackspot-distribute.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
       contract-name: stackspots
-      expected-sender: SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE
+      expected-sender: SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1
       cost: 131280
       path: contracts/stackspots.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
       contract-name: stackspot-crowdfund
-      expected-sender: SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE
-      cost: 225680
+      expected-sender: SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1
+      cost: 227130
       path: contracts/stackspot-crowdfund.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
       contract-name: stackspot-jackpot
-      expected-sender: SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE
-      cost: 227190
+      expected-sender: SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1
+      cost: 228460
       path: contracts/stackspot-jackpot.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
       contract-name: stackspot-sequential-pot
-      expected-sender: SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE
-      cost: 243250
+      expected-sender: SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1
+      cost: 245100
       path: contracts/stackspot-sequential-pot.clar
       anchor-block-only: true
       clarity-version: 5
     - transaction-type: contract-publish
       contract-name: init-admin
-      expected-sender: SPEQDXRT981RXPX3FTKPTJGEKG15V09QNN1968JE
-      cost: 9860
+      expected-sender: SP2HXAW0GEHMXGHR0PG44443HV0S58WSZQY4V26W1
+      cost: 9890
       path: contracts/init-admin.clar
       anchor-block-only: true
       clarity-version: 5
