@@ -12,5 +12,5 @@ deployment_fee_rate = 10
 # Enter your seed phrase and a password, then paste the encrypted mnemonic here.
 #
 # Otherwise, use the mnemonic field below:
-mnemonic = ""
-derivation = "m/44'/5757'/0'/0/0"
+mnemonic = "apart almost among field mention blanket buzz wheel element differ attack evil bless mirror hour knee junk small mosquito six insect novel champion lizard"
+derivation = "m/44'/5757'/0'/0/2"
