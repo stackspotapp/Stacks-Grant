@@ -138,3 +138,6 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 settings/*
+
+# Backend lives in its own repo: https://github.com/stackspotapp/stackspot-backend.git
+v5/simnet-ai/stackspots-events/
