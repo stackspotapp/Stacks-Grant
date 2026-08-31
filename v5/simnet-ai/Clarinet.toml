@@ -1,0 +1,83 @@
+[project]
+name = "simnet-ai"
+description = "Stackspots simnet (PoX-5): stackspots logs + admin; pots stake and pay out directly"
+authors = []
+telemetry = false
+cache_dir = "./.cache"
+
+[[project.requirements]]
+contract_id = "SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait"
+
+# Check-checker settings:
+# trusted_sender: if true, inputs are trusted after tx_sender has been checked.
+# trusted_caller: if true, inputs are trusted after contract-caller has been checked.
+# callee_filter: if true, untrusted data may be passed into a private function without a
+# warning, if it gets checked inside. This check will also propagate up to the
+# caller.
+# More informations: https://www.hiro.so/blog/new-safety-checks-in-clarinet
+
+[repl.analysis]
+passes = ["check_checker"]
+check_checker = { trusted_sender = false, trusted_caller = false, callee_filter = false }
+
+[contracts]
+
+[contracts.sbtc-registry]
+path = "contracts/sbtc-registry.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.sbtc-token]
+path = "contracts/sbtc-token.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.sbtc-withdrawal]
+path = "contracts/sbtc-withdrawal.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.sim-pox-5]
+path = "contracts/sim-pox-5.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.fastpool]
+path = "contracts/fastpool.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.stackspots-trait]
+path = "contracts/stackspots-trait.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.stackspots-vrf]
+path = "contracts/stackspots-vrf.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.stackspots]
+path = "contracts/stackspots.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.jackpot]
+path = "contracts/jackpot.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.sequential]
+path = "contracts/sequential.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.crowd-fund]
+path = "contracts/crowd-fund.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.init-admin]
+path = "contracts/init-admin.clar"
+clarity_version = 6
+epoch = "latest"
