@@ -4,9 +4,9 @@
 ;; description: Round-robin payouts via next-payment-id. Staking + payouts happen on this contract.
 
 ;; --- Traits
-(impl-trait .stackspot-pots-trait.stackspot-pots-trait)
-(use-trait stackspot-pots-trait .stackspot-pots-trait.stackspot-pots-trait)
-(use-trait stackspot-sponsor-trait .stackspot-sponsor-trait.stackspot-sponsor-trait)
+(impl-trait 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspot-pots-trait.stackspot-pots-trait)
+(use-trait stackspot-pots-trait 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspot-pots-trait.stackspot-pots-trait)
+(use-trait stackspot-sponsor-trait 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspot-sponsor-trait.stackspot-sponsor-trait)
 
 ;; Errors
 (define-constant ERR_NOT_FOUND (err u1001))
@@ -34,7 +34,7 @@
 (define-constant JOIN_POT_MEMO (unwrap-panic (to-consensus-buff? "join pot")))
 (define-constant JOIN_POT_AS_SPONSOR_MEMO (unwrap-panic (to-consensus-buff? "join pot as sponsor")))
 
-;; Widen a consensus-serialized event to `.stackspots` `(buff 2048)` logs.
+;; Widen a consensus-serialized event to `'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspots` `(buff 2048)` logs.
 (define-private (to-stackspots-buff (blob (buff 2048)))
   blob
 )
@@ -173,7 +173,7 @@
 ;; Total Max Participants
 ;; Platform Address
 ;; Pot Treasury Address
-(define-constant PLATFORM_ADDRESS (contract-call? .stackspots get-platform-treasury))
+(define-constant PLATFORM_ADDRESS (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspots get-platform-treasury))
 
 (define-constant pot-treasury-address current-contract)
 (define-read-only (get-pot-treasury)
@@ -454,7 +454,7 @@
       (end-cycle (+ (var-get first-reward-cycle) (var-get pot-cycle)))
       (start (var-get next-reward-cycle))
       (count (if (>= start end-cycle) u0 (- end-cycle start)))
-      (offsets (unwrap! (contract-call? .stackspot-vrf generate-list u0 count) ERR_NOT_FOUND))
+      (offsets (unwrap! (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspot-vrf generate-list u0 count) ERR_NOT_FOUND))
       (total (try! (fold pull-remaining-cycle-offset offsets (ok u0))))
     )
     (var-set next-reward-cycle (+ start count))
@@ -523,7 +523,7 @@
 (define-read-only (get-pot-participants)
   (let (
       (participants-count (var-get last-participant))
-      (n (contract-call? .stackspot-vrf generate-list u0 participants-count)) 
+      (n (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspot-vrf generate-list u0 participants-count)) 
       (participants (match n
         value (map get-by-id-helper-private value)
         (list)
@@ -537,7 +537,7 @@
 (define-read-only (get-sponsors-addresses)
   (let 
     (
-      (n (contract-call? .stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
+      (n (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
       (participants 
         (match n
           value (map get-by-id-helper-sponsor value)
@@ -551,7 +551,7 @@
 
 ;; Get Pot ID
 (define-read-only (get-pot-id)
-  (contract-call? .stackspots get-token-id pot-treasury-address)
+  (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspots get-token-id pot-treasury-address)
 )
 
 ;; Get Pot Starter Principal
@@ -611,7 +611,7 @@
         }) ERR_NOT_FOUND) u2048) ERR_NOT_FOUND)))
       )
       (print payload)
-      (try! (contract-call? .stackspots log-join-pot payload))
+      (try! (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspots log-join-pot payload))
     )
 
     ;; Execution Complete
@@ -685,7 +685,7 @@
         }) ERR_NOT_FOUND) u2048) ERR_NOT_FOUND)))
       )
       (print payload)
-      (try! (contract-call? .stackspots log-join-pot-as-sponsor payload))
+      (try! (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspots log-join-pot-as-sponsor payload))
     )
 
     ;; Execution Complete
@@ -726,7 +726,7 @@
         }) ERR_NOT_FOUND) u2048) ERR_NOT_FOUND)))
       )
       (print payload)
-      (try! (contract-call? .stackspots log-cancel-pot payload))
+      (try! (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspots log-cancel-pot payload))
     )
 
     ;; Execution complete
@@ -781,7 +781,7 @@
         pot-locked: (var-get locked),
         defined-unlock-burn-height: (get-defined-unlock-burn-height),
       }))
-      (try! (contract-call? .stackspots log-fall-back-cancel
+      (try! (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspots log-fall-back-cancel
         (to-stackspots-buff (unwrap! (as-max-len? (unwrap! (to-consensus-buff? {
           event: "fall-back-cancel",
           pot-cancelled: (var-get pot-cancelled),
@@ -982,7 +982,7 @@
       pot-cancelled: (var-get pot-cancelled),
     }))
     
-    (try! (contract-call? .stackspots log-claim-pot-reward
+    (try! (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspots log-claim-pot-reward
       (to-stackspots-buff (unwrap! (as-max-len? (unwrap! (to-consensus-buff? {
         event: "claim-pot-reward",
         pot-participants-count: total-participants,
@@ -1147,7 +1147,7 @@
         sponsors: sponsor-tickets,
       }))
 
-      (contract-call? .stackspots register-pot payload contract)
+      (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspots register-pot payload contract)
     )
   )
 )
@@ -1173,4 +1173,4 @@
   funding-address: none,
 }))) u2048))))
 (print PRE_INIT_LOG)
-(contract-call? .stackspots log-pre-init PRE_INIT_LOG)
+(contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspots log-pre-init PRE_INIT_LOG)
