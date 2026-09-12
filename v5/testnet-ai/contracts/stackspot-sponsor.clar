@@ -133,7 +133,7 @@
     ;; validate the calling pot is the contract being sponsored
     (asserts! (is-eq contract-caller (contract-of pot-contract)) err_not-authorized)
     ;; validate the sponsor contract is allowed to sponsor events
-    (asserts! (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspots validate-platform-sponsor-contract contract-caller) err_not-authorized)
+    (asserts! (contract-call? 'ST4B1RB4STWAGXDYH05CAK2T14BBC2CJ6E1BGG7D.stackspots is-contract-allowed-hash contract-caller) err_not-authorized)
     (let
       (
         (pot-details (unwrap! (contract-call? pot-contract get-pot-details) err_not_found))
