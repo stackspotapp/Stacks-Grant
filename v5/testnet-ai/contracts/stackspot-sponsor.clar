@@ -16,6 +16,7 @@
 (define-constant err_not_platform_sponsor_contract (err u1302))
 (define-constant err_not_found (err u1303))
 (define-constant err_not-authorized (err u1304))
+(define-constant err-sponsor-window-passed (err u1305))
 
 ;; data constants vars
 (define-constant sponsorer tx-sender)
@@ -42,7 +43,7 @@
     ) 
       (asserts! (>= amount (get-minimum-sponsor-amount)) err_insufficient_sponsor_balance)
       ;; validate burn block height is within the cycle joinable window
-      (asserts! (< burn-block-height (get join-end (unwrap! (get-pool-config (default-to burn-block-height (var-get lock-burn-height))) err_not_found))) err_not_found)
+      (asserts! (< burn-block-height (get prepare-start (unwrap! (get-pool-config burn-block-height) err_not_found))) err-sponsor-window-passed)
       ;; validate platform sponsor contract
       (try! (contract-call? .stackspots verify-platform-sponsor-contract current-contract))
       ;; transfer sponsor tx-sender amount to sponsor contract
