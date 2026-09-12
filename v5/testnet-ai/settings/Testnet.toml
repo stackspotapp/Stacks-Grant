@@ -14,4 +14,4 @@ deployment_fee_rate = 10
 #
 [accounts.deployer]
 mnemonic = "canoe pizza identify push balcony amazing coyote verb inmate hundred frozen novel rabbit tomato receive bean stairs choose coast include memory shaft zero turtle"
-derivation = "m/44'/5757'/0'/0/4"
+derivation = "m/44'/5757'/0'/0/5"
