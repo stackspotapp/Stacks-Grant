@@ -1,0 +1,64 @@
+[project]
+name = "testnet-ai"
+description = "Stackspots testnet (PoX-5): same contracts as simnet-ai, qualified for testnet deploys"
+authors = []
+telemetry = false
+cache_dir = "./.cache"
+
+# Only remap-publish nft-trait. pox-5 is a boot contract; sbtc-token and
+# signer-manager already exist on testnet. Listing them as requirements makes
+# `clarinet deployments generate --testnet` walk mainnet
+# SM3VDXK3….sbtc-registry and panic (clarinet-deployments/src/lib.rs:857).
+[[project.requirements]]
+contract_id = "SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait"
+
+[repl.analysis]
+passes = ["check_checker"]
+check_checker = { trusted_sender = false, trusted_caller = false, callee_filter = false }
+
+[contracts]
+
+[contracts.stackspot-vrf]
+path = "contracts/stackspot-vrf.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.stackspots]
+path = "contracts/stackspots.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.jackpot]
+path = "contracts/jackpot.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.sequential]
+path = "contracts/sequential.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.crowd-fund]
+path = "contracts/crowd-fund.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.stackspot-sponsor]
+path = "contracts/stackspot-sponsor.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.init-admin]
+path = "contracts/init-admin.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.stackspot-pots-trait]
+path = "contracts/stackspot-pots-trait.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.stackspot-sponsor-trait]
+path = "contracts/stackspot-sponsor-trait.clar"
+clarity_version = 6
+epoch = "latest"
