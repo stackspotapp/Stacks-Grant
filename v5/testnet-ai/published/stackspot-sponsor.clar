@@ -4,7 +4,7 @@
 ;; description: This contract is used to sponsor the Stackspots platform.
 
 ;; traits
-(impl-trait 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait.nft-trait)
+(impl-trait .nft-trait.nft-trait)
 (impl-trait 'ST300KR5ZKJCGQGSFF84CNAQ3V557CNXWM94PFDG5.stackspot-sponsor-trait.stackspot-sponsor-trait)
 (use-trait stackspot-pots-trait 'ST300KR5ZKJCGQGSFF84CNAQ3V557CNXWM94PFDG5.stackspot-pots-trait.stackspot-pots-trait)
 
@@ -140,7 +140,7 @@
       )
       ;; log the sponsor event
       (log-sponsor-event (unwrap! (as-max-len? (unwrap! (to-consensus-buff? {
-        event: "sponsor event",
+        event: "sponsor-event",
         ticket-id: ticket-id,
         pot-contract: (contract-of pot-contract),
         pot-details: pot-details,
