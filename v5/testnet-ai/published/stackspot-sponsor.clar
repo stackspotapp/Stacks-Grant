@@ -5,8 +5,8 @@
 
 ;; traits
 (impl-trait .nft-trait.nft-trait)
-(impl-trait 'ST2CGPYF89B6Z1FDVNCZVKCAJSYD82YMKVHMB4SZY.stackspot-sponsor-trait.stackspot-sponsor-trait)
-(use-trait stackspot-pots-trait 'ST2CGPYF89B6Z1FDVNCZVKCAJSYD82YMKVHMB4SZY.stackspot-pots-trait.stackspot-pots-trait)
+(impl-trait 'ST2JWVB86PMG4MH4XWECB4W4KTKXV1NMCMMEJYQ3Y.stackspot-sponsor-trait.stackspot-sponsor-trait)
+(use-trait stackspot-pots-trait 'ST2JWVB86PMG4MH4XWECB4W4KTKXV1NMCMMEJYQ3Y.stackspot-pots-trait.stackspot-pots-trait)
 
 ;; token definitions
 (define-non-fungible-token pot-ticket uint)
@@ -80,7 +80,7 @@
           }) err_not_found) u2048) err_not_found))
         )
         (print payload)
-        (try! (contract-call? 'ST2CGPYF89B6Z1FDVNCZVKCAJSYD82YMKVHMB4SZY.stackspots log-sponsor-platform payload))
+        (try! (contract-call? 'ST2JWVB86PMG4MH4XWECB4W4KTKXV1NMCMMEJYQ3Y.stackspots log-sponsor-platform payload))
       )
 
       (ok true)
@@ -133,7 +133,7 @@
     ;; validate the calling pot is the contract being sponsored
     (asserts! (is-eq contract-caller (contract-of pot-contract)) err_not-authorized)
     ;; validate the sponsor contract is allowed to sponsor events
-    (asserts! (contract-call? 'ST2CGPYF89B6Z1FDVNCZVKCAJSYD82YMKVHMB4SZY.stackspots validate-platform-sponsor-contract contract-caller) err_not-authorized)
+    (asserts! (contract-call? 'ST2JWVB86PMG4MH4XWECB4W4KTKXV1NMCMMEJYQ3Y.stackspots validate-platform-sponsor-contract contract-caller) err_not-authorized)
     (let
       (
         (pot-details (unwrap! (contract-call? pot-contract get-pot-details) err_not_found))
@@ -165,7 +165,7 @@
 (define-private (get-total-validated-rule-score (pot-contract <stackspot-pots-trait>)) 
   (let 
     (
-      (generated-list (default-to (list ) (contract-call? 'ST2CGPYF89B6Z1FDVNCZVKCAJSYD82YMKVHMB4SZY.stackspot-vrf generate-list u0 rule-sets-count)))
+      (generated-list (default-to (list ) (contract-call? 'ST2JWVB86PMG4MH4XWECB4W4KTKXV1NMCMMEJYQ3Y.stackspot-vrf generate-list u0 rule-sets-count)))
       (rule-set-list (map get-rule-score generated-list))
     )
     (ok 
@@ -215,12 +215,12 @@
 )
 
 (define-read-only (get-minimum-sponsor-amount) 
-    (contract-call? 'ST2CGPYF89B6Z1FDVNCZVKCAJSYD82YMKVHMB4SZY.stackspots get-minimum-sponsor-amount)
+    (contract-call? 'ST2JWVB86PMG4MH4XWECB4W4KTKXV1NMCMMEJYQ3Y.stackspots get-minimum-sponsor-amount)
 )
 (define-read-only (get-rule-sets) 
   (let 
     (
-      (generated-list (default-to (list ) (contract-call? 'ST2CGPYF89B6Z1FDVNCZVKCAJSYD82YMKVHMB4SZY.stackspot-vrf generate-list u0 rule-sets-count)))
+      (generated-list (default-to (list ) (contract-call? 'ST2JWVB86PMG4MH4XWECB4W4KTKXV1NMCMMEJYQ3Y.stackspot-vrf generate-list u0 rule-sets-count)))
       (rule-set-list (map get-rule generated-list))
     )
     (ok rule-set-list)
@@ -229,7 +229,7 @@
 (define-read-only (get-total-rule-score) 
   (let 
     (
-      (generated-list (default-to (list ) (contract-call? 'ST2CGPYF89B6Z1FDVNCZVKCAJSYD82YMKVHMB4SZY.stackspot-vrf generate-list u0 rule-sets-count)))
+      (generated-list (default-to (list ) (contract-call? 'ST2JWVB86PMG4MH4XWECB4W4KTKXV1NMCMMEJYQ3Y.stackspot-vrf generate-list u0 rule-sets-count)))
       (rule-set-list (map get-rule-score generated-list))
     )
     (ok (fold add-score rule-set-list u0))
@@ -278,7 +278,7 @@
 
 (define-public (mint (recipient principal))
 	(begin
-		(asserts! (contract-call? 'ST2CGPYF89B6Z1FDVNCZVKCAJSYD82YMKVHMB4SZY.stackspots is-contract-allowed-hash recipient) err_not-authorized)
+		(asserts! (contract-call? 'ST2JWVB86PMG4MH4XWECB4W4KTKXV1NMCMMEJYQ3Y.stackspots is-contract-allowed-hash recipient) err_not-authorized)
 		(asserts! (is-eq tx-sender recipient) err-owner-only)
 		(mint-event-ticket recipient)
 	)
