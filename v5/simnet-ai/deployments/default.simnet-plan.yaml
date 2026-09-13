@@ -97,19 +97,24 @@ plan:
       path: contracts/fastpool.clar
       clarity-version: 6
     - transaction-type: emulated-contract-publish
-      contract-name: stackspots-trait
+      contract-name: stackspot-pots-trait
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      path: contracts/stackspots-trait.clar
+      path: contracts/stackspot-pots-trait.clar
+      clarity-version: 6
+    - transaction-type: emulated-contract-publish
+      contract-name: stackspot-sponsor-trait
+      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+      path: contracts/stackspot-sponsor-trait.clar
+      clarity-version: 6
+    - transaction-type: emulated-contract-publish
+      contract-name: stackspot-vrf
+      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+      path: contracts/stackspot-vrf.clar
       clarity-version: 6
     - transaction-type: emulated-contract-publish
       contract-name: stackspots
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
       path: contracts/stackspots.clar
-      clarity-version: 6
-    - transaction-type: emulated-contract-publish
-      contract-name: stackspots-vrf
-      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      path: contracts/stackspots-vrf.clar
       clarity-version: 6
     - transaction-type: emulated-contract-publish
       contract-name: crowd-fund
@@ -130,5 +135,10 @@ plan:
       contract-name: init-admin
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
       path: contracts/init-admin.clar
+      clarity-version: 6
+    - transaction-type: emulated-contract-publish
+      contract-name: stackspot-sponsor
+      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+      path: contracts/stackspot-sponsor.clar
       clarity-version: 6
     epoch: '4.0'

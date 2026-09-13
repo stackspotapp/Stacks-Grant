@@ -47,13 +47,8 @@ path = "contracts/fastpool.clar"
 clarity_version = 6
 epoch = "latest"
 
-[contracts.stackspots-trait]
-path = "contracts/stackspots-trait.clar"
-clarity_version = 6
-epoch = "latest"
-
-[contracts.stackspots-vrf]
-path = "contracts/stackspots-vrf.clar"
+[contracts.stackspot-vrf]
+path = "contracts/stackspot-vrf.clar"
 clarity_version = 6
 epoch = "latest"
 
@@ -77,7 +72,22 @@ path = "contracts/crowd-fund.clar"
 clarity_version = 6
 epoch = "latest"
 
+[contracts.stackspot-sponsor]
+path = "contracts/stackspot-sponsor.clar"
+clarity_version = 6
+epoch = "latest"
+
 [contracts.init-admin]
 path = "contracts/init-admin.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.stackspot-pots-trait]
+path = "contracts/stackspot-pots-trait.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.stackspot-sponsor-trait]
+path = "contracts/stackspot-sponsor-trait.clar"
 clarity_version = 6
 epoch = "latest"

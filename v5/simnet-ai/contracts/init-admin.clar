@@ -17,6 +17,8 @@
     (try! (contract-call? .stackspots set-pot-contract-hash .jackpot true))
     (try! (contract-call? .stackspots set-pot-contract-hash .crowd-fund true))
     (try! (contract-call? .stackspots set-pot-contract-hash .sequential true))
+    ;; Publish dependency so simnet allowlists `.stackspot-sponsor` after it exists.
+    (try! (contract-call? .stackspots update-platform-sponsor-contract .stackspot-sponsor true))
     (var-set initialized true)
     (ok true)
   )

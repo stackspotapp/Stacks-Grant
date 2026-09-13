@@ -9,6 +9,8 @@ const REWARD_RELEASE_OFFSET = 432;
 const AUTH_ID = 1;
 const WEEKLY_REWARD_SATS = 10_000_000n;
 const THRESHOLD_STAKE_USTX = 1_000_000_000_000n;
+/** QA funds Fastpool with 2M STX from the platform deployer. */
+const FASTPOOL_FUND_USTX = 2_000_000_000_000n;
 const SBTC_DEPOSIT_ROLE = hexToBytes("01");
 
 export type RecordedCall = {
@@ -165,23 +167,69 @@ function remainingCycles(platform: string, staker: string): number {
   return first + n - currentPoxCycle(platform);
 }
 
-function stakeThreshold(platform: string, thresholdStaker: string): void {
+function fastpoolId(platform: string): string {
+  return `${platform}.fastpool`;
+}
+
+function stxOf(address: string): bigint {
+  return simnet.getAssetsMap().get("STX")?.get(address) ?? 0n;
+}
+
+function fundPrincipal(platform: string, recipient: string, amount = THRESHOLD_STAKE_USTX): void {
+  const have = stxOf(recipient);
+  if (have >= amount) return;
+  const need = amount - have;
+  const transferred = simnet.transferSTX(Number(need), recipient, platform);
+  emitCall(
+    platform,
+    recipient.endsWith(".fastpool") ? "fastpool" : "stx",
+    "stx-transfer",
+    platform,
+    "platform",
+    transferred.result,
+    Number(need / 1_000_000n)
+  );
+  if (transferred.result && !isOk(transferred.result)) {
+    throw new Error(`stx-transfer to ${recipient} failed: ${JSON.stringify(transferred.result)}`);
+  }
+}
+
+function stakeThreshold(platform: string, thresholdStaker: string, amount = THRESHOLD_STAKE_USTX): void {
   ensureNotPreparePhase(platform);
+  const pool = fastpoolId(platform);
+  if (thresholdStaker === pool) fundPrincipal(platform, pool, amount);
   const stake = simnet.callPublicFn(
     "sim-pox-5",
     "stake",
     [
       Cl.contractPrincipal(platform, "fastpool"),
-      Cl.uint(THRESHOLD_STAKE_USTX),
+      Cl.uint(amount),
       Cl.uint(MAX_STAKE_CYCLES),
       Cl.uint(simnet.burnBlockHeight),
       Cl.none(),
     ],
     thresholdStaker
   );
-  emitCall(platform, "sim-pox-5", "stake", thresholdStaker, "threshold-staker", stake.result, Number(THRESHOLD_STAKE_USTX / 1_000_000n));
+  emitCall(platform, "sim-pox-5", "stake", thresholdStaker, "threshold-staker", stake.result, Number(amount / 1_000_000n));
   if (!isOk(stake.result)) {
     throw new Error(`threshold stake failed: ${JSON.stringify(stake.result)}`);
+  }
+}
+
+/** Send STX to Fastpool and stake the signer-set threshold. Prefers staking as Fastpool; falls back to `fallbackStaker`. */
+export function fundAndStakeFastpoolThreshold(
+  platform: string,
+  fallbackStaker = platform,
+  amount = THRESHOLD_STAKE_USTX
+): void {
+  const pool = fastpoolId(platform);
+  if (remainingCycles(platform, pool) > 0 || remainingCycles(platform, fallbackStaker) > 0) return;
+  fundPrincipal(platform, pool, amount);
+  try {
+    stakeThreshold(platform, pool, amount);
+  } catch {
+    if (remainingCycles(platform, fallbackStaker) > 0) return;
+    stakeThreshold(platform, fallbackStaker, amount);
   }
 }
 
@@ -240,7 +288,9 @@ export function activateStakingStack(platform: string, thresholdStakers: string[
     throw new Error(`fastpool.register-self failed: ${JSON.stringify(registered.result)}`);
   }
 
-  ensureThresholdStake(platform, thresholdStakers);
+  if (thresholdStakers.length) {
+    ensureThresholdStake(platform, thresholdStakers);
+  }
 }
 
 /** Mint yield into sim-pox-5, then crystallize Fastpool for the computed reward cycle (decast runWeeklyPayout). */
@@ -376,4 +426,4 @@ export function ensureJoinWindow(
   return windows;
 }
 
-export { THRESHOLD_STAKE_USTX, CYCLE_LENGTH, PREPARE_LENGTH, REWARD_RELEASE_OFFSET };
+export { THRESHOLD_STAKE_USTX, FASTPOOL_FUND_USTX, CYCLE_LENGTH, PREPARE_LENGTH, REWARD_RELEASE_OFFSET };

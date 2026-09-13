@@ -4,8 +4,9 @@
 ;; description: Fixed funding recipient. Staking + payouts happen on this contract.
 
 ;; --- Traits
-(impl-trait .stackspots-trait.stackspots-trait)
-(use-trait stackspots-trait .stackspots-trait.stackspots-trait)
+(impl-trait .stackspot-pots-trait.stackspot-pots-trait)
+(use-trait stackspot-pots-trait .stackspot-pots-trait.stackspot-pots-trait)
+(use-trait stackspot-sponsor-trait .stackspot-sponsor-trait.stackspot-sponsor-trait)
 
 ;; Errors
 (define-constant ERR_NOT_FOUND (err u1001))
@@ -334,7 +335,7 @@
 
 (define-private (pull-all-staking-rewards)
   (let (
-      (offsets (unwrap! (contract-call? .stackspots-vrf generate-list u0 (var-get staked-cycles)) ERR_NOT_FOUND))
+      (offsets (unwrap! (contract-call? .stackspot-vrf generate-list u0 (var-get staked-cycles)) ERR_NOT_FOUND))
       (total (try! (fold pull-cycle-offset offsets (ok u0))))
     )
     (var-set next-reward-cycle (+ (var-get first-reward-cycle) (var-get staked-cycles)))
@@ -401,7 +402,7 @@
 (define-read-only (get-pot-participants)
   (let (
       (participants-count (var-get last-participant))
-      (n (contract-call? .stackspots-vrf generate-list u0 participants-count))
+      (n (contract-call? .stackspot-vrf generate-list u0 participants-count))
       (participants (match n
         value (map get-by-id-helper-private value)
         (list)
@@ -415,7 +416,7 @@
 (define-read-only (get-sponsors-addresses)
   (let 
     (
-      (n (contract-call? .stackspots-vrf generate-list u0 (var-get last-sponsors-count)))
+      (n (contract-call? .stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
       (participants 
         (match n
           value (map get-by-id-helper-sponsor value)
@@ -565,7 +566,7 @@
   )
 )
 
-(define-public (cancel-pot (pot-contract <stackspots-trait>))
+(define-public (cancel-pot (pot-contract <stackspot-pots-trait>))
   (begin
     (asserts! (not (var-get locked)) ERR_POT_ALREADY_STARTED)
     (asserts! (> burn-block-height (+ (default-to burn-block-height (var-get first-user-joined)) MORE_THAN_ONE_CYCLE)) ERR_TOO_EARLY)
@@ -607,7 +608,7 @@
 )
 
 ;; Public Function That Starts The Pot
-(define-public (start-stackspot-crowdfund (pot-contract <stackspots-trait>))
+(define-public (start-stackspot-crowdfund (pot-contract <stackspot-pots-trait>))
   (begin
     ;; Validates pot is not already started
     (asserts! (not (var-get locked)) ERR_POT_ALREADY_STARTED)
@@ -651,7 +652,7 @@
 )
 
 ;; Public function that rewards the pot winner, returns participants principals and rewards pot starter and claimer
-(define-public (claim-pot-reward (pot-contract <stackspots-trait>))
+(define-public (claim-pot-reward (pot-contract <stackspot-pots-trait>) (sponsors (list 5 <stackspot-sponsor-trait>)))
   (begin
     ;; Validate can claim pot
     (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
@@ -660,6 +661,8 @@
 
     ;; Pull all Fastpool sBTC for this pot's staked cycles onto the treasury
     (try! (pull-all-staking-rewards))
+    ;; Pull platform-sponsor sBTC onto this pot before STX/sBTC distributions
+    (try! (claim-platform-sponsor-rewards sponsors pot-contract))
 
     (let (
         ;; Get pot details
@@ -822,9 +825,68 @@
   (ok (var-get initiated))
 )
 
+;; Platform sponsor tickets (sponsor contract -> ticket-id)
+(define-map platform-sponsor-tickets principal uint)
+(define-read-only (get-platform-sponsor-ticket (sponsor principal))
+  (ok (map-get? platform-sponsor-tickets sponsor))
+)
+(define-private (bind-one-platform-sponsor (sponsor <stackspot-sponsor-trait>) (pot <stackspot-pots-trait>))
+  (let (
+      (sponsor-contract (contract-of sponsor))
+      (ticket-id (try! (contract-call? sponsor sponsor-event pot)))
+    )
+    (asserts! (is-none (map-get? platform-sponsor-tickets sponsor-contract)) ERR_DUPLICATE_SPONSOR)
+    (map-set platform-sponsor-tickets sponsor-contract ticket-id)
+    (ok {sponsor-contract: sponsor-contract, ticket-id: ticket-id})
+  )
+)
+(define-private (bind-optional-platform-sponsor (maybe (optional <stackspot-sponsor-trait>)) (pot <stackspot-pots-trait>))
+  (match maybe
+    sponsor (ok (some (try! (bind-one-platform-sponsor sponsor pot))))
+    (ok none)
+  )
+)
+(define-private (push-sponsor-ticket (item (optional {sponsor-contract: principal, ticket-id: uint})) (acc (list 5 {sponsor-contract: principal, ticket-id: uint})))
+  (match item
+    ticket (unwrap! (as-max-len? (append acc ticket) u5) acc)
+    acc
+  )
+)
+(define-private (bind-platform-sponsors (sponsors (list 5 <stackspot-sponsor-trait>)) (pot <stackspot-pots-trait>))
+  (let (
+      (t0 (try! (bind-optional-platform-sponsor (element-at? sponsors u0) pot)))
+      (t1 (try! (bind-optional-platform-sponsor (element-at? sponsors u1) pot)))
+      (t2 (try! (bind-optional-platform-sponsor (element-at? sponsors u2) pot)))
+      (t3 (try! (bind-optional-platform-sponsor (element-at? sponsors u3) pot)))
+      (t4 (try! (bind-optional-platform-sponsor (element-at? sponsors u4) pot)))
+    )
+    (ok (fold push-sponsor-ticket (list t0 t1 t2 t3 t4) (list)))
+  )
+)
+(define-private (claim-one-platform-sponsor (sponsor <stackspot-sponsor-trait>) (pot <stackspot-pots-trait>))
+  (let (
+      (ticket-id (unwrap! (map-get? platform-sponsor-tickets (contract-of sponsor)) ERR_NOT_FOUND))
+    )
+    (try! (contract-call? sponsor claim-sponsor-reward pot ticket-id))
+    (ok true)
+  )
+)
+(define-private (claim-sponsor-fold (sponsor <stackspot-sponsor-trait>) (state {pot: <stackspot-pots-trait>, result: (response bool uint)}))
+  {
+    pot: (get pot state),
+    result: (match (get result state)
+      ok-val (claim-one-platform-sponsor sponsor (get pot state))
+      err-val (err err-val)
+    )
+  }
+)
+(define-private (claim-platform-sponsor-rewards (sponsors (list 5 <stackspot-sponsor-trait>)) (pot <stackspot-pots-trait>))
+  (get result (fold claim-sponsor-fold sponsors {pot: pot, result: (ok true)}))
+)
+
 ;; Pot Configuration
 (define-data-var initiated bool false)
-(define-public (init-pot (cycle uint) (min-amount uint) (max-participants uint) (name (string-ascii 255)) (address-to-fund principal) (contract <stackspots-trait>))
+(define-public (init-pot (cycle uint) (min-amount uint) (max-participants uint) (name (string-ascii 255)) (address-to-fund principal) (contract <stackspot-pots-trait>) (sponsors (list 5 <stackspot-sponsor-trait>)))
   (begin
     (asserts! (is-eq tx-sender POT_ADMIN) ERR_ADMIN_ONLY)
     (asserts! (not (var-get initiated)) ERR_ALREADY_INIT)
@@ -839,30 +901,36 @@
     
     (var-set initiated true)
 
-    (print (to-consensus-buff? {
-      event: "init-pot",
-      owner: tx-sender,
-      pot-admin: POT_ADMIN,
-      pot-treasury: current-contract,
-      contract: current-contract,
-      cycles: (var-get pot-cycle),
-      type: pot-type,
-      pot-reward-token: "sbtc",
-      min-amount: (var-get pot-min-amount),
-      max-participants: (var-get pot-max-participants),
-      pot-is-init: (var-get initiated),
-    }))
+    (let (
+        (sponsor-tickets (try! (bind-platform-sponsors sponsors contract)))
+        (payload (to-stackspots-buff (unwrap! (as-max-len? (unwrap! (to-consensus-buff? {
+          owner: tx-sender,
+          contract: current-contract,
+          cycles: (var-get pot-cycle),
+          type: pot-type,
+          pot-reward-token: "sbtc",
+          min-amount: (var-get pot-min-amount),
+          max-participants: (var-get pot-max-participants),
+          sponsors: sponsor-tickets,
+        }) ERR_NOT_FOUND) u2048) ERR_NOT_FOUND)))
+      )
+      (print (to-consensus-buff? {
+        event: "init-pot",
+        owner: tx-sender,
+        pot-admin: POT_ADMIN,
+        pot-treasury: current-contract,
+        contract: current-contract,
+        cycles: (var-get pot-cycle),
+        type: pot-type,
+        pot-reward-token: "sbtc",
+        min-amount: (var-get pot-min-amount),
+        max-participants: (var-get pot-max-participants),
+        pot-is-init: (var-get initiated),
+        sponsors: sponsor-tickets,
+      }))
 
-    (contract-call? .stackspots
-      register-pot {
-      owner: tx-sender,
-      contract: current-contract,
-      cycles: (var-get pot-cycle),
-      type: pot-type,
-      pot-reward-token: "sbtc",
-      min-amount: (var-get pot-min-amount),
-      max-participants: (var-get pot-max-participants),
-    } contract)
+      (contract-call? .stackspots register-pot payload contract)
+    )
   )
 )
 

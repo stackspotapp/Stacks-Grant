@@ -157,6 +157,9 @@ const sequentialSrc = readFileSync(resolve("contracts/sequential.clar"), "utf8")
 /** Rewrite `.name` deps so a non-deployer publisher still calls the core protocol. */
 function qualifyProtocolRefs(source: string, protocolDeployer: string): string {
   const replacements: Array<[string, string]> = [
+    [".stackspot-pots-trait.stackspot-pots-trait", `'${protocolDeployer}.stackspot-pots-trait.stackspot-pots-trait`],
+    [".stackspot-sponsor-trait.stackspot-sponsor-trait", `'${protocolDeployer}.stackspot-sponsor-trait.stackspot-sponsor-trait`],
+    [".stackspot-vrf", `'${protocolDeployer}.stackspot-vrf`],
     [".stackspots-trait.stackspots-trait", `'${protocolDeployer}.stackspots-trait.stackspots-trait`],
     [".stackspots-vrf", `'${protocolDeployer}.stackspots-vrf`],
     [".stackspots", `'${protocolDeployer}.stackspots`],
@@ -433,6 +436,7 @@ describe("StacksPotAccelerationProposal — 10-cycle campaign", () => {
                     Cl.uint(pot.tier.minParticipants),
                     Cl.stringAscii(`accel-${pot.name}`),
                     self,
+                    Cl.list([]),
                   ],
                   pot.address
                 )
@@ -444,6 +448,7 @@ describe("StacksPotAccelerationProposal — 10-cycle campaign", () => {
                     Cl.uint(pot.tier.minParticipants),
                     Cl.stringAscii(`accel-${pot.name}`),
                     self,
+                    Cl.list([]),
                   ],
                   pot.address
                 );
@@ -566,7 +571,7 @@ describe("StacksPotAccelerationProposal — 10-cycle campaign", () => {
           const claimed = simnet.callPublicFn(
             pot.id,
             "claim-pot-reward",
-            [Cl.contractPrincipal(pot.address, pot.name)],
+            [Cl.contractPrincipal(pot.address, pot.name), Cl.list([])],
             participants[0]
           );
           const label = round === "" ? `claim ${pot.name}` : `claim ${pot.name} #${round}`;

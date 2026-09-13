@@ -19,65 +19,65 @@ plan:
   - id: 1
     transactions:
     - transaction-type: contract-publish
-      contract-name: crowd-fund
-      expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
-      cost: 3828554
-      path: contracts/crowd-fund.clar
-      anchor-block-only: true
-      clarity-version: 6
-    - transaction-type: contract-publish
-      contract-name: jackpot
-      expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
-      cost: 3831545
-      path: contracts/jackpot.clar
-      anchor-block-only: true
-      clarity-version: 6
-    - transaction-type: contract-publish
-      contract-name: sequential
-      expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
-      cost: 3888375
-      path: contracts/sequential.clar
-      anchor-block-only: true
-      clarity-version: 6
-    - transaction-type: contract-publish
       contract-name: stackspot-pots-trait
       expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
-      cost: 3589269
+      cost: 20970
       path: contracts/stackspot-pots-trait.clar
-      anchor-block-only: true
-      clarity-version: 6
-    - transaction-type: contract-publish
-      contract-name: stackspots
-      expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
-      cost: 3659559
-      path: contracts/stackspots.clar
-      anchor-block-only: true
-      clarity-version: 6    
-    - transaction-type: contract-publish
-      contract-name: stackspot-sponsor
-      expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
-      cost: 5903284
-      path: contracts/stackspot-sponsor.clar
       anchor-block-only: true
       clarity-version: 6
     - transaction-type: contract-publish
       contract-name: stackspot-sponsor-trait
       expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
-      cost: 5775319
+      cost: 5800
       path: contracts/stackspot-sponsor-trait.clar
       anchor-block-only: true
       clarity-version: 6
     - transaction-type: contract-publish
       contract-name: stackspot-vrf
       expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
-      cost: 5789805
+      cost: 18590
       path: contracts/stackspot-vrf.clar
+      anchor-block-only: true
+      clarity-version: 6
+    - transaction-type: contract-publish
+      contract-name: stackspots
+      expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
+      cost: 121000
+      path: contracts/stackspots.clar
+      anchor-block-only: true
+      clarity-version: 6
+    - transaction-type: contract-publish
+      contract-name: crowd-fund
+      expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
+      cost: 358330
+      path: contracts/crowd-fund.clar
+      anchor-block-only: true
+      clarity-version: 6
+    - transaction-type: contract-publish
+      contract-name: jackpot
+      expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
+      cost: 362160
+      path: contracts/jackpot.clar
+      anchor-block-only: true
+      clarity-version: 6
+    - transaction-type: contract-publish
+      contract-name: sequential
+      expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
+      cost: 441430
+      path: contracts/sequential.clar
+      anchor-block-only: true
+      clarity-version: 6    
+    - transaction-type: contract-publish
+      contract-name: stackspot-sponsor
+      expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
+      cost: 116230
+      path: contracts/stackspot-sponsor.clar
       anchor-block-only: true
       clarity-version: 6
     - transaction-type: contract-publish
       contract-name: init-admin
       expected-sender: ST23DXFQJVPA735K0HWRYFS6EF8BHJ2ENSZ3NNNMC
-      cost: 3581791
+      cost: 10730
       path: contracts/init-admin.clar
       anchor-block-only: true
       clarity-version: 6

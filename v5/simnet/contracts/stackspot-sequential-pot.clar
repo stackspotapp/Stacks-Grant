@@ -57,7 +57,7 @@
 (define-data-var pot-session-ended bool false)
 
 ;; Get PoX Info and return pool config
-(define-constant pox-data (contract-call? 'ST000000000000000000002AMW42H.pox-4 get-pox-info))
+(define-constant pox-data (contract-call? 'SP000000000000000000002Q6VF78.pox-4 get-pox-info))
 (define-constant pox-details (unwrap! pox-data ERR_NOT_FOUND))
 (define-constant MORE_THAN_ONE_CYCLE (+ (get prepare-cycle-length pox-details) (get reward-cycle-length pox-details)))
 
@@ -243,7 +243,6 @@
     (asserts! (not (is-eq participant POT_ADMIN)) ERR_UNAUTHORIZED)
     (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
 
-    (asserts! (<= index-participants max-participants) ERR_MAX_PARTICIPANTS_REACHED)
     (asserts! (is-none (map-get? pot-participants-by-principal participant)) ERR_DUPLICATE_PARTICIPANT)
 
     ;; Registers Participants Values To The Pot Maps
@@ -287,7 +286,7 @@
     ;; Delegate to pot
     (asserts! (var-get initiated) ERR_NOT_INITIATED)
     (asserts! (validate-can-join-pot) ERR_POT_JOIN_CLOSED)
-    (asserts! (<= (var-get last-participant) (var-get pot-max-participants)) ERR_MAX_PARTICIPANTS_REACHED)
+    (asserts! (<= (var-get last-participant) (- (var-get pot-max-participants) u1)) ERR_MAX_PARTICIPANTS_REACHED)
 
     (try! (delegate-to-pot amount tx-sender))
     ;; Set first user joined burn height
@@ -315,7 +314,7 @@
     (asserts! (not (is-eq sponsor POT_ADMIN)) ERR_UNAUTHORIZED)
     (asserts! (not (var-get pot-cancelled)) ERR_POT_CANCELLED)
 
-    (asserts! (<= (var-get last-sponsors-count) (var-get pot-max-participants)) ERR_MAX_PARTICIPANTS_REACHED)
+    (asserts! (<= (var-get last-sponsors-count) (- (var-get pot-max-participants) u1)) ERR_MAX_PARTICIPANTS_REACHED)
     (asserts! (is-none (map-get? sponsors-by-principal sponsor)) ERR_DUPLICATE_SPONSOR)
 
     ;; Registers Sponsors Values To The Sponsors Maps
@@ -609,10 +608,10 @@
 )
 
 (as-contract? ()
-  (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4-multi-pool-v1 allow-contract-caller 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-distribute none))
+  (try! (contract-call? .sim-pox-4-multi-pool-v1 allow-contract-caller 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-distribute none))
 )
 (as-contract? ()
-  (try! (contract-call? 'ST000000000000000000002AMW42H.pox-4 allow-contract-caller 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-4-multi-pool-v1 none))
+  (try! (contract-call? 'SP000000000000000000002Q6VF78.pox-4 allow-contract-caller 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.pox-4-multi-pool-v1 none))
 )
 
 ;; Pot Configuration
@@ -622,7 +621,7 @@
     (asserts! (is-eq tx-sender POT_ADMIN) ERR_ADMIN_ONLY)
     (asserts! (not (var-get initiated)) ERR_ALREADY_INIT)
     (asserts! (is-eq (contract-of contract) current-contract) ERR_UNAUTHORIZED)
-    (asserts! (<= max-participants u100) ERR_INVALID_ARGUMENT_VALUE)
+    (asserts! (and (>= max-participants u1) (<= max-participants u100)) ERR_INVALID_ARGUMENT_VALUE)
     
     (var-set pot-min-amount min-amount)
     (var-set pot-max-participants max-participants)

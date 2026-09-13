@@ -5,7 +5,7 @@
 ;;              and manages admin / public-deploy gates. Staking and payouts live on pot contracts.
 
 (impl-trait 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait.nft-trait)
-(use-trait stackspots-trait .stackspots-trait.stackspots-trait)
+(use-trait stackspot-pots-trait .stackspot-pots-trait.stackspot-pots-trait)
 
 ;; Platform treasury (receives mint fees + royalty)
 (define-constant platform-treasury 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM)
@@ -38,6 +38,17 @@
 
 ;; NFT variables
 (define-data-var last-pot-index uint u0)
+(define-data-var minimum-sponsor-amount uint u10000000)
+(define-public (update-minimum-sponsor-amount (amount uint))
+  (begin
+    (asserts! (is-admin) ERR_UNAUTHORIZED)
+    (ok (var-set minimum-sponsor-amount amount))
+  )
+)
+
+(define-read-only (get-minimum-sponsor-amount) 
+  (var-get minimum-sponsor-amount)
+)
 
 ;; ---------------------------------------------------------------------------
 ;; Admin + contract-hash gate (merged from former stackspot-admin)
@@ -94,7 +105,7 @@
   )
 )
 
-(define-public (set-pot-contract-hash (contract <stackspots-trait>) (state bool))
+(define-public (set-pot-contract-hash (contract <stackspot-pots-trait>) (state bool))
   (let ((hash (unwrap! (contract-hash? (contract-of contract)) ERR_NOT_FOUND)))
     (asserts! (is-admin) ERR_UNAUTHORIZED)
     (map-set allowed-contract-hash hash state)
@@ -130,16 +141,21 @@
   (var-get fee)
 )
 
-(define-public (register-pot (pot-values {owner: principal, contract: principal,  cycles: uint,  type: (string-ascii 255),  pot-reward-token: (string-ascii 16),  min-amount: uint, max-participants: uint}) (contract <stackspots-trait>))
+(define-public (register-pot (pot-values (buff 2048)) (contract <stackspot-pots-trait>))
   (let (
+      (decoded (unwrap! (from-consensus-buff? {
+        owner: principal,
+        contract: principal,
+        cycles: uint,
+        type: (string-ascii 255),
+        pot-reward-token: (string-ascii 16),
+        min-amount: uint,
+        max-participants: uint,
+        sponsors: (list 5 {sponsor-contract: principal, ticket-id: uint})
+      } pot-values) ERR_INVALID_ARGUMENT_VALUE))
       ;; Pot Deploy Values
-      (owner (get owner pot-values))
-      (contract-address (get contract pot-values))
-      (pot-cycles (get cycles pot-values))
-      (type (get type pot-values))
-      (pot-reward-token (get pot-reward-token pot-values))
-      (min-amount (get min-amount pot-values))
-      (max-participants (get max-participants pot-values))
+      (owner (get owner decoded))
+      (contract-address (get contract decoded))
       (contract-hash (unwrap! (contract-hash? contract-address) ERR_NOT_FOUND))
       (contract-info (unwrap! (principal-destruct? contract-address) ERR_NOT_FOUND))
       (contract-name (get name contract-info))
@@ -160,27 +176,20 @@
 
     (try! (mint contract-address))
     
-    ;; Log pot registered
+    ;; Log pot registered. `pot-values` is the caller buff so extra encoded fields stay intact.
     (print
       (to-consensus-buff? 
         {
           event: "pot-registered",
-          ;; Pot Values
           pot-id: (var-get last-pot-index),
           pot-address: contract-address,
           pot-owner: owner,
           pot-deploy-fee: platform-contracts-fee,
-          ;; Pot Config Values
           pot-name: contract-name,
-          pot-type: type,
-          pot-cycles: pot-cycles,
-          pot-reward-token: pot-reward-token,
-          pot-min-amount: min-amount,
-          pot-max-participants: max-participants,
-          ;; Pot Origination Values
           origin-contract-sha-hash: contract-hash,
           stacks-block-height: stacks-block-height,
           burn-block-height: burn-block-height,
+          pot-values: pot-values,
         }
       ) 
     )     
@@ -218,6 +227,14 @@
   )
 )
 
+(define-private (emit-sponsor-log (payload (buff 2048)))
+  (begin
+    (asserts! (validate-platform-sponsor-contract contract-caller) ERR_UNAUTHORIZED_CONTRACT_HASH)
+    (print payload)
+    (ok true)
+  )
+)
+
 ;; Log pre-init at pot deploy time (before register-pot / NFT mint).
 (define-public (log-pre-init (payload (buff 2048)))
   (emit-log payload false)
@@ -243,6 +260,10 @@
   (emit-log payload true)
 )
 
+(define-public (log-sponsor-platform (payload (buff 2048)))
+  (emit-sponsor-log payload)
+)
+
 ;; NFT actions
 (define-read-only (get-last-token-id)
   (ok (var-get last-pot-index))
@@ -262,6 +283,33 @@
 
 ;; NFT transfer is disabled
 (define-public (transfer (token-id uint) (sender principal) (recipient principal)) ERR_NOT_PERMITTED)
+
+(define-map plaform-sponsor-contracts (buff 32) bool)
+(define-public (update-platform-sponsor-contract (contract-address principal) (state bool))
+  (let ((hash (unwrap! (contract-hash? contract-address) ERR_NOT_FOUND)))
+    (asserts! (is-admin) ERR_UNAUTHORIZED)
+    (map-set plaform-sponsor-contracts hash state)
+    (print (to-consensus-buff? {
+      event: "platform sponsor contract added",
+      contract-address: contract-address,
+      hash: hash,
+    }))
+    (ok true)
+  )
+)
+(define-read-only (validate-platform-sponsor-contract (contract-address principal)) 
+  (let ((hash (unwrap! (contract-hash? contract-address) false)))
+    (default-to false (map-get? plaform-sponsor-contracts hash))
+  )
+)
+
+(define-public (verify-platform-sponsor-contract (contract-address principal))
+  (begin
+    (asserts! (validate-platform-sponsor-contract contract-address) ERR_NOT_FOUND)
+    (asserts! (> (stx-get-balance tx-sender) (get-minimum-sponsor-amount)) ERR_INSUFFICIENT_BALANCE)
+    (ok true)
+  )
+)
 
 (define-private (mint (recipient principal))
   (let (

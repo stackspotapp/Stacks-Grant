@@ -13,5 +13,5 @@ deployment_fee_rate = 10
 # Otherwise, use the mnemonic field below:
 #
 [accounts.deployer]
-mnemonic = "warrior bless mango day sausage cheap crack fork kiss orphan distance skin trade vast tent task pretty battle boat human often wood deer empty"
-derivation = "m/44'/5757'/0'/0/10"
+mnemonic = "canoe pizza identify push balcony amazing coyote verb inmate hundred frozen novel rabbit tomato receive bean stairs choose coast include memory shaft zero turtle"
+derivation = "m/44'/5757'/0'/0/0"

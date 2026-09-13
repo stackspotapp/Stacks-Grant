@@ -1,0 +1,146 @@
+{
+  "poxCycle": 0,
+  "burnBlock": 3,
+  "stacksBlock": 3,
+  "cycleStartBurn": 0,
+  "cycleEndBurn": 2099,
+  "poxCycleLength": 2100,
+  "balances": {
+    "admin": {
+      "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "stx": "100000000.000000",
+      "stxRaw": "100000000000000",
+      "sbtc": "0"
+    },
+    "potADeployer": {
+      "address": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5",
+      "stx": "100000000.000000",
+      "stxRaw": "100000000000000",
+      "sbtc": "0"
+    },
+    "potBDeployer": {
+      "address": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "stx": "100000000.000000",
+      "stxRaw": "100000000000000",
+      "sbtc": "0"
+    },
+    "potCDeployer": {
+      "address": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "stx": "100000000.000000",
+      "stxRaw": "100000000000000",
+      "sbtc": "0"
+    },
+    "wallet_4": {
+      "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "stx": "100000000.000000",
+      "stxRaw": "100000000000000",
+      "sbtc": "0"
+    },
+    "wallet_5": {
+      "address": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "stx": "100000000.000000",
+      "stxRaw": "100000000000000",
+      "sbtc": "0"
+    },
+    "wallet_6": {
+      "address": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "stx": "100000000.000000",
+      "stxRaw": "100000000000000",
+      "sbtc": "0"
+    },
+    "wallet_7": {
+      "address": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "stx": "100000000.000000",
+      "stxRaw": "100000000000000",
+      "sbtc": "0"
+    },
+    "wallet_8": {
+      "address": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "stx": "100000000.000000",
+      "stxRaw": "100000000000000",
+      "sbtc": "0"
+    },
+    "faucet": {
+      "address": "STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6",
+      "stx": "100000000.000000",
+      "stxRaw": "100000000000000",
+      "sbtc": "0"
+    },
+    "stackspot-sponsor": {
+      "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "stx": "0.000000",
+      "stxRaw": "0",
+      "sbtc": "0"
+    },
+    "jackpot": {
+      "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.jackpot",
+      "stx": "0.000000",
+      "stxRaw": "0",
+      "sbtc": "0"
+    },
+    "sequential": {
+      "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sequential",
+      "stx": "0.000000",
+      "stxRaw": "0",
+      "sbtc": "0"
+    },
+    "crowd-fund": {
+      "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.crowd-fund",
+      "stx": "0.000000",
+      "stxRaw": "0",
+      "sbtc": "0"
+    },
+    "stackspots": {
+      "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "stx": "0.000000",
+      "stxRaw": "0",
+      "sbtc": "0"
+    },
+    "fastpool": {
+      "address": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "stx": "0.000000",
+      "stxRaw": "0",
+      "sbtc": "0"
+    }
+  },
+  "stx": {
+    "platform": "100000000000000",
+    "pots.pot-a.deployer": "100000000000000",
+    "pots.pot-a.contract": "0",
+    "pots.pot-a.kind": "0",
+    "pots.pot-b.deployer": "100000000000000",
+    "pots.pot-b.contract": "0",
+    "pots.pot-b.kind": "0",
+    "pots.pot-c.deployer": "100000000000000",
+    "pots.pot-c.contract": "0",
+    "pots.pot-c.kind": "0",
+    "participants.wallet_4": "100000000000000",
+    "participants.wallet_5": "100000000000000",
+    "participants.wallet_6": "100000000000000",
+    "participants.wallet_8": "100000000000000",
+    "participants.wallet_7": "100000000000000",
+    "participants.faucet": "100000000000000",
+    "starter": "100000000000000",
+    "closer": "100000000000000",
+    "potSponsor": "100000000000000",
+    "unauthorized": "100000000000000",
+    "fastpool": "0"
+  },
+  "stackspots": {
+    "fee": "{\"type\":\"uint\",\"value\":\"100000\"}",
+    "minSponsor": "{\"type\":\"uint\",\"value\":\"10000000\"}",
+    "isAdmin": "{\"type\":\"true\"}",
+    "canDeploy": "{\"type\":\"true\"}",
+    "treasury": "{\"type\":\"address\",\"value\":\"ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM\"}",
+    "lastTokenId": "{\"type\":\"ok\",\"value\":{\"type\":\"uint\",\"value\":\"0\"}}",
+    "jackpotHashAllowed": "{\"type\":\"false\"}",
+    "sequentialHashAllowed": "{\"type\":\"false\"}",
+    "crowdFundHashAllowed": "{\"type\":\"false\"}",
+    "platformSponsorAllowed": "{\"type\":\"false\"}"
+  },
+  "genesisPots": {
+    "jackpotInit": "{\"type\":\"ok\",\"value\":{\"type\":\"false\"}}",
+    "sequentialInit": "{\"type\":\"ok\",\"value\":{\"type\":\"false\"}}",
+    "crowdFundInit": "{\"type\":\"ok\",\"value\":{\"type\":\"false\"}}"
+  }
+}
