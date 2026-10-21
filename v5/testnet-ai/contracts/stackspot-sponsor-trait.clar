@@ -9,4 +9,5 @@
   (sponsor-platform (uint uint (list 3 {label: (string-ascii 255), state: bool, required: uint, score: uint})) (response bool uint))
   (claim-sponsor-reward (<stackspot-pots-trait> uint) (response bool uint))
   (sponsor-event (<stackspot-pots-trait>) (response uint uint))
+  (get-total-rule-score () (response uint uint))  
 ))

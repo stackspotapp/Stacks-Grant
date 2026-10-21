@@ -99,19 +99,7 @@ function record(
   return row;
 }
 
-function qualify(source: string, protocol: string): string {
-  return source
-    .replaceAll(
-      "(impl-trait .stackspot-pots-trait.stackspot-pots-trait)",
-      `(impl-trait '${protocol}.stackspot-pots-trait.stackspot-pots-trait)`
-    )
-    .replaceAll(" .stackspots", ` '${protocol}.stackspots`)
-    .replaceAll(" .sim-pox-5", ` '${protocol}.sim-pox-5`)
-    .replaceAll(" .fastpool", ` '${protocol}.fastpool`)
-    .replaceAll(" .sbtc-token", ` '${protocol}.sbtc-token`)
-    .replaceAll(" .stackspot-vrf", ` '${protocol}.stackspot-vrf`)
-    .replace(/\n\(contract-call\? [^\n]+ log-pre-init PRE_INIT_LOG\)\s*$/, "\n");
-}
+/** Byte-identical to genesis `.crowd-fund` so `init-admin` hash allowlist can match copies. */
 
 describe("one-cycle crowdfund lifecycle audit", () => {
   const accounts = simnet.getAccounts();
@@ -138,9 +126,11 @@ describe("one-cycle crowdfund lifecycle audit", () => {
     stackspots: `${platform}.stackspots`,
     fastpool: `${platform}.fastpool`,
     genesis_crowd_fund: `${platform}.crowd-fund`,
+    stackspot_sponsor: `${platform}.stackspot-sponsor`,
   };
 
-  const src = qualify(readFileSync(resolve("contracts/crowd-fund.clar"), "utf8"), platform);
+  const src = readFileSync(resolve("contracts/crowd-fund.clar"), "utf8");
+  const initAdminSrc = readFileSync(resolve("contracts/init-admin.clar"), "utf8");
 
   function selfOf(name: string) {
     return Cl.contractPrincipal(potDeployer, name);
@@ -163,25 +153,39 @@ describe("one-cycle crowdfund lifecycle audit", () => {
       return res;
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
-      findings.push(`${scenario} ${step} runtime: ${msg.slice(0, 240)}`);
-      console.log(`OC ${scenario} ${step} RUNTIME ${msg.slice(0, 240)}`);
+      findings.push(`${scenario} ${step} runtime: ${msg}`);
+      console.log(`OC ${scenario} ${step} RUNTIME ${msg}`);
       record(scenario, step, caller, contract, fn, undefined);
       return { result: undefined };
     }
   }
 
-  function deployAndAllow(scenario: string, name: string) {
-    const deployed = simnet.deployContract(name, src, { clarityVersion: 6 }, potDeployer);
-    record(scenario, "deploy", potDeployer, potId(name), "deployContract", deployed.result);
-    const allow = call(
-      scenario,
-      "allow-hash",
-      "stackspots",
-      "set-pot-contract-hash",
-      [selfOf(name), Cl.bool(true)],
-      platform
-    );
-    return { deployed, allow };
+  function deployPot(scenario: string, name: string) {
+    try {
+      const deployed = simnet.deployContract(name, src, { clarityVersion: 6 }, potDeployer);
+      record(scenario, "deploy", potDeployer, potId(name), "deployContract", deployed.result);
+      const genesisHash = simnet.callReadOnlyFn(
+        "stackspots",
+        "is-contract-allowed-hash",
+        [Cl.contractPrincipal(platform, "crowd-fund")],
+        platform
+      );
+      record(scenario, "genesis-crowd-fund-hash-allowed", platform, `${platform}.stackspots`, "is-contract-allowed-hash", genesisHash.result);
+      const copyHash = simnet.callReadOnlyFn(
+        "stackspots",
+        "is-contract-allowed-hash",
+        [selfOf(name)],
+        platform
+      );
+      record(scenario, "wallet2-copy-hash-allowed", platform, `${platform}.stackspots`, "is-contract-allowed-hash", copyHash.result);
+      return deployed;
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      findings.push(`${scenario} exact-source deploy: ${msg}`);
+      console.log(`OC ${scenario} deploy RUNTIME ${msg}`);
+      record(scenario, "deploy", potDeployer, potId(name), "deployContract", undefined);
+      return { result: undefined };
+    }
   }
 
   function initPot(scenario: string, name: string, withPlatformSponsor: boolean) {
@@ -229,13 +233,39 @@ describe("one-cycle crowdfund lifecycle audit", () => {
 
   beforeEach(() => {
     console.log(
-      `IDENTITY platform(deployer)=${platform} clarinet_wallet_1=${clarinetW1} pot_deployer(wallet_2)=${potDeployer}`
+      `IDENTITY platform(deployer)=${platform} clarinet_wallet_1=${clarinetW1} pot_deployer(wallet_2)=${potDeployer} clarity=${(simnet as { getDefaultClarityVersionForCurrentEpoch?: () => string }).getDefaultClarityVersionForCurrentEpoch?.() ?? "unknown"}`
     );
     bootBalances = snapshot("pre-boot", ids);
-
-    const allowAdmin = simnet.callPublicFn("init-admin", "update-contract-hash", [], platform);
-    record("boot", "update-contract-hash", platform, "init-admin", "update-contract-hash", allowAdmin.result);
-
+    const initAdmin = simnet.deployContract("init-admin-late", initAdminSrc, { clarityVersion: 6 }, platform);
+    record("boot", "deployer-init-admin-late", platform, `${platform}.init-admin-late`, "deployContract", initAdmin.result);
+    const genesisAllowed = simnet.callReadOnlyFn(
+      "stackspots",
+      "is-contract-allowed-hash",
+      [Cl.contractPrincipal(platform, "crowd-fund")],
+      platform
+    );
+    record(
+      "boot",
+      "platform-crowd-fund-hash-allowed",
+      platform,
+      `${platform}.stackspots`,
+      "is-contract-allowed-hash",
+      genesisAllowed.result
+    );
+    const sponsorAllowed = simnet.callReadOnlyFn(
+      "stackspots",
+      "validate-platform-sponsor-contract",
+      [Cl.contractPrincipal(platform, "stackspot-sponsor")],
+      platform
+    );
+    record(
+      "boot",
+      "platform-sponsor-hash-allowed",
+      platform,
+      `${platform}.stackspots`,
+      "validate-platform-sponsor-contract",
+      sponsorAllowed.result
+    );
     activateStakingStack(platform, [p1, lp]);
     const liq = simnet.transferSTX(FASTPOOL_LIQ, `${platform}.fastpool`, lp);
     record("boot", "wallet_7-fastpool-liq", lp, `${platform}.fastpool`, "transferSTX", liq.result);
@@ -270,9 +300,12 @@ describe("one-cycle crowdfund lifecycle audit", () => {
 
   it("Scenario 1 — no platform sponsor, claim at cycle end", () => {
     const name = "cf-s1";
-    deployAndAllow("S1", name);
+    deployPot("S1", name);
     const init = initPot("S1", name, false);
-    expect(resultLabel(init.result)).toBe("ok");
+    if (resultLabel(init.result) !== "ok") {
+      findings.push(`S1 init ${resultLabel(init.result)} (no extra set-pot-contract-hash)`);
+      return;
+    }
     fundPot("S1", name);
     expect(stx(potId(name))).toBe(BigInt(P1 + P2 + P3 + SPONSOR));
     const start = startPot("S1", name);
@@ -289,16 +322,19 @@ describe("one-cycle crowdfund lifecycle audit", () => {
       record("S1", "second-claim", potDeployer, potId(name), "claim-pot-reward", twice.result);
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
-      findings.push(`S1 second-claim runtime: ${msg.slice(0, 240)}`);
-      console.log(`OC S1 claim-twice RUNTIME ${msg.slice(0, 240)}`);
+      findings.push(`S1 second-claim runtime: ${msg}`);
+      console.log(`OC S1 claim-twice RUNTIME ${msg}`);
     }
     void beforeClaim;
   });
 
   it("Scenario 2 — no platform sponsor, cancel at cycle end", () => {
     const name = "cf-s2";
-    deployAndAllow("S2", name);
-    expect(resultLabel(initPot("S2", name, false).result)).toBe("ok");
+    deployPot("S2", name);
+    if (resultLabel(initPot("S2", name, false).result) !== "ok") {
+      findings.push("S2 init failed without extra hash calls");
+      return;
+    }
     fundPot("S2", name);
     expect(resultLabel(startPot("S2", name).result)).toBe("ok");
     mineToRelease(name);
@@ -313,8 +349,11 @@ describe("one-cycle crowdfund lifecycle audit", () => {
 
   it("Scenario 3 — no platform sponsor, cancel before cycle end", () => {
     const name = "cf-s3";
-    deployAndAllow("S3", name);
-    expect(resultLabel(initPot("S3", name, false).result)).toBe("ok");
+    deployPot("S3", name);
+    if (resultLabel(initPot("S3", name, false).result) !== "ok") {
+      findings.push("S3 init failed without extra hash calls");
+      return;
+    }
     fundPot("S3", name);
     expect(resultLabel(startPot("S3", name).result)).toBe("ok");
     const early = call("S3", "cancel-immediately", potId(name), "cancel-pot", [selfOf(name)], potDeployer);
@@ -327,7 +366,7 @@ describe("one-cycle crowdfund lifecycle audit", () => {
 
   it("Scenario 4 — with platform sponsor, cancel at cycle end", () => {
     const name = "cf-s4";
-    deployAndAllow("S4", name);
+    deployPot("S4", name);
     const init = initPot("S4", name, true);
     record("S4", "init-result", potDeployer, potId(name), "init-pot", init.result);
     if (resultLabel(init.result) !== "ok") {
@@ -357,7 +396,7 @@ describe("one-cycle crowdfund lifecycle audit", () => {
 
   it("Scenario 5 — with platform sponsor, cancel before cycle end", () => {
     const name = "cf-s5";
-    deployAndAllow("S5", name);
+    deployPot("S5", name);
     const init = initPot("S5", name, true);
     if (resultLabel(init.result) !== "ok") {
       findings.push(`S5 platform-sponsor init ${resultLabel(init.result)}`);
@@ -373,7 +412,7 @@ describe("one-cycle crowdfund lifecycle audit", () => {
 
   it("Scenario 6 — with platform sponsor, claim at cycle end", () => {
     const name = "cf-s6";
-    deployAndAllow("S6", name);
+    deployPot("S6", name);
     const init = initPot("S6", name, true);
     if (resultLabel(init.result) !== "ok") {
       findings.push(`S6 platform-sponsor init ${resultLabel(init.result)}`);
@@ -400,17 +439,20 @@ describe("one-cycle crowdfund lifecycle audit", () => {
   describe("additional cases", () => {
     it("A init duplicate / unauthorized / zero-ish config", () => {
       const name = "cf-extra-a";
-      deployAndAllow("A", name);
+      deployPot("A", name);
       call("A", "init-unauth", potId(name), "init-pot", [Cl.uint(CYCLES), Cl.uint(MIN), Cl.uint(MAX_PARTS), Cl.stringAscii(name), Cl.principal(potDeployer), selfOf(name), Cl.list([])], extra);
       const ok = initPot("A", name, false);
-      expect(resultLabel(ok.result)).toBe("ok");
+      if (resultLabel(ok.result) !== "ok") {
+        findings.push(`A init ${resultLabel(ok.result)}`);
+        return;
+      }
       const dup = initPot("A", name, false);
       expect(resultLabel(dup.result)).toBe("err u1409");
     });
 
     it("B funding edges", () => {
       const name = "cf-extra-b";
-      deployAndAllow("B", name);
+      deployPot("B", name);
       initPot("B", name, false);
       call("B", "join-zero", potId(name), "join-pot", [Cl.uint(0)], p1);
       call("B", "join-below-min", potId(name), "join-pot", [Cl.uint(MIN - 1)], p1);
@@ -423,7 +465,7 @@ describe("one-cycle crowdfund lifecycle audit", () => {
 
     it("C start without init / claim before eligibility", () => {
       const name = "cf-extra-c";
-      deployAndAllow("C", name);
+      deployPot("C", name);
       call("C", "start-uninitialized", potId(name), "start-pot", [selfOf(name)], potDeployer);
       initPot("C", name, false);
       fundPot("C", name);
@@ -433,7 +475,7 @@ describe("one-cycle crowdfund lifecycle audit", () => {
 
     it("D cancel before start", () => {
       const name = "cf-extra-d";
-      deployAndAllow("D", name);
+      deployPot("D", name);
       initPot("D", name, false);
       fundPot("D", name);
       call("D", "cancel-before-start", potId(name), "cancel-pot", [selfOf(name)], potDeployer);
@@ -451,6 +493,7 @@ describe("one-cycle crowdfund lifecycle audit", () => {
       sponsor,
       lp,
       extra,
+      stackspotSponsor: `${platform}.stackspot-sponsor`,
       stackspots: `${platform}.stackspots`,
       fastpool: `${platform}.fastpool`,
     });

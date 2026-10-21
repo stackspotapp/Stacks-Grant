@@ -122,16 +122,6 @@ plan:
       path: contracts/crowd-fund.clar
       clarity-version: 6
     - transaction-type: emulated-contract-publish
-      contract-name: jackpot
-      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      path: contracts/jackpot.clar
-      clarity-version: 6
-    - transaction-type: emulated-contract-publish
-      contract-name: sequential
-      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      path: contracts/sequential.clar
-      clarity-version: 6
-    - transaction-type: emulated-contract-publish
       contract-name: init-admin
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
       path: contracts/init-admin.clar

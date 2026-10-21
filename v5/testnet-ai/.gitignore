@@ -1,5 +1,8 @@
+**/settings/Mainnet.toml
+**/settings/Testnet.toml
 .cache/**
 history.txt
+
 logs
 *.log
 npm-debug.log*

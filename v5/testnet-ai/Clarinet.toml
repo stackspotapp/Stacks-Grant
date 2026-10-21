@@ -1,22 +1,47 @@
 [project]
 name = "testnet-ai"
-description = "Stackspots testnet (PoX-5): same contracts as simnet-ai, qualified for testnet deploys"
+description = "Stackspots testnet (PoX-5): stackspots logs + admin; pots stake and pay out directly"
 authors = []
 telemetry = false
 cache_dir = "./.cache"
 
-# Only remap-publish nft-trait. pox-5 is a boot contract; sbtc-token and
-# signer-manager already exist on testnet. Listing them as requirements makes
-# `clarinet deployments generate --testnet` walk mainnet
-# SM3VDXK3….sbtc-registry and panic (clarinet-deployments/src/lib.rs:857).
 [[project.requirements]]
-contract_id = "SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait"
+contract_id = "ST000000000000000000002AMW42H.pox-5"
+
+[[project.requirements]]
+contract_id = "SN3VMHXEN64ZZF71JQ5VESXDWTR301XTTXGF4J8F1.sbtc-token"
+
+[[project.requirements]]
+contract_id = "ST3TB3AJ0XMZ9S6CGY2CQ6R06H1Z6DJQ1SK5QGMWP.signer-manager-4"
+
+# Check-checker settings:
+# trusted_sender: if true, inputs are trusted after tx_sender has been checked.
+# trusted_caller: if true, inputs are trusted after contract-caller has been checked.
+# callee_filter: if true, untrusted data may be passed into a private function without a
+# warning, if it gets checked inside. This check will also propagate up to the
+# caller.
+# More informations: https://www.hiro.so/blog/new-safety-checks-in-clarinet
 
 [repl.analysis]
 passes = ["check_checker"]
 check_checker = { trusted_sender = false, trusted_caller = false, callee_filter = false }
 
 [contracts]
+
+[contracts.nft-trait]
+path = "contracts/nft-trait.clar"
+clarity_version = 1
+epoch = "2.05"
+
+[contracts.stackspot-pots-trait]
+path = "contracts/stackspot-pots-trait.clar"
+clarity_version = 6
+epoch = "latest"
+
+[contracts.stackspot-sponsor-trait]
+path = "contracts/stackspot-sponsor-trait.clar"
+clarity_version = 6
+epoch = "latest"
 
 [contracts.stackspot-vrf]
 path = "contracts/stackspot-vrf.clar"
@@ -25,16 +50,6 @@ epoch = "latest"
 
 [contracts.stackspots]
 path = "contracts/stackspots.clar"
-clarity_version = 6
-epoch = "latest"
-
-[contracts.jackpot]
-path = "contracts/jackpot.clar"
-clarity_version = 6
-epoch = "latest"
-
-[contracts.sequential]
-path = "contracts/sequential.clar"
 clarity_version = 6
 epoch = "latest"
 
@@ -50,15 +65,5 @@ epoch = "latest"
 
 [contracts.init-admin]
 path = "contracts/init-admin.clar"
-clarity_version = 6
-epoch = "latest"
-
-[contracts.stackspot-pots-trait]
-path = "contracts/stackspot-pots-trait.clar"
-clarity_version = 6
-epoch = "latest"
-
-[contracts.stackspot-sponsor-trait]
-path = "contracts/stackspot-sponsor-trait.clar"
 clarity_version = 6
 epoch = "latest"

@@ -619,7 +619,7 @@
 )
 
 ;; Public Function That Starts The Jackpot
-(define-public (start-stackspot-jackpot (pot-contract <stackspot-pots-trait>))
+(define-public (start-pot (pot-contract <stackspot-pots-trait>))
   (begin
     ;; Validates pot is not already started
     (asserts! (not (var-get locked)) ERR_POT_ALREADY_STARTED)
@@ -646,7 +646,7 @@
 
     ;; Print
     (print (to-consensus-buff? {
-      event: "start-stackspot-jackpot",
+      event: "start-pot",
       pot-starter-principal: tx-sender,
       pot-contract: (contract-of pot-contract),
       pot-treasury: current-contract,
