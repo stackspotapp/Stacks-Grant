@@ -9,7 +9,7 @@ plan:
     transactions:
     - transaction-type: contract-publish
       contract-name: nft-trait
-      expected-sender: ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT
+      expected-sender: ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S
       cost: 170000
       path: contracts/nft-trait.clar
       anchor-block-only: true
@@ -19,30 +19,37 @@ plan:
     transactions:
     - transaction-type: contract-publish
       contract-name: stackspot-pots-trait
-      expected-sender: ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT
+      expected-sender: ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S
       cost: 172054
       path: contracts/stackspot-pots-trait.clar
       anchor-block-only: true
       clarity-version: 6
     - transaction-type: contract-publish
       contract-name: stackspot-sponsor-trait
-      expected-sender: ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT
+      expected-sender: ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S
       cost: 171893
       path: contracts/stackspot-sponsor-trait.clar
       anchor-block-only: true
       clarity-version: 6
     - transaction-type: contract-publish
       contract-name: stackspot-vrf
-      expected-sender: ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT
+      expected-sender: ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S
       cost: 172161
       path: contracts/stackspot-vrf.clar
       anchor-block-only: true
       clarity-version: 6
     - transaction-type: contract-publish
       contract-name: stackspots
-      expected-sender: ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT
+      expected-sender: ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S
       cost: 175379
       path: contracts/stackspots.clar
+      anchor-block-only: true
+      clarity-version: 6
+    - transaction-type: contract-publish
+      contract-name: stackspot-pre-init-logs
+      expected-sender: ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S
+      cost: 171800
+      path: contracts/stackspot-pre-init-logs.clar
       anchor-block-only: true
       clarity-version: 6
     epoch: '4.0'
@@ -50,14 +57,14 @@ plan:
     transactions:
     - transaction-type: contract-publish
       contract-name: crowd-fund
-      expected-sender: ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT
+      expected-sender: ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S
       cost: 180957
       path: contracts/crowd-fund.clar
       anchor-block-only: true
       clarity-version: 6
     - transaction-type: contract-publish
       contract-name: stackspot-sponsor
-      expected-sender: ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT
+      expected-sender: ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S
       cost: 175326
       path: contracts/stackspot-sponsor.clar
       anchor-block-only: true
@@ -67,7 +74,7 @@ plan:
     transactions:
     - transaction-type: contract-publish
       contract-name: init-admin
-      expected-sender: ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT
+      expected-sender: ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S
       cost: 172001
       path: contracts/init-admin.clar
       anchor-block-only: true

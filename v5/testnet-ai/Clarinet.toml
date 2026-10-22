@@ -53,6 +53,11 @@ path = "contracts/stackspots.clar"
 clarity_version = 6
 epoch = "latest"
 
+[contracts.stackspot-pre-init-logs]
+path = "contracts/stackspot-pre-init-logs.clar"
+clarity_version = 6
+epoch = "latest"
+
 [contracts.crowd-fund]
 path = "contracts/crowd-fund.clar"
 clarity_version = 6

@@ -4,9 +4,9 @@
 ;; description: This contract is used to sponsor the Stackspots platform.
 
 ;; traits
-  (impl-trait 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.nft-trait.nft-trait)
-  (impl-trait 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspot-sponsor-trait.stackspot-sponsor-trait)
-  (use-trait stackspot-pots-trait 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspot-pots-trait.stackspot-pots-trait)
+  (impl-trait 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.nft-trait.nft-trait)
+  (impl-trait 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspot-sponsor-trait.stackspot-sponsor-trait)
+  (use-trait stackspot-pots-trait 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspot-pots-trait.stackspot-pots-trait)
 ;; ================================
 
 ;; token definitions
@@ -23,6 +23,7 @@
     (define-constant err-stake-window-passed (err u1305))
     (define-constant err-not-allowed-contract-hash (err u1305))
     (define-constant err_already_initialized (err u1305))
+    (define-constant err_locked (err u1306))
 
     ;; Fastpool: "A staker tried to claim rewards, but they had none available"
     ;; PoX-5: distribution already computed for this window
@@ -53,7 +54,7 @@
 ;; ================================
 
 ;; public functions
-  (define-public (sponsor-platform (amount uint) (cycles uint) (rule-list (list 3 {label: (string-ascii 255), state: bool, required: uint, score: uint}))) 
+  (define-public (sponsor-platform (amount uint) (cycles uint) (logo-url (string-ascii 256)) (description (string-ascii 256)) (rule-list (list 3 {label: (string-ascii 255), state: bool, required: uint, score: uint}))) 
     (let
       (
         (is-staking (> (get locked (stx-account current-contract)) u0))
@@ -65,7 +66,7 @@
 
 
         (try! (stx-transfer-memo? amount tx-sender current-contract (unwrap! (to-consensus-buff? "sponsor amount transferred") err_not_found)))
-        (try! (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots verify-sponsorer-contract current-contract))
+        (try! (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots verify-sponsorer-contract current-contract))
         
         ;; stake or stake-update in pox-5
         (if is-staking
@@ -93,6 +94,8 @@
               event: "sponsor-platform",
               amount: amount,
               cycles: cycles,
+              logo-url: logo-url,
+              description: description,
               rule-list: rule-list,
               sponsor: tx-sender,
               sponsor-contract: current-contract,
@@ -100,7 +103,7 @@
             }) err_not_found))
           )
           (print payload)
-          (try! (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots log-sponsor-platform payload))          
+          (try! (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots log-sponsor-platform payload))          
         )
 
         (ok true)
@@ -118,7 +121,7 @@
         (sponsored-amount (stx-get-balance current-contract))
         (token-id-owner (unwrap-panic (unwrap-panic (get-owner ticket-id))))
       )
-      (asserts! (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots is-contract-allowed-hash (contract-of pot-contract)) err-not-allowed-contract-hash)
+      (asserts! (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots is-contract-allowed-hash (contract-of pot-contract)) err-not-allowed-contract-hash)
       (asserts! (is-eq (contract-of pot-contract) contract-caller) err_not-authorized)
       (asserts! (is-eq token-id-owner contract-caller) err-not-token-owner)
 
@@ -152,25 +155,14 @@
       
       (ok true)
     )
-  )
-
-  (define-private (init-rules (values (list 3 {label: (string-ascii 255), state: bool, required: uint, score: uint}))) 
-    (begin
-      (asserts! (not (var-get initialized)) err_already_initialized)
-      (asserts! (is-eq tx-sender sponsorer) err_not-authorized)
-
-      (fold update-rule-loop values u0)
-      
-      (ok true)
-    )
-  )
+  )  
 
   (define-public (sponsor-event (pot-contract <stackspot-pots-trait>)) 
     (begin
       ;; validate the calling pot is the contract being sponsored
       ;; validate the sponsor contract is allowed to sponsor events
       (asserts! (is-eq contract-caller (contract-of pot-contract)) err_not-authorized)
-      (asserts! (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots is-contract-allowed-hash contract-caller) err_not-authorized)
+      (asserts! (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots is-contract-allowed-hash contract-caller) err_not-authorized)
 
       (let
         (
@@ -187,6 +179,47 @@
         
         (ok ticket-id)
       )
+    )
+  )
+
+  (define-public (withdraw-principal (amount uint)) 
+    (let
+      (
+        (withdrawable-amount (get unlocked (stx-account current-contract)))
+        (is-locked (> (get locked (stx-account current-contract)) u0))
+        (memo (to-consensus-buff? "withdraw-principal"))
+      )
+      (asserts! (is-eq tx-sender sponsorer) err_not-authorized)
+      (asserts! (not is-locked) err_locked)
+      (asserts! (>= withdrawable-amount amount) err_insufficient_sponsor_balance)
+      (try! (as-contract? ((with-stx amount)) (try! (stx-transfer-memo? amount current-contract sponsorer (unwrap! memo err_not_found)))))
+      (ok true)
+    )
+  )
+
+  (define-public (extend-sponsor-platform (cycles uint))
+    (let
+      (
+        (extendable-stake-amount (get unlocked (stx-account current-contract)))
+        (is-locked (> (get locked (stx-account current-contract)) u0))
+      )
+      (asserts! (is-eq tx-sender sponsorer) err_not-authorized)
+      (asserts! (not is-locked) err_locked)
+      (asserts! (> extendable-stake-amount u0) err_insufficient_sponsor_balance)
+
+      ;; stake or stake-update in pox-5
+        (if is-locked
+          (begin
+            (try! (as-contract? ((with-staking extendable-stake-amount)) (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5 stake-update signer signer cycles extendable-stake-amount none))))
+            true        
+          )
+          (begin
+            (try! (as-contract? ((with-staking extendable-stake-amount)) (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5 stake signer extendable-stake-amount cycles burn-block-height none))))
+            true
+          )
+        )
+
+      (ok true)
     )
   )
 ;; ================================
@@ -208,7 +241,7 @@
   (define-private (get-total-validated-rule-score (pot-contract <stackspot-pots-trait>)) 
     (let 
       (
-        (generated-list (default-to (list ) (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspot-vrf generate-list u0 rule-sets-count)))
+        (generated-list (default-to (list ) (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspot-vrf generate-list u0 rule-sets-count)))
         (rule-set-list (map get-rule-score generated-list))
       )
       (ok 
@@ -223,6 +256,19 @@
       )
     )
   )
+
+  (define-private (init-rules (values (list 3 {label: (string-ascii 255), state: bool, required: uint, score: uint}))) 
+    (begin
+      (asserts! (not (var-get initialized)) err_already_initialized)
+      (asserts! (is-eq tx-sender sponsorer) err_not-authorized)
+
+      (fold update-rule-loop values u0)
+      
+      (ok true)
+    )
+  )
+
+;; ================================
 
 ;; rules check functions
   ;; rule-0: checkes if pot balance meets the required amount for sponsore rewards
@@ -256,13 +302,13 @@
   )
 
   (define-read-only (get-minimum-sponsor-amount) 
-    (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots get-minimum-sponsor-amount)
+    (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots get-minimum-sponsor-amount)
   )
 
   (define-read-only (get-rule-sets) 
     (let 
       (
-        (generated-list (default-to (list ) (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspot-vrf generate-list u0 rule-sets-count)))
+        (generated-list (default-to (list ) (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspot-vrf generate-list u0 rule-sets-count)))
         (rule-set-list (map get-rule generated-list))
       )
       (ok rule-set-list)
@@ -272,7 +318,7 @@
   (define-read-only (get-total-rule-score) 
     (let 
       (
-        (generated-list (default-to (list ) (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspot-vrf generate-list u0 rule-sets-count)))
+        (generated-list (default-to (list ) (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspot-vrf generate-list u0 rule-sets-count)))
         (rule-set-list (map get-rule-score generated-list))
       )
       (ok (fold add-score rule-set-list u0))
@@ -339,7 +385,7 @@
         (
           (token-id (+ (var-get last-token-id) u1))
         )
-        (asserts! (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots is-contract-allowed-hash recipient) err_not-authorized)
+        (asserts! (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots is-contract-allowed-hash recipient) err_not-authorized)
         (asserts! (is-eq tx-sender recipient) err-owner-only)
         
         (try! (nft-mint? pot-ticket token-id recipient))

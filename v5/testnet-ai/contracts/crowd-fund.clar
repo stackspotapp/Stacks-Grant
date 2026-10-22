@@ -4,9 +4,9 @@
 ;; description: Fixed funding recipient. Staking + payouts happen on this contract.
 
 ;; --- TRAITS
-  (impl-trait 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspot-pots-trait.stackspot-pots-trait)
-  (use-trait stackspot-pots-trait 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspot-pots-trait.stackspot-pots-trait)
-  (use-trait stackspot-sponsor-trait 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspot-sponsor-trait.stackspot-sponsor-trait)
+  (impl-trait 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspot-pots-trait.stackspot-pots-trait)
+  (use-trait stackspot-pots-trait 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspot-pots-trait.stackspot-pots-trait)
+  (use-trait stackspot-sponsor-trait 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspot-sponsor-trait.stackspot-sponsor-trait)
 ;; --------------------------------------------------------------------------------------------
 
 ;; CONATANTS
@@ -46,7 +46,7 @@
 
   (define-constant pot-type "crowd-fund")
   ;; Platform, pot-treasury and admin addresses
-    (define-constant platform_address (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots get-platform-treasury))
+    (define-constant platform_address (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots get-platform-treasury))
     (define-constant pot_treasury_address current-contract)
     (define-constant pot_admin tx-sender)
   ;; ---
@@ -194,13 +194,13 @@
   )
 
   (define-read-only (get-pot-id)
-    (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots get-token-id current-contract)
+    (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots get-token-id current-contract)
   )
 
   (define-read-only (get-pot-participants-list)
     (let (
         (participants-count (var-get last-pot-participant))
-        (n (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspot-vrf generate-list u0 participants-count))
+        (n (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspot-vrf generate-list u0 participants-count))
         (participants (match n
           value (map get-by-id-helper-private value)
           (list)
@@ -218,7 +218,7 @@
   (define-read-only (get-sponsors-list)
     (let 
       (
-        (n (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
+        (n (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
         (participants 
           (match n
             value (map get-by-id-helper-sponsor value)
@@ -395,7 +395,7 @@
 
           (print payload)
 
-          (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots register-pot payload contract)
+          (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots register-pot payload contract)
         )
       )
     )
@@ -443,7 +443,7 @@
             }) err_not_found))
           )
           (print payload)
-          (try! (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots log-join-pot payload))
+          (try! (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots log-join-pot payload))
         )
 
         ;; Execution Complete
@@ -485,7 +485,7 @@
             }) err_not_found))
           )
           (print payload)
-          (try! (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots log-join-pot-as-sponsor payload))
+          (try! (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots log-join-pot-as-sponsor payload))
         )
 
         ;; Execution Complete
@@ -535,7 +535,7 @@
             )
           )
           (print (merge {pot-participants: (unwrap! (get-pot-participants-list) err_not_found)} payload))
-          (try! (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots log-start-pot (unwrap! (to-consensus-buff? payload ) err_not_found)))
+          (try! (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots log-start-pot (unwrap! (to-consensus-buff? payload ) err_not_found)))
         )
 
         ;; Execution complete
@@ -577,7 +577,10 @@
             (total-balance (stx-get-balance current-contract))
             (total-sponsor-amount (var-get sponsor-amount))
             (total-participants-amounts (- total-balance total-sponsor-amount))
+            ;; current target amount
+            (current-target-amount (* (var-get pot-min-amount) (var-get last-pot-participant)))
           )
+          (asserts! (or (> pot-yield u0) (>= total-balance current-target-amount)) err_insufficient_reward)
           ;; Set pot claimer principal
           (var-set pot-claimer-principal (some tx-sender))
 
@@ -678,7 +681,7 @@
                 } payload)
               )
 
-              (try! (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots log-claim-pot-reward (unwrap-panic (to-consensus-buff? payload))))
+              (try! (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots log-claim-pot-reward (unwrap-panic (to-consensus-buff? payload))))
             )     
           ;;  ---
 
@@ -698,8 +701,8 @@
         (asserts! (not (var-get pot-cancelled)) err_pot_cancelled)
         (asserts! 
           (or 
-            (and (> burn-block-height (+ (unwrap-panic (var-get lock-burn-height)) (* more_than_one_cycle (var-get pot-cycle)))) is-locked) 
-            (and (> burn-block-height (+ (unwrap-panic (var-get first-user-joined)) more_than_one_cycle)) (not is-locked))
+            (and (> burn-block-height (+ (default-to u0 (var-get lock-burn-height)) (* more_than_one_cycle (var-get pot-cycle)))) is-locked) 
+            (and (> burn-block-height (+ (default-to u0 (var-get first-user-joined)) more_than_one_cycle)) (not is-locked))
           ) 
         err_too_early)
         (asserts! (is-eq (contract-of pot-contract) current-contract) err_unauthorized)
@@ -743,7 +746,7 @@
             })))
           )
           (print payload)
-          (try! (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots log-cancel-pot payload))
+          (try! (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspots log-cancel-pot payload))
         )
 
         ;; Execution complete
@@ -776,8 +779,4 @@
 
   (print PRE_INIT_LOG)
   
-  (define-private (pre-log-init) 
-    (as-contract? () (try! (contract-call? 'ST4KKK958A2BG93J06GE9S9Q80WCCMA7QXW2AFRT.stackspots log-pre-init PRE_INIT_LOG)))
-  )
-
-  (pre-log-init)
+  (contract-call? 'ST1MJ1MZ95GC604Q1HYDK3HEP0S3YP0GK72Y2R13S.stackspot-pre-init-logs log-pre-init PRE_INIT_LOG)

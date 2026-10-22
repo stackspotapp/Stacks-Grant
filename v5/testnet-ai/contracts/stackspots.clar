@@ -34,7 +34,7 @@
   (define-map pot-id-info uint {pot-id: uint, pot-name: (string-ascii 255), pot-owner: principal, pot-contract: principal})    
   ;; Admin maps
     (define-map admins principal bool)
-    (define-map allowed-contract-hash (buff 32) bool)  
+    (define-map allowed-contract-hash (buff 256) bool)  
     (define-map plaform-sponsor-contracts (buff 32) bool)
 ;; ---------------------------------------------------------------------------
 
@@ -279,12 +279,7 @@
 
   ;; Pot action logging
   ;; Pots serialize their own event tuples with `to-consensus-buff?` and pass
-  ;; `(buff 2048)`. Stackspots only authenticates the caller and prints.
-  ;; Log pre-init at pot deploy time (before register-pot / NFT mint).
-    (define-public (log-pre-init (payload (buff 2048)))
-      (emit-log payload false)
-    )
-
+  ;; `(buff 2048)`. Stackspots only authenticates the caller and prints. 
     (define-public (log-join-pot (payload (buff 2048)))
       (emit-log payload true)
     )
@@ -417,4 +412,3 @@
 ;; Initialize primary admin
 
 (map-set admins tx-sender true)
-(add-update-admin-status tx-sender true)
