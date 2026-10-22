@@ -102,6 +102,11 @@ plan:
       path: contracts/stackspot-pots-trait.clar
       clarity-version: 6
     - transaction-type: emulated-contract-publish
+      contract-name: stackspot-pre-init-logs
+      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+      path: contracts/stackspot-pre-init-logs.clar
+      clarity-version: 6
+    - transaction-type: emulated-contract-publish
       contract-name: stackspot-sponsor-trait
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
       path: contracts/stackspot-sponsor-trait.clar

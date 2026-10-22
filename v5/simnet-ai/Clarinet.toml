@@ -81,3 +81,8 @@ epoch = "latest"
 path = "contracts/init-admin.clar"
 clarity_version = 6
 epoch = "latest"
+
+[contracts.stackspot-pre-init-logs]
+path = "contracts/stackspot-pre-init-logs.clar"
+clarity_version = 6
+epoch = "latest"

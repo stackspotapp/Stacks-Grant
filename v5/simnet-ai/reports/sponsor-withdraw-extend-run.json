@@ -1,0 +1,259 @@
+{
+  "identities": {
+    "platform": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+    "extra": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+    "stackspot_sponsor": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor"
+  },
+  "cycleLength": 2100,
+  "log": [
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 8
+    },
+    {
+      "scenario": "W",
+      "step": "sponsor-platform",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "sponsor-platform",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 11
+    },
+    {
+      "scenario": "W",
+      "step": "after-sponsor-platform",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "is-locked=false sponsored=40000000",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 11
+    },
+    {
+      "scenario": "W",
+      "step": "withdraw-unauth-after-stake",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "withdraw-principal",
+      "result": "err u1304",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "W",
+      "step": "extend-unauth-after-stake",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "extend-sponsor-platform",
+      "result": "err u1304",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "W",
+      "step": "pre-withdraw",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "is-locked=false sponsored=40000000",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "W",
+      "step": "withdraw-full",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "withdraw-principal",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "W",
+      "step": "withdraw-zero",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "withdraw-principal",
+      "result": "err u3",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "W",
+      "step": "withdraw-partial",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "withdraw-principal",
+      "result": "err u1301",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "W",
+      "step": "withdraw-unauth-after-partial",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "withdraw-principal",
+      "result": "err u1304",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "W",
+      "step": "extend-unauth-after-partial",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "extend-sponsor-platform",
+      "result": "err u1304",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "W",
+      "step": "extend-after-partial",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "extend-sponsor-platform",
+      "result": "err u1301",
+      "burn": 3,
+      "stacks": 19
+    },
+    {
+      "scenario": "W",
+      "step": "after-extend",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "is-locked=false sponsored=0",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 19
+    },
+    {
+      "scenario": "W",
+      "step": "withdraw-after-extend",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor",
+      "fn": "withdraw-principal",
+      "result": "err u1301",
+      "burn": 3,
+      "stacks": 20
+    }
+  ],
+  "findings": [
+    "W after-sponsor-platform is-locked=false sponsored=40000000",
+    "W stx-account.locked is 0 immediately after sim-pox-5 stake (unlock-burn-height u4200)",
+    "W pre-withdraw is-locked=false sponsored=40000000",
+    "W withdraw-full=ok amount=40000000",
+    "W withdraw-zero=err u3",
+    "W withdraw-partial=err u1301",
+    "W stx-delta deployer=40000000 contract=-40000000 expectedWithdraw=10000000",
+    "W extend-after-partial=err u1301",
+    "W after-extend is-locked=false sponsored=0",
+    "W withdraw-after-extend=err u1301"
+  ],
+  "snaps": [
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "pre-sponsor-platform",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "pre-withdraw",
+      "rows": {
+        "platform": {
+          "stx": "99999960000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "40000000",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-withdraw",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-extend",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    }
+  ]
+}

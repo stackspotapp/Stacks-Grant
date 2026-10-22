@@ -103,7 +103,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s1",
       "fn": "deployContract",
-      "result": "err u1110",
+      "result": "ok",
       "burn": 3,
       "stacks": 11
     },
@@ -213,7 +213,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s1",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1303",
       "burn": 13033,
       "stacks": 13085
     },
@@ -223,7 +223,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s1",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1303",
       "burn": 13033,
       "stacks": 13086
     },
@@ -233,7 +233,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s1",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1303",
       "burn": 13033,
       "stacks": 13086
     },
@@ -283,7 +283,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s2",
       "fn": "deployContract",
-      "result": "err u1110",
+      "result": "ok",
       "burn": 3,
       "stacks": 11
     },
@@ -443,7 +443,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s3",
       "fn": "deployContract",
-      "result": "err u1110",
+      "result": "ok",
       "burn": 3,
       "stacks": 11
     },
@@ -603,7 +603,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s4",
       "fn": "deployContract",
-      "result": "err u1110",
+      "result": "ok",
       "burn": 3,
       "stacks": 11
     },
@@ -753,7 +753,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s5",
       "fn": "deployContract",
-      "result": "err u1110",
+      "result": "ok",
       "burn": 3,
       "stacks": 11
     },
@@ -893,7 +893,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s6",
       "fn": "deployContract",
-      "result": "err u1110",
+      "result": "ok",
       "burn": 3,
       "stacks": 11
     },
@@ -993,7 +993,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s6",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1303",
       "burn": 13033,
       "stacks": 13085
     },
@@ -1043,7 +1043,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-a",
       "fn": "deployContract",
-      "result": "err u1110",
+      "result": "ok",
       "burn": 3,
       "stacks": 11
     },
@@ -1143,7 +1143,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-b",
       "fn": "deployContract",
-      "result": "err u1110",
+      "result": "ok",
       "burn": 3,
       "stacks": 11
     },
@@ -1293,7 +1293,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-c",
       "fn": "deployContract",
-      "result": "err u1110",
+      "result": "ok",
       "burn": 3,
       "stacks": 11
     },
@@ -1443,7 +1443,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-d",
       "fn": "deployContract",
-      "result": "err u1110",
+      "result": "ok",
       "burn": 3,
       "stacks": 11
     },
@@ -1523,16 +1523,157 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-d",
       "fn": "cancel-pot",
-      "result": "none",
+      "result": "err u1408",
       "burn": 3,
       "stacks": 17
+    },
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-crowd-fund-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 8
+    },
+    {
+      "scenario": "E",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-e",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 11
+    },
+    {
+      "scenario": "E",
+      "step": "genesis-crowd-fund-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 11
+    },
+    {
+      "scenario": "E",
+      "step": "wallet2-copy-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 11
+    },
+    {
+      "scenario": "E",
+      "step": "init-no-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-e",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "E",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-e",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "E",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-e",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "E",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-e",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "E",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-e",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "E",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-e",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "E",
+      "step": "claim-return-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-e",
+      "fn": "claim-pot-reward",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13084
     }
   ],
   "findings": [
+    "S1 claim err u1303",
     "S3 immediate=err u1408 unauth=err u1408 mid=ok",
     "S5 early-cancel err u1408",
-    "S6 claim-with-ps=ok claim-empty=ok",
-    "D cancel-before-start runtime: Call contract function error: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-d::cancel-pot('ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-d) -> Error calling contract function 'cancel-pot': Runtime error while interpreting ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-d: Runtime(UnwrapFailure, Some([FunctionIdentifier { identifier: \"ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-extra-d:cancel-pot\" }, FunctionIdentifier { identifier: \"_native_:special_let\" }, FunctionIdentifier { identifier: \"_native_:special_asserts\" }, FunctionIdentifier { identifier: \"_native_:special_or\" }, FunctionIdentifier { identifier: \"_native_:special_and\" }, FunctionIdentifier { identifier: \"_native_:special_ge\" }, FunctionIdentifier { identifier: \"_native_:native_unwrap\" }]))"
+    "S6 claim-with-ps=ok claim-empty=err u1303",
+    "E claim=ok sponsor-delta=1000000000 expected=1000000000"
   ],
   "snaps": [
     {
@@ -1829,7 +1970,7 @@
         },
         "potDeployer": {
           "stx": "99999999900000",
-          "sbtc": "65908"
+          "sbtc": "0"
         },
         "p1": {
           "stx": "100000000000000",
@@ -1853,7 +1994,7 @@
         },
         "extra": {
           "stx": "100000000000000",
-          "sbtc": "1358"
+          "sbtc": "0"
         },
         "stackspotSponsor": {
           "stx": "0",
@@ -1861,11 +2002,11 @@
         },
         "stackspots": {
           "stx": "100000",
-          "sbtc": "679"
+          "sbtc": "0"
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "84932045"
+          "sbtc": "84999990"
         }
       }
     },
@@ -2611,7 +2752,7 @@
         },
         "potDeployer": {
           "stx": "99999999900000",
-          "sbtc": "67266"
+          "sbtc": "0"
         },
         "p1": {
           "stx": "100000000000000",
@@ -2643,11 +2784,11 @@
         },
         "stackspots": {
           "stx": "100000",
-          "sbtc": "679"
+          "sbtc": "0"
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "84932045"
+          "sbtc": "84999990"
         }
       }
     },
@@ -3104,6 +3245,173 @@
         "stackspot_sponsor": {
           "stx": "0",
           "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_crowd_fund": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_crowd_fund": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "E-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999900000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "lp": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "100000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "84999990"
         }
       }
     }

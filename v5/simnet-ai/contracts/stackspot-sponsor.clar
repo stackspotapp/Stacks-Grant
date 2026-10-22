@@ -23,6 +23,7 @@
     (define-constant err-stake-window-passed (err u1305))
     (define-constant err-not-allowed-contract-hash (err u1305))
     (define-constant err_already_initialized (err u1305))
+    (define-constant err_locked (err u1306))
 
     ;; Fastpool: "A staker tried to claim rewards, but they had none available"
     ;; PoX-5: distribution already computed for this window
@@ -53,7 +54,7 @@
 ;; ================================
 
 ;; public functions
-  (define-public (sponsor-platform (amount uint) (cycles uint) (rule-list (list 3 {label: (string-ascii 255), state: bool, required: uint, score: uint}))) 
+  (define-public (sponsor-platform (amount uint) (cycles uint) (logo-url (string-ascii 256)) (description (string-ascii 256)) (rule-list (list 3 {label: (string-ascii 255), state: bool, required: uint, score: uint}))) 
     (let
       (
         (is-staking (> (get locked (stx-account current-contract)) u0))
@@ -93,6 +94,8 @@
               event: "sponsor-platform",
               amount: amount,
               cycles: cycles,
+              logo-url: logo-url,
+              description: description,
               rule-list: rule-list,
               sponsor: tx-sender,
               sponsor-contract: current-contract,
@@ -152,18 +155,7 @@
       
       (ok true)
     )
-  )
-
-  (define-private (init-rules (values (list 3 {label: (string-ascii 255), state: bool, required: uint, score: uint}))) 
-    (begin
-      (asserts! (not (var-get initialized)) err_already_initialized)
-      (asserts! (is-eq tx-sender sponsorer) err_not-authorized)
-
-      (fold update-rule-loop values u0)
-      
-      (ok true)
-    )
-  )
+  )  
 
   (define-public (sponsor-event (pot-contract <stackspot-pots-trait>)) 
     (begin
@@ -187,6 +179,47 @@
         
         (ok ticket-id)
       )
+    )
+  )
+
+  (define-public (withdraw-principal (amount uint)) 
+    (let
+      (
+        (withdrawable-amount (get unlocked (stx-account current-contract)))
+        (is-locked (> (get locked (stx-account current-contract)) u0))
+        (memo (to-consensus-buff? "withdraw-principal"))
+      )
+      (asserts! (is-eq tx-sender sponsorer) err_not-authorized)
+      (asserts! (not is-locked) err_locked)
+      (asserts! (>= withdrawable-amount amount) err_insufficient_sponsor_balance)
+      (try! (as-contract? ((with-stx amount)) (try! (stx-transfer-memo? amount current-contract sponsorer (unwrap! memo err_not_found)))))
+      (ok true)
+    )
+  )
+
+  (define-public (extend-sponsor-platform (cycles uint))
+    (let
+      (
+        (extendable-stake-amount (get unlocked (stx-account current-contract)))
+        (is-locked (> (get locked (stx-account current-contract)) u0))
+      )
+      (asserts! (is-eq tx-sender sponsorer) err_not-authorized)
+      (asserts! (not is-locked) err_locked)
+      (asserts! (> extendable-stake-amount u0) err_insufficient_sponsor_balance)
+
+      ;; stake or stake-update in pox-5
+        (if is-locked
+          (begin
+            (try! (as-contract? ((with-staking extendable-stake-amount)) (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5 stake-update signer signer cycles extendable-stake-amount none))))
+            true        
+          )
+          (begin
+            (try! (as-contract? ((with-staking extendable-stake-amount)) (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5 stake signer extendable-stake-amount cycles burn-block-height none))))
+            true
+          )
+        )
+
+      (ok true)
     )
   )
 ;; ================================
@@ -223,6 +256,19 @@
       )
     )
   )
+
+  (define-private (init-rules (values (list 3 {label: (string-ascii 255), state: bool, required: uint, score: uint}))) 
+    (begin
+      (asserts! (not (var-get initialized)) err_already_initialized)
+      (asserts! (is-eq tx-sender sponsorer) err_not-authorized)
+
+      (fold update-rule-loop values u0)
+      
+      (ok true)
+    )
+  )
+
+;; ================================
 
 ;; rules check functions
   ;; rule-0: checkes if pot balance meets the required amount for sponsore rewards

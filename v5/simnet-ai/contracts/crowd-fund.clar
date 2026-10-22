@@ -577,7 +577,10 @@
             (total-balance (stx-get-balance current-contract))
             (total-sponsor-amount (var-get sponsor-amount))
             (total-participants-amounts (- total-balance total-sponsor-amount))
+            ;; current target amount
+            (current-target-amount (* (var-get pot-min-amount) (var-get last-pot-participant)))
           )
+          (asserts! (or (> pot-yield u0) (>= total-balance current-target-amount)) err_insufficient_reward)
           ;; Set pot claimer principal
           (var-set pot-claimer-principal (some tx-sender))
 
@@ -698,8 +701,8 @@
         (asserts! (not (var-get pot-cancelled)) err_pot_cancelled)
         (asserts! 
           (or 
-            (and (> burn-block-height (+ (unwrap-panic (var-get lock-burn-height)) (* more_than_one_cycle (var-get pot-cycle)))) is-locked) 
-            (and (> burn-block-height (+ (unwrap-panic (var-get first-user-joined)) more_than_one_cycle)) (not is-locked))
+            (and (> burn-block-height (+ (default-to u0 (var-get lock-burn-height)) (* more_than_one_cycle (var-get pot-cycle)))) is-locked) 
+            (and (> burn-block-height (+ (default-to u0 (var-get first-user-joined)) more_than_one_cycle)) (not is-locked))
           ) 
         err_too_early)
         (asserts! (is-eq (contract-of pot-contract) current-contract) err_unauthorized)
@@ -776,8 +779,4 @@
 
   (print PRE_INIT_LOG)
   
-  (define-private (pre-log-init) 
-    (as-contract? () (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots log-pre-init PRE_INIT_LOG)))
-  )
-
-  (pre-log-init)
+  (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-pre-init-logs log-pre-init PRE_INIT_LOG)

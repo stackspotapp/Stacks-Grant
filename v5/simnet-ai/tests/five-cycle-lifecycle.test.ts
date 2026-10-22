@@ -482,6 +482,28 @@ describe("five-cycle crowdfund lifecycle audit", () => {
       fundPot("D", name);
       call("D", "cancel-before-start", potId(name), "cancel-pot", [selfOf(name)], potDeployer);
     });
+
+    it("E pot-sponsor principal returned on claim", () => {
+      const name = "cf-extra-e";
+      deployPot("E", name);
+      if (resultLabel(initPot("E", name, false).result) !== "ok") {
+        findings.push("E init failed");
+        return;
+      }
+      fundPot("E", name);
+      const sponsorBefore = stx(sponsor);
+      expect(resultLabel(startPot("E", name).result)).toBe("ok");
+      mineToRelease(name);
+      const claim = call("E", "claim-return-sponsor", potId(name), "claim-pot-reward", [selfOf(name), Cl.list([])], potDeployer);
+      const sponsorAfter = stx(sponsor);
+      snapParty("E-post-claim", name);
+      findings.push(
+        `E claim=${resultLabel(claim.result)} sponsor-delta=${sponsorAfter - sponsorBefore} expected=${SPONSOR}`
+      );
+      if (resultLabel(claim.result) === "ok") {
+        expect(sponsorAfter - sponsorBefore).toBe(BigInt(SPONSOR));
+      }
+    });
   });
 
   function snapParty(label: string, name: string) {
