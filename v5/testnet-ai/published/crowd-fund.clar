@@ -181,6 +181,7 @@
         pot-cancelled: (var-get pot-cancelled),
         is-participant: (is-some (map-get? pot-participants-by-principal tx-sender)),
         is-sponsor: (is-some (map-get? sponsors-by-principal tx-sender)),
+        is-initiated: (var-get initiated),
 
         platform-estimated-yield: (var-get expected-total-platform-sponsor-yield)
       }
