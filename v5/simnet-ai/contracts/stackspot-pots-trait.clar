@@ -23,7 +23,8 @@
       pot-locked: bool,
       pot-lock-burn-height: uint,
       pot-cancelled: bool,
-      is-joined: (optional uint),
+      is-participant: bool,
+      is-sponsor: bool,
 
       platform-estimated-yield: uint
     }

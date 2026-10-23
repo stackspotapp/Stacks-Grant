@@ -193,7 +193,18 @@ describe("platform sponsor withdraw + extend", () => {
   }
 
   function sponsorDetails() {
-    const r = simnet.callReadOnlyFn("stackspot-sponsor", "get-sponsor-details", [], platform);
+    const r = simnet.callReadOnlyFn(
+      "stackspot-sponsor",
+      "get-sponsor-details",
+      [
+        Cl.tuple({
+          balance: Cl.uint(0),
+          "participant-count": Cl.uint(0),
+          "lock-burn-height": Cl.uint(0),
+        }),
+      ],
+      platform,
+    );
     const data = tupleFromCv(r.result);
     return {
       isLocked: asBool(data["is-locked"]),
@@ -243,7 +254,19 @@ describe("platform sponsor withdraw + extend", () => {
 
   it("W locked withdraw / extend fail; unlocked withdraw + extend", () => {
     snapshot("pre-sponsor-platform", { platform, extra, stackspotSponsor: sponsorId });
-    const funded = call("W", "sponsor-platform", "sponsor-platform", [Cl.uint(AMOUNT), Cl.uint(STAKE_CYCLES), RULE_LIST], platform);
+    const funded = call(
+      "W",
+      "sponsor-platform",
+      "sponsor-platform",
+      [
+        Cl.uint(AMOUNT),
+        Cl.uint(STAKE_CYCLES),
+        Cl.stringAscii("https://example.com/logo.png"),
+        Cl.stringAscii("simnet-ai withdraw/extend audit"),
+        RULE_LIST,
+      ],
+      platform,
+    );
     expect(resultLabel(funded.result)).toBe("ok");
     const afterStake = recordLock("W", "after-sponsor-platform");
     findings.push(`W after-sponsor-platform is-locked=${afterStake.isLocked} sponsored=${afterStake.sponsored}`);

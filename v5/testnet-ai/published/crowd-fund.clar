@@ -36,6 +36,7 @@
     (define-constant err_already_init (err u1409))
     (define-constant err_not_initiated (err u1410))
     (define-constant err_pot_session_ended (err u1411))
+    (define-constant err_try_again_after_prepare_start (err u1412))
   ;; ---
 
     ;; Fastpool: "A staker tried to claim rewards, but they had none available"
@@ -178,7 +179,8 @@
         pot-locked: (var-get locked),
         pot-lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
         pot-cancelled: (var-get pot-cancelled),
-        is-joined: (map-get? pot-participants-by-principal tx-sender),
+        is-participant: (is-some (map-get? pot-participants-by-principal tx-sender)),
+        is-sponsor: (is-some (map-get? sponsors-by-principal tx-sender)),
 
         platform-estimated-yield: (var-get expected-total-platform-sponsor-yield)
       }
@@ -499,11 +501,15 @@
         (
           (total-treasury-balance (stx-get-balance current-contract))
           (cycles (var-get pot-cycle))
+          (pool-config (unwrap-panic (get-pool-config)))
+          (prepare-start (get prepare-start pool-config))
         )
         (asserts! (not (var-get locked)) err_pot_already_started) ;; Ensures pot is not locked at point of start
         (asserts! (is-pot-value-target-met) err_insufficient_reward) ;; Ensures traget amount is met before permiting pot delegations to pox
         (asserts! (not (var-get pot-cancelled)) err_pot_cancelled) ;; Ensures pot is not cancelled
         (asserts! (is-eq current-contract (contract-of pot-contract)) err_unauthorized) ;; Ensures pot-contract is the current contract
+        (asserts! (< burn-block-height prepare-start) err_try_again_after_prepare_start) ;; Ensures burn block height is greater than prepare start
+
 
         ;; Stake treasury into PoX-5 via Fastpool
         (try! (as-contract? ((with-stx total-treasury-balance) (with-staking total-treasury-balance))

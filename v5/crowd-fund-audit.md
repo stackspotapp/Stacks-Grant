@@ -1,12 +1,14 @@
-# `.crowd-fund` / `.stackspot-sponsor` QA — 2026-10-21
+# `.crowd-fund` / `.stackspot-sponsor` QA — 2026-10-23
 
 Simnet-ai, Clarity 6. Exact-source pots from `wallet_2` after deployer `init-admin-late`. Recorder: **25 passed**.
 
-SHA-256 `crowd-fund.clar`: `2a36b7f1d63cfd56951883dad2ab53b219b06642e8340ef4a8e16345decff009`  
-SHA-256 `stackspots.clar`: `95d2c9fc76ee8b466bad4348fa62b45b3bd8ea7731a773cbd13df2376bb2e755`  
-SHA-256 `stackspot-sponsor.clar`: `ad08dc87efe536c7860be2c8bb715847305fdc0a6f1bb9cc4b406eec3acd65e6`
+SHA-256 `crowd-fund.clar`: `01c3e371e4584de4a4f16a947a0cc49be793c4ebde595ee64ad856c5f5118f8b`  
+SHA-256 `stackspots.clar`: `8f1d47486ccf918a23dc6c1b2937152a68d53ad3ce4378d3204e951ae6a75bff`  
+SHA-256 `stackspot-sponsor.clar`: `183e6ebd117bbeb6c5770ca43b3db8df6c22ae2dd9df8c681de03ef58b2ff3b1`
 
 Simnet / testnet **does not simulate `stx-account` lock**. `(get locked (stx-account …))` stays **0** after `sim-pox-5.stake`. Observed withdraw/extend/cancel results that depend on that bit are recorder artifacts. The Clarity gates are **as intended**.
+
+`sponsor-platform` now takes `logo-url` + `description`. `get-sponsor-details` takes `{balance, participant-count, lock-burn-height}`. Harness only; **no contract edits** this run.
 
 ## Summary
 
@@ -52,6 +54,7 @@ Same as 1-cycle except claim/cancel-at-end at burn **13033**.
 | --- | --- |
 | `sponsor-platform` 40 STX, 1 cycle | **ok** (PoX `unlock-burn-height u4200`) |
 | `get-sponsor-details.is-locked` | **false** (lock not simulated) |
+| `get-sponsor-details.sponsored-amount-ustx` | **40000000** (liquid; lock not simulated) |
 | unauth withdraw / extend | **err u1304** |
 | `withdraw-principal` 40 STX | **ok** (I09; I08 gate as intended) |
 | `withdraw-principal` 0 | **err u3** |

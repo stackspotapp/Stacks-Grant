@@ -20,7 +20,7 @@
     (define-constant err_not_found (err u404))
     (define-constant err_not-authorized (err u1304))
     (define-constant err-not-sufficient-stake-cycles (err u1304))
-    (define-constant err-stake-window-passed (err u1305))
+    (define-constant err_try_again_after_prepare_start (err u1305))
     (define-constant err-not-allowed-contract-hash (err u1305))
     (define-constant err_already_initialized (err u1305))
     (define-constant err_locked (err u1306))
@@ -60,7 +60,7 @@
         (is-staking (> (get locked (stx-account current-contract)) u0))
         (prepare-window (get prepare-start (unwrap! (get-pool-config (default-to burn-block-height (var-get lock-burn-height))) err_not_found)))
       ) 
-        (asserts! (< burn-block-height prepare-window) err-stake-window-passed)
+        (asserts! (< burn-block-height prepare-window) err_try_again_after_prepare_start)
         (asserts! (>= amount (get-minimum-sponsor-amount)) err_insufficient_sponsor_balance)
         (asserts! (> cycles u0) err-not-sufficient-stake-cycles)
 
@@ -325,14 +325,15 @@
     )
   )
 
-  (define-read-only (get-sponsor-details) 
+  (define-read-only (get-sponsor-details (values {balance: uint, participant-count: uint, lock-burn-height: uint})) 
     (ok {
       available-reward-pool: (unwrap! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token get-balance current-contract) err_not_found),
       is-locked: (> (get locked (stx-account current-contract)) u0),
       sponsored-amount-ustx: (stx-get-balance current-contract),
       rules: (get-rule-sets),
       sponsor: sponsorer,
-      contract: current-contract
+      contract: current-contract,
+      rules-score: (get-total-rule-scored values)
     })
   )
 
