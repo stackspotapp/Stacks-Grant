@@ -25,7 +25,8 @@
       pot-cancelled: bool,
       is-participant: bool,
       is-sponsor: bool,
-
+      is-initiated: bool,
+      
       platform-estimated-yield: uint
     }
       uint
