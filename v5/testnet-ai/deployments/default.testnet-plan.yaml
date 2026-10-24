@@ -63,6 +63,13 @@ plan:
       anchor-block-only: true
       clarity-version: 6
     - transaction-type: contract-publish
+      contract-name: jackpot
+      expected-sender: ST2DPQ5XEW2TQJG30E5KAQJES4KR2VP4V3K0MYS7D
+      cost: 175379
+      path: contracts/jackpot.clar
+      anchor-block-only: true
+      clarity-version: 6
+    - transaction-type: contract-publish
       contract-name: stackspot-sponsor
       expected-sender: ST2DPQ5XEW2TQJG30E5KAQJES4KR2VP4V3K0MYS7D
       cost: 175326
