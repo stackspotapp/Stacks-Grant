@@ -63,6 +63,11 @@ path = "contracts/crowd-fund.clar"
 clarity_version = 6
 epoch = "latest"
 
+[contracts.jackpot]
+path = "contracts/jackpot.clar"
+clarity_version = 6
+epoch = "latest"
+
 [contracts.stackspot-sponsor]
 path = "contracts/stackspot-sponsor.clar"
 clarity_version = 6

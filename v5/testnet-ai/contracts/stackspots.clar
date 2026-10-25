@@ -8,7 +8,7 @@
 (use-trait stackspot-pots-trait .stackspot-pots-trait.stackspot-pots-trait)
 
 ;; Platform treasury (receives mint fees + royalty)
-(define-constant PLATFORM_TREASURY current-contract) ;; this is to be update in later time
+(define-constant PLATFORM_TREASURY 'ST140MXYA1DSF1R0VZ5YGGQ5XR9FT5H7YTWVGFMJQ) ;; this is to be update in later time
 (define-read-only (get-platform-treasury) PLATFORM_TREASURY)
 
 ;; Constants
@@ -220,7 +220,7 @@
     )
 
   ;; Register pot
-    (define-public (register-pot (pot-values (buff 2048)) (contract <stackspot-pots-trait>))
+    (define-public (register-pot (pot-values (buff 8192)) (contract <stackspot-pots-trait>))
       (let (
           (decoded (unwrap! (from-consensus-buff? {
             event: (string-ascii 255),
@@ -237,8 +237,6 @@
           (owner (get owner decoded))
           (contract-address (get contract decoded))
           (contract-hash (unwrap! (contract-hash? contract-address) ERR_NOT_FOUND))
-          (contract-info (unwrap! (principal-destruct? contract-address) ERR_NOT_FOUND))
-          (contract-name (get name contract-info))
           (new-pot-owner-balance (stx-get-balance owner))
           (platform-contracts-fee (var-get fee))
         )
@@ -254,57 +252,40 @@
         (asserts! (> (len contract-hash) u0) ERR_INVALID_ARGUMENT_VALUE)
         (asserts! (is-eq (contract-of contract) contract-caller) ERR_UNAUTHORIZED)
 
-        (try! (mint contract-address))
+        (try! (mint contract-address))        
         
-        ;; Log pot registered. `pot-values` is the caller buff so extra encoded fields stay intact.
-        (print
-          (to-consensus-buff? 
-            {
-              event: "register-pot",
-              pot-id: (var-get last-pot-index),
-              pot-address: contract-address,
-              pot-owner: owner,
-              pot-deploy-fee: platform-contracts-fee,
-              pot-name: contract-name,
-              origin-contract-sha-hash: contract-hash,
-              stacks-block-height: stacks-block-height,
-              burn-block-height: burn-block-height,
-              pot-values: pot-values,
-            }
-          ) 
-        )     
         (ok true) 
       )
     )
 
   ;; Pot action logging
   ;; Pots serialize their own event tuples with `to-consensus-buff?` and pass
-  ;; `(buff 2048)`. Stackspots only authenticates the caller and prints. 
-    (define-public (log-join-pot (payload (buff 2048)))
+  ;; `(buff 8192)`. Stackspots only authenticates the caller and prints. 
+    (define-public (log-join-pot (payload (buff 8192)))
       (emit-log payload true)
     )
 
-    (define-public (log-join-pot-as-sponsor (payload (buff 2048)))
+    (define-public (log-join-pot-as-sponsor (payload (buff 8192)))
       (emit-log payload true)
     )
 
-    (define-public (log-start-pot (payload (buff 2048)))
+    (define-public (log-start-pot (payload (buff 8192)))
       (emit-log payload true)
     )
 
-    (define-public (log-claim-pot-reward (payload (buff 2048)))
+    (define-public (log-claim-pot-reward (payload (buff 8192)))
       (emit-log payload true)
     )
 
-    (define-public (log-cancel-pot (payload (buff 2048)))
+    (define-public (log-cancel-pot (payload (buff 8192)))
       (emit-log payload true)
     )
 
-    (define-public (log-fall-back-cancel (payload (buff 2048)))
+    (define-public (log-fall-back-cancel (payload (buff 8192)))
       (emit-log payload true)
     )
 
-    (define-public (log-sponsor-platform (payload (buff 2048)))
+    (define-public (log-sponsor-platform (payload (buff 8192)))
       (emit-sponsor-log payload)
     )
 ;; ---------------------------------------------------------------------------
@@ -357,18 +338,7 @@
       (map-insert pot-contract-with-index recipient token-id)
       (map-insert pot-id-info token-id {pot-id: token-id, pot-name: (unwrap! contract-name ERR_NOT_FOUND), pot-owner: recipient, pot-contract: recipient})
 
-      (var-set last-pot-index token-id)
-
-      ;; Print event
-      (print (to-consensus-buff? {
-        event: "pot mint",
-        contract-name: contract-name,
-        recipient: recipient,
-        token-id: token-id,
-        tx-sender: tx-sender,
-        contract-caller: contract-caller,
-        platform-contracts-fee: platform-contracts-fee,
-      }))
+      (var-set last-pot-index token-id)      
 
       (ok token-id)
     )
@@ -392,7 +362,7 @@
     )
   )
 
-  (define-private (emit-log (payload (buff 2048)) (require-registered bool))
+  (define-private (emit-log (payload (buff 8192)) (require-registered bool))
     (begin
       (try! (assert-log-caller require-registered))
       (print payload)
@@ -400,7 +370,7 @@
     )
   )
 
-  (define-private (emit-sponsor-log (payload (buff 2048)))
+  (define-private (emit-sponsor-log (payload (buff 8192)))
     (begin
       (asserts! (validate-platform-sponsor-contract contract-caller) ERR_UNAUTHORIZED_CONTRACT_HASH)
       (print payload)
@@ -410,5 +380,4 @@
 ;; ---------------------------------------------------------------------------
 
 ;; Initialize primary admin
-
 (map-set admins tx-sender true)

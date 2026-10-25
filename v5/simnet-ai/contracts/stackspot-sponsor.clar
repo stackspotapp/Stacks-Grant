@@ -99,7 +99,7 @@
               rule-list: rule-list,
               sponsor: tx-sender,
               sponsor-contract: current-contract,
-              burn-block-height: burn-block-height
+              burn-block-height: burn-block-height,
             }) err_not_found))
           )
           (print payload)
@@ -150,7 +150,9 @@
         ticket-owner: contract-caller,
         total-score: total-score,
         reward-amount: (if (<= total-score sbtc-yield) total-score sbtc-yield),
-        total-reward-pool: sbtc-yield
+        total-reward-pool: sbtc-yield,
+        pot-contract: (contract-of pot-contract),
+        burn-block-height: burn-block-height,
       })
       
       (ok true)
@@ -174,7 +176,8 @@
           event: "sponsor-event", 
           ticket-id: ticket-id, 
           pot-contract: (contract-of pot-contract), 
-          pot-details: pot-details
+          pot-details: pot-details,
+          burn-block-height: burn-block-height,
         }) err_not_found))
         
         (ok ticket-id)
@@ -193,6 +196,17 @@
       (asserts! (not is-locked) err_locked)
       (asserts! (>= withdrawable-amount amount) err_insufficient_sponsor_balance)
       (try! (as-contract? ((with-stx amount)) (try! (stx-transfer-memo? amount current-contract sponsorer (unwrap! memo err_not_found)))))
+
+      (print {
+        event: "withdraw-principal",
+        amount: amount,
+        withdrawable-amount: withdrawable-amount,
+        is-locked: is-locked,
+        sponsor: tx-sender,
+        sponsor-contract: current-contract,
+        burn-block-height: burn-block-height,
+      })
+
       (ok true)
     )
   )
@@ -218,6 +232,17 @@
             true
           )
         )
+
+
+        (print {
+          event: "extend-sponsor-platform",
+          cycles: cycles,
+          extendable-stake-amount: extendable-stake-amount,
+          is-locked: is-locked,
+          sponsor: tx-sender,
+          sponsor-contract: current-contract,
+          burn-block-height: burn-block-height,
+        })
 
       (ok true)
     )

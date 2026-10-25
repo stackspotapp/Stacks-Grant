@@ -86,10 +86,6 @@
 
   (define-data-var initiated bool false) 
 
-  ;; Track PoX-5 stake metadata for claim timing / reward attribution
-    (define-map staked-cycles uint uint)
-  ;; ---
-
 ;; --------------------------------------------------------------------------------------------
 
 ;; STORAGE MAP'S
@@ -252,21 +248,6 @@
         (ok {sponsor-contract: (contract-of sponsor), ticket-id: ticket})
       )
     )
-
-    (define-private (dispatch-platform-sponsor-rewards (sponsor <stackspot-sponsor-trait>) (pot-contract <stackspot-pots-trait>)) 
-      (let 
-        (
-          (ticket (unwrap-panic (get ticket (map-get? platform-sponsor-tickets (contract-of sponsor)))))
-        )         
-        (if (> ticket u0) 
-          (begin
-            (try! (contract-call? sponsor claim-sponsor-reward pot-contract ticket)) 
-            (ok true)
-          ) 
-          (ok false)
-        )
-      )
-    )
   ;; ---
 
   ;; Platform Spponsor yield withdraws
@@ -387,11 +368,13 @@
                 owner: tx-sender,
                 contract: current-contract,
                 cycles: (var-get pot-cycle),
+                pot-name: name,
                 type: pot-type,
                 pot-reward-token: "sbtc",
                 min-amount: (var-get pot-min-amount),
                 max-participants: (var-get pot-max-participants),
-                sponsors: sponsor-tickets
+                sponsors: sponsor-tickets,
+                burn-block-height: burn-block-height,
               }
             )))
           )
@@ -440,9 +423,15 @@
         (let ((payload (unwrap! (to-consensus-buff? 
             {
               event: "join-pot",
+              sender: tx-sender,
               participant: tx-sender,
               amount: amount,
               index: index-participants,
+              pot-contract: current-contract,
+              pot-name: (var-get pot-name),
+              pot-type: pot-type,
+              pot-details: (unwrap-panic (get-pot-details)),
+              burn-block-height: burn-block-height,
             }) err_not_found))
           )
           (print payload)
@@ -482,9 +471,15 @@
         (let (
             (payload (unwrap! (to-consensus-buff? {
               event: "join-pot-as-sponsor",
+              sender: tx-sender,
               sponsor: tx-sender,
               amount: amount,
               sponsors-count: (var-get last-sponsors-count),
+              pot-contract: current-contract,
+              pot-name: (var-get pot-name),
+              pot-type: pot-type,
+              pot-details: (unwrap-panic (get-pot-details)),
+              burn-block-height: burn-block-height,
             }) err_not_found))
           )
           (print payload)
@@ -530,13 +525,20 @@
             (payload  
               {
                 event: "start-pot",
+                sender: tx-sender,
                 pot-starter-principal: tx-sender,
                 pot-contract: current-contract,
+                pot-name: (var-get pot-name),
+                pot-type: pot-type,
+                pot-cycle: (var-get pot-cycle),
+                pot-min-amount: (var-get pot-min-amount),
+                pot-max-participants: (var-get pot-max-participants),
                 pot-treasury: pot_treasury_address,              
                 pot-value: total-treasury-balance,
                 pot-locked: (var-get locked),
                 pot-lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
-                pot-cancelled: (var-get pot-cancelled)
+                pot-cancelled: (var-get pot-cancelled),
+                burn-block-height: burn-block-height,
               }
             )
           )
@@ -646,7 +648,9 @@
                 (payload 
                   {
                     event: "claim-pot-reward",
+                    sender: tx-sender,
 
+                    pot-contract: current-contract,
                     pot-participants-count: total-participants,                  
                     pot-value: total-balance,
                     pot-yield-amount: pot-yield,
@@ -675,7 +679,7 @@
                     burn-block-height: burn-block-height,
                     lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
                     pot-cancelled: (var-get pot-cancelled),
-                    pot-is-init: (var-get initiated)                  
+                    pot-is-init: (var-get initiated),
                   }
                 )
               )          
@@ -746,9 +750,15 @@
         (let (
             (payload (unwrap-panic (to-consensus-buff? {
               event: "cancel-pot",
+              sender: tx-sender,
+              pot-contract: current-contract,
               pot-cancelled: (var-get pot-cancelled),
               pot-value: total-delgations,
               pot-participants-count: (var-get last-pot-participant),
+              pot-name: (var-get pot-name),
+              pot-type: pot-type,
+              pot-details: (unwrap-panic (get-pot-details)),
+              burn-block-height: burn-block-height,
             })))
           )
           (print payload)
@@ -769,6 +779,7 @@
   (define-constant PRE_INIT_LOG (unwrap-panic (to-consensus-buff? 
     {
       event: "pre-init",
+      sender: tx-sender,
       pot-cycle: (var-get pot-cycle),
       pot-min-amount: (var-get pot-min-amount),
       pot-max-participants: (var-get pot-max-participants),
@@ -779,7 +790,8 @@
       pot-contract: current-contract,
       pot-owner: tx-sender,
       pot-treasury: pot_treasury_address,
-      funding-address: (some (var-get funding-address))
+      funding-address: (some (var-get funding-address)),
+      burn-block-height: burn-block-height,
     }
   )))
 

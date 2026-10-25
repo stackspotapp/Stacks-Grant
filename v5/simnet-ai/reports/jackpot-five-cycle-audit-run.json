@@ -1,0 +1,3786 @@
+{
+  "identities": {
+    "platform": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+    "clarinet_wallet_1": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5",
+    "wallet_2_pot_deployer": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+    "wallet_3": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+    "wallet_4": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+    "wallet_5": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+    "wallet_6": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+    "wallet_7": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+    "wallet_8": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+    "stackspots": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+    "fastpool": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+    "genesis_jackpot": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.jackpot",
+    "stackspot_sponsor": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor"
+  },
+  "potCycles": 5,
+  "cycleLength": 2100,
+  "log": [
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "allowlist-genesis-jackpot",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "set-pot-contract-hash",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "allowlist-genesis-jackpot",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "set-pot-contract-hash",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "S1",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S1",
+      "step": "genesis-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S1",
+      "step": "wallet2-copy-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S1",
+      "step": "init-no-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "S1",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "S1",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "S1",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "S1",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "S1",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "S1",
+      "step": "claim-empty-closer",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "claim-pot-reward",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13085
+    },
+    {
+      "scenario": "S1",
+      "step": "note-permissionless-claim",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "claim-observed",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13085
+    },
+    {
+      "scenario": "S1",
+      "step": "get-pot-details-winner",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "get-pot-details",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13085
+    },
+    {
+      "scenario": "S1",
+      "step": "get-winner-reroll",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "get-winner",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13085
+    },
+    {
+      "scenario": "S1",
+      "step": "claim",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "claim-pot-reward",
+      "result": "err u1303",
+      "burn": 13033,
+      "stacks": 13086
+    },
+    {
+      "scenario": "S1",
+      "step": "claim-twice",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "claim-pot-reward",
+      "result": "err u1303",
+      "burn": 13033,
+      "stacks": 13087
+    },
+    {
+      "scenario": "S1",
+      "step": "second-claim",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "fn": "claim-pot-reward",
+      "result": "err u1303",
+      "burn": 13033,
+      "stacks": 13087
+    },
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "allowlist-genesis-jackpot",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "set-pot-contract-hash",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "S2",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s2",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S2",
+      "step": "genesis-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S2",
+      "step": "wallet2-copy-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S2",
+      "step": "init-no-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s2",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "S2",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s2",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "S2",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s2",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "S2",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s2",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "S2",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s2",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "S2",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s2",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "S2",
+      "step": "cancel-at-end",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s2",
+      "fn": "cancel-pot",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13085
+    },
+    {
+      "scenario": "S2",
+      "step": "cancel-twice",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s2",
+      "fn": "cancel-pot",
+      "result": "err u1404",
+      "burn": 13033,
+      "stacks": 13086
+    },
+    {
+      "scenario": "S2",
+      "step": "claim-after-cancel",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s2",
+      "fn": "claim-pot-reward",
+      "result": "err u1404",
+      "burn": 13033,
+      "stacks": 13087
+    },
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "allowlist-genesis-jackpot",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "set-pot-contract-hash",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "S3",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s3",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S3",
+      "step": "genesis-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S3",
+      "step": "wallet2-copy-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S3",
+      "step": "init-no-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s3",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "S3",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s3",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "S3",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s3",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "S3",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s3",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "S3",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s3",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "S3",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s3",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "S3",
+      "step": "cancel-immediately",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s3",
+      "fn": "cancel-pot",
+      "result": "err u1408",
+      "burn": 3,
+      "stacks": 19
+    },
+    {
+      "scenario": "S3",
+      "step": "cancel-unauth-immediate",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s3",
+      "fn": "cancel-pot",
+      "result": "err u1408",
+      "burn": 3,
+      "stacks": 20
+    },
+    {
+      "scenario": "S3",
+      "step": "cancel-mid-cycle",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s3",
+      "fn": "cancel-pot",
+      "result": "ok",
+      "burn": 5254,
+      "stacks": 5287
+    },
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "allowlist-genesis-jackpot",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "set-pot-contract-hash",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "S4",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s4",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S4",
+      "step": "genesis-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S4",
+      "step": "wallet2-copy-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S4",
+      "step": "init-with-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s4",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "S4",
+      "step": "init-result",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s4",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "S4",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s4",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "S4",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s4",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "S4",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s4",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "S4",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s4",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "S4",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s4",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "S4",
+      "step": "cancel-at-end-with-ps-arg",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s4",
+      "fn": "cancel-pot",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13085
+    },
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "allowlist-genesis-jackpot",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "set-pot-contract-hash",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "S5",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s5",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S5",
+      "step": "genesis-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S5",
+      "step": "wallet2-copy-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S5",
+      "step": "init-with-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s5",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "S5",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s5",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "S5",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s5",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "S5",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s5",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "S5",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s5",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "S5",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s5",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "S5",
+      "step": "cancel-immediately",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s5",
+      "fn": "cancel-pot",
+      "result": "err u1408",
+      "burn": 3,
+      "stacks": 19
+    },
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "allowlist-genesis-jackpot",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "set-pot-contract-hash",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "S6",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S6",
+      "step": "genesis-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S6",
+      "step": "wallet2-copy-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "S6",
+      "step": "init-with-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "S6",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "S6",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "S6",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "S6",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "S6",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "S6",
+      "step": "claim-with-platform-sponsor-list",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
+      "fn": "claim-pot-reward",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13085
+    },
+    {
+      "scenario": "S6",
+      "step": "get-pot-details-winner",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
+      "fn": "get-pot-details",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13085
+    },
+    {
+      "scenario": "S6",
+      "step": "get-winner-reroll",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
+      "fn": "get-winner",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13085
+    },
+    {
+      "scenario": "S6",
+      "step": "claim-empty-sponsors",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
+      "fn": "claim-pot-reward",
+      "result": "err u1303",
+      "burn": 13033,
+      "stacks": 13086
+    },
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "allowlist-genesis-jackpot",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "set-pot-contract-hash",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "A",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-a",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "A",
+      "step": "genesis-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "A",
+      "step": "wallet2-copy-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "A",
+      "step": "init-unauth",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-a",
+      "fn": "init-pot",
+      "result": "err u1102",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "A",
+      "step": "init-no-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-a",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "A",
+      "step": "init-no-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-a",
+      "fn": "init-pot",
+      "result": "err u1409",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "allowlist-genesis-jackpot",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "set-pot-contract-hash",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "B",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-b",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "B",
+      "step": "genesis-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "B",
+      "step": "wallet2-copy-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "B",
+      "step": "init-no-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-b",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "B",
+      "step": "join-zero",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-b",
+      "fn": "join-pot",
+      "result": "err u1301",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "B",
+      "step": "join-below-min",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-b",
+      "fn": "join-pot",
+      "result": "err u1301",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "B",
+      "step": "join-ok",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-b",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "B",
+      "step": "join-dup",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-b",
+      "fn": "join-pot",
+      "result": "err u1201",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "B",
+      "step": "sponsor-zero",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-b",
+      "fn": "join-pot-as-sponsor",
+      "result": "err u1301",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "B",
+      "step": "sponsor-ok",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-b",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 19
+    },
+    {
+      "scenario": "B",
+      "step": "sponsor-dup",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-b",
+      "fn": "join-pot-as-sponsor",
+      "result": "err u1202",
+      "burn": 3,
+      "stacks": 20
+    },
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "allowlist-genesis-jackpot",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "set-pot-contract-hash",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "C",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-c",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "C",
+      "step": "genesis-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "C",
+      "step": "wallet2-copy-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "C",
+      "step": "start-uninitialized",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-c",
+      "fn": "start-pot",
+      "result": "err u1001",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "C",
+      "step": "init-no-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-c",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "C",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-c",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "C",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-c",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "C",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-c",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "C",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-c",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "C",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-c",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 19
+    },
+    {
+      "scenario": "C",
+      "step": "claim-before-release",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-c",
+      "fn": "claim-pot-reward",
+      "result": "err u1402",
+      "burn": 3,
+      "stacks": 20
+    },
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "allowlist-genesis-jackpot",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "set-pot-contract-hash",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "D",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-d",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "D",
+      "step": "genesis-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "D",
+      "step": "wallet2-copy-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "D",
+      "step": "init-no-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-d",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "D",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-d",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "D",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-d",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "D",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-d",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "D",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-d",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "D",
+      "step": "cancel-before-start",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-d",
+      "fn": "cancel-pot",
+      "result": "err u1408",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "boot",
+      "step": "deployer-init-admin-late",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "platform-sponsor-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "validate-platform-sponsor-contract",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 4
+    },
+    {
+      "scenario": "boot",
+      "step": "allowlist-genesis-jackpot",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "set-pot-contract-hash",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "E",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-e",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "E",
+      "step": "genesis-jackpot-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "E",
+      "step": "wallet2-copy-hash-allowed",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "is-contract-allowed-hash",
+      "result": "{\"type\":\"true\"}",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "E",
+      "step": "init-no-platform-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-e",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "E",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-e",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "E",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-e",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "E",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-e",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "E",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-e",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "E",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-e",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "E",
+      "step": "claim-return-sponsor",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-e",
+      "fn": "claim-pot-reward",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13085
+    },
+    {
+      "scenario": "E",
+      "step": "get-pot-details-winner",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-e",
+      "fn": "get-pot-details",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13085
+    },
+    {
+      "scenario": "E",
+      "step": "get-winner-reroll",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-e",
+      "fn": "get-winner",
+      "result": "ok",
+      "burn": 13033,
+      "stacks": 13085
+    }
+  ],
+  "findings": [
+    "WINNER S1 stored id=1 p2/wallet_4 reroll id=1 p2/wallet_4 same=true",
+    "SBTC S1 pot pre=0 post=0 details-reward=0 starter potDeployer/wallet_2 sbtc=0 d=0 claimer extra/wallet_8 sbtc=0 d=0 winner p2/wallet_4 sbtc=0 d=0",
+    "S1 claim err u1303",
+    "S3 immediate=err u1408 unauth=err u1408 mid=ok",
+    "S5 early-cancel err u1408",
+    "WINNER S6 stored id=1 p2/wallet_4 reroll id=1 p2/wallet_4 same=true",
+    "SBTC S6 pot pre=0 post=0 details-reward=0 starter potDeployer/wallet_2 sbtc=0 d=0 claimer potDeployer/wallet_2 sbtc=0 d=0 winner p2/wallet_4 sbtc=0 d=0",
+    "S6 claim-with-ps=ok claim-empty=err u1303",
+    "WINNER E stored id=1 p2/wallet_4 reroll id=1 p2/wallet_4 same=true",
+    "SBTC E pot pre=0 post=0 details-reward=0 starter potDeployer/wallet_2 sbtc=0 d=0 claimer potDeployer/wallet_2 sbtc=0 d=0 winner p2/wallet_4 sbtc=0 d=0",
+    "E claim=ok sponsor-delta=1000000000 expected=1000000000"
+  ],
+  "winners": [
+    {
+      "scenario": "S1",
+      "stored": {
+        "id": "1",
+        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+        "party": "p2/wallet_4"
+      },
+      "reroll": {
+        "id": "1",
+        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+        "party": "p2/wallet_4"
+      },
+      "same": true
+    },
+    {
+      "scenario": "S6",
+      "stored": {
+        "id": "1",
+        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+        "party": "p2/wallet_4"
+      },
+      "reroll": {
+        "id": "1",
+        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+        "party": "p2/wallet_4"
+      },
+      "same": true
+    },
+    {
+      "scenario": "E",
+      "stored": {
+        "id": "1",
+        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+        "party": "p2/wallet_4"
+      },
+      "reroll": {
+        "id": "1",
+        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+        "party": "p2/wallet_4"
+      },
+      "same": true
+    }
+  ],
+  "payouts": [
+    {
+      "scenario": "S1",
+      "pot": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s1",
+      "potPre": "0",
+      "potPost": "0",
+      "starter": {
+        "id": "pot-starter-address",
+        "address": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+        "party": "potDeployer/wallet_2"
+      },
+      "claimer": {
+        "id": "pot-claimer-address",
+        "address": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+        "party": "extra/wallet_8"
+      },
+      "winner": {
+        "id": "1",
+        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+        "party": "p2/wallet_4"
+      },
+      "starterSbtc": "0",
+      "claimerSbtc": "0",
+      "winnerSbtc": "0",
+      "starterDelta": "0",
+      "claimerDelta": "0",
+      "winnerDelta": "0"
+    },
+    {
+      "scenario": "S6",
+      "pot": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
+      "potPre": "0",
+      "potPost": "0",
+      "starter": {
+        "id": "pot-starter-address",
+        "address": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+        "party": "potDeployer/wallet_2"
+      },
+      "claimer": {
+        "id": "pot-claimer-address",
+        "address": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+        "party": "potDeployer/wallet_2"
+      },
+      "winner": {
+        "id": "1",
+        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+        "party": "p2/wallet_4"
+      },
+      "starterSbtc": "0",
+      "claimerSbtc": "0",
+      "winnerSbtc": "0",
+      "starterDelta": "0",
+      "claimerDelta": "0",
+      "winnerDelta": "0"
+    },
+    {
+      "scenario": "E",
+      "pot": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-extra-e",
+      "potPre": "0",
+      "potPost": "0",
+      "starter": {
+        "id": "pot-starter-address",
+        "address": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+        "party": "potDeployer/wallet_2"
+      },
+      "claimer": {
+        "id": "pot-claimer-address",
+        "address": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+        "party": "potDeployer/wallet_2"
+      },
+      "winner": {
+        "id": "1",
+        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+        "party": "p2/wallet_4"
+      },
+      "starterSbtc": "0",
+      "claimerSbtc": "0",
+      "winnerSbtc": "0",
+      "starterDelta": "0",
+      "claimerDelta": "0",
+      "winnerDelta": "0"
+    }
+  ],
+  "snaps": [
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "S1-pre-claim",
+      "rows": {
+        "pot": {
+          "stx": "1600000000",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999900000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "99999900000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "99999800000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "99999700000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "99999000000000",
+          "sbtc": "0"
+        },
+        "lp": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "100000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "S1-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999900000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "lp": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "100000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "84999990"
+        }
+      }
+    },
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "S2-post-cancel",
+      "rows": {
+        "pot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999900000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "lp": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "100000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "84999990"
+        }
+      }
+    },
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "S3-after-early-cancels",
+      "rows": {
+        "pot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999900000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "lp": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "100000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "25499997"
+        }
+      }
+    },
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "S4-post-cancel",
+      "rows": {
+        "pot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999900000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "lp": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "100000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "84999990"
+        }
+      }
+    },
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "S6-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999900000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "lp": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "100000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "84999990"
+        }
+      }
+    },
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "pre-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "E-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999900000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "lp": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "100000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "84999990"
+        }
+      }
+    }
+  ],
+  "bootBalances": {
+    "platform": {
+      "stx": "100000000000000",
+      "sbtc": "0"
+    },
+    "clarinet_wallet_1": {
+      "stx": "100000000000000",
+      "sbtc": "0"
+    },
+    "wallet_2_pot_deployer": {
+      "stx": "100000000000000",
+      "sbtc": "0"
+    },
+    "wallet_3": {
+      "stx": "100000000000000",
+      "sbtc": "0"
+    },
+    "wallet_4": {
+      "stx": "100000000000000",
+      "sbtc": "0"
+    },
+    "wallet_5": {
+      "stx": "100000000000000",
+      "sbtc": "0"
+    },
+    "wallet_6": {
+      "stx": "100000000000000",
+      "sbtc": "0"
+    },
+    "wallet_7": {
+      "stx": "100000000000000",
+      "sbtc": "0"
+    },
+    "wallet_8": {
+      "stx": "100000000000000",
+      "sbtc": "0"
+    },
+    "stackspots": {
+      "stx": "0",
+      "sbtc": "0"
+    },
+    "fastpool": {
+      "stx": "0",
+      "sbtc": "0"
+    },
+    "genesis_jackpot": {
+      "stx": "0",
+      "sbtc": "0"
+    },
+    "stackspot_sponsor": {
+      "stx": "0",
+      "sbtc": "0"
+    }
+  }
+}
