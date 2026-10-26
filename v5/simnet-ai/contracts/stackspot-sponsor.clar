@@ -65,8 +65,8 @@
         (asserts! (> cycles u0) err-not-sufficient-stake-cycles)
 
         ;; validate the sponsor contract is allowed to sponsor
-        (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots verify-sponsorer-contract current-contract))
         (try! (stx-transfer-memo? amount tx-sender current-contract (unwrap! (to-consensus-buff? "sponsor amount transferred") err_not_found)))
+        (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots verify-sponsorer-contract current-contract))
         
         ;; stake or stake-update in pox-5
         (if is-staking
