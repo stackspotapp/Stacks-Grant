@@ -4,7 +4,7 @@ stacks_node_rpc_address = "https://api.testnet.hiro.so"
 deployment_fee_rate = 10
 
 [accounts.deployer]
-# stx_address: ST3BSH7YA48AK2PCKCMGNPB4GXT09Y9JVTBCHA0A7 (m/44'/5757'/0'/0/12)
+# stx_address: ST4XX3AP97A00FD0EPAAPSHGS1NM1RHP162A3WT3 (m/44'/5757'/0'/0/13)
 # account 0: STJV0A42KAPJQ0K68VS23M5FE848HW4G57ENXCPS
 # account 1: ST3Y4WED1ESR3NCKFK1RETPW1P72KDYMZN077HJV6
 # account 2: STV83S3ZCAJ733BSC9KAC4PP6XEK78J5VAQHKCNR
@@ -18,6 +18,7 @@ deployment_fee_rate = 10
 # account 10: ST76BJH7YKSVMYTWFVKYCY01Q6G7J43CZ7FJ9DFK
 # account 11: ST2DPQ5XEW2TQJG30E5KAQJES4KR2VP4V3K0MYS7D
 # account 12: ST3BSH7YA48AK2PCKCMGNPB4GXT09Y9JVTBCHA0A7
+# account 13: ST4XX3AP97A00FD0EPAAPSHGS1NM1RHP162A3WT3
 # It is strongly suggested to use encrypted mnemonics to avoid putting
 # seed phrases directly into TOML files.  To do so, run:
 #
@@ -27,4 +28,4 @@ deployment_fee_rate = 10
 #
 # Otherwise, use the mnemonic field below:
 mnemonic = "umbrella void fuel also eager suggest twelve couple wild chaos trade clever neck rain pumpkin drip elegant child guitar travel load trial tomato cotton"
-derivation = "m/44'/5757'/0'/0/12"
+derivation = "m/44'/5757'/0'/0/13"
