@@ -237,6 +237,8 @@
           (owner (get owner decoded))
           (contract-address (get contract decoded))
           (contract-hash (unwrap! (contract-hash? contract-address) ERR_NOT_FOUND))
+          (contract-info (unwrap! (principal-destruct? contract-address) ERR_NOT_FOUND))
+          (contract-name (get name contract-info))
           (new-pot-owner-balance (stx-get-balance owner))
           (platform-contracts-fee (var-get fee))
         )
@@ -253,7 +255,25 @@
         (asserts! (is-eq (contract-of contract) contract-caller) ERR_UNAUTHORIZED)
 
         (try! (mint contract-address))        
-        
+
+        ;; Log pot registered. `pot-values` is the caller buff so extra encoded fields stay intact.
+        (print
+          (to-consensus-buff? 
+            {
+              event: "register-pot",
+              pot-id: (var-get last-pot-index),
+              pot-address: contract-address,
+              pot-owner: owner,
+              pot-deploy-fee: platform-contracts-fee,
+              pot-name: contract-name,
+              origin-contract-sha-hash: contract-hash,
+              stacks-block-height: stacks-block-height,
+              burn-block-height: burn-block-height,
+              pot-values: pot-values,
+            }
+          ) 
+        )
+
         (ok true) 
       )
     )

@@ -64,9 +64,9 @@
         (asserts! (>= amount (get-minimum-sponsor-amount)) err_insufficient_sponsor_balance)
         (asserts! (> cycles u0) err-not-sufficient-stake-cycles)
 
-
-        (try! (stx-transfer-memo? amount tx-sender current-contract (unwrap! (to-consensus-buff? "sponsor amount transferred") err_not_found)))
+        ;; validate the sponsor contract is allowed to sponsor
         (try! (contract-call? 'ST3BSH7YA48AK2PCKCMGNPB4GXT09Y9JVTBCHA0A7.stackspots verify-sponsorer-contract current-contract))
+        (try! (stx-transfer-memo? amount tx-sender current-contract (unwrap! (to-consensus-buff? "sponsor amount transferred") err_not_found)))
         
         ;; stake or stake-update in pox-5
         (if is-staking
