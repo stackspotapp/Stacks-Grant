@@ -1,12 +1,12 @@
-# `.jackpot` QA — 2026-10-24 (rerun)
+# `.jackpot` QA — 2026-10-26 (rerun)
 
-Simnet-ai, Clarity 6. Exact-source copies from `wallet_2` after deployer `init-admin-late`. Recorder: **27 passed**. **No contract edits** this run.
+Simnet-ai, Clarity 6. Exact-source copies from `wallet_2` after deployer `init-admin-late`. Recorder: **52 passed** across crowd-fund + jackpot + sponsor files (jackpot files: **27** of those). **No contract edits** this run.
 
-SHA-256 `jackpot.clar`: `25167ef70e21468d4bfb0d12de8320cb1b3e70ad3e5e37124c9b459506633088`  
-SHA-256 `stackspots.clar`: `8f1d47486ccf918a23dc6c1b2937152a68d53ad3ce4378d3204e951ae6a75bff`  
+SHA-256 `jackpot.clar`: `30041fd10de577bb31b6b4e7500c7cebbb30c90b9945f475d0ffa26b7278735d`  
+SHA-256 `stackspots.clar`: `91cf527cb311db4e41e7e6a0e6af774a8877f57e430441a31d0ec69e4e8dad56`  
 SHA-256 `init-admin.clar`: `753715b93850d86d544a6a161643898993600ded2c160409e22e45fcf1205c50`
 
-Genesis `.jackpot` now logs `pre-init` to `.stackspot-pre-init-logs`. `init-admin` allowlists `.jackpot` and `.crowd-fund`.
+Genesis `.jackpot` logs `pre-init` to `.stackspot-pre-init-logs`. `init-admin` allowlists `.jackpot` and `.crowd-fund`.
 
 ## Summary
 

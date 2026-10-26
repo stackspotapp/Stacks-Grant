@@ -1,18 +1,16 @@
-# `.crowd-fund` / `.stackspot-sponsor` QA — 2026-10-23
+# `.crowd-fund` / `.stackspot-sponsor` QA — 2026-10-26
 
-Simnet-ai, Clarity 6. Exact-source pots from `wallet_2` after deployer `init-admin-late`. Recorder: **25 passed**.
+Simnet-ai, Clarity 6. Exact-source pots from `wallet_2` after deployer `init-admin-late`. Recorder: **52 passed** across crowd-fund + jackpot + sponsor files (crowd-fund lifecycle + sponsor: **25** of those). **No contract edits** this run.
 
-SHA-256 `crowd-fund.clar`: `01c3e371e4584de4a4f16a947a0cc49be793c4ebde595ee64ad856c5f5118f8b`  
-SHA-256 `stackspots.clar`: `8f1d47486ccf918a23dc6c1b2937152a68d53ad3ce4378d3204e951ae6a75bff`  
-SHA-256 `stackspot-sponsor.clar`: `183e6ebd117bbeb6c5770ca43b3db8df6c22ae2dd9df8c681de03ef58b2ff3b1`
+SHA-256 `crowd-fund.clar`: `36599d20b54e491a399a55803db54090aea449dfc8731f4faf0042acee1663c5`  
+SHA-256 `stackspots.clar`: `91cf527cb311db4e41e7e6a0e6af774a8877f57e430441a31d0ec69e4e8dad56`  
+SHA-256 `stackspot-sponsor.clar`: `5e42212eddc2113f1e7526b64f0e6323e9a62d46e424b19d80f6da339295806d`
 
 Simnet / testnet **does not simulate `stx-account` lock**. `(get locked (stx-account …))` stays **0** after `sim-pox-5.stake`. Observed withdraw/extend/cancel results that depend on that bit are recorder artifacts. The Clarity gates are **as intended**.
 
-`sponsor-platform` now takes `logo-url` + `description`. `get-sponsor-details` takes `{balance, participant-count, lock-burn-height}`. Harness only; **no contract edits** this run.
-
 ## Summary
 
-**No open findings.** I09 is **resolved**.
+**No open findings.** I09 remains **resolved**.
 
 | ID | Status | What |
 | --- | --- | --- |
@@ -65,7 +63,7 @@ Same as 1-cycle except claim/cancel-at-end at burn **13033**.
 
 ```bash
 cd v5/simnet-ai
-npx vitest run tests/one-cycle-lifecycle.test.ts tests/five-cycle-lifecycle.test.ts tests/sponsor-withdraw-extend.test.ts --maxWorkers=1
+npm test -- tests/one-cycle-lifecycle.test.ts tests/five-cycle-lifecycle.test.ts tests/sponsor-withdraw-extend.test.ts
 ```
 
 Logs: `simnet-ai/reports/one-cycle-audit-run.json`, `simnet-ai/reports/five-cycle-audit-run.json`, `simnet-ai/reports/sponsor-withdraw-extend-run.json`.
