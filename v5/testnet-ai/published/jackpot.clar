@@ -4,9 +4,9 @@
 ;; description: Random winner selection. Staking + payouts happen on this contract.
 
 ;; --- TRAITS
-  (impl-trait 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspot-pots-trait.stackspot-pots-trait)
-  (use-trait stackspot-pots-trait 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspot-pots-trait.stackspot-pots-trait)
-  (use-trait stackspot-sponsor-trait 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspot-sponsor-trait.stackspot-sponsor-trait)
+  (impl-trait 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspot-pots-trait.stackspot-pots-trait)
+  (use-trait stackspot-pots-trait 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspot-pots-trait.stackspot-pots-trait)
+  (use-trait stackspot-sponsor-trait 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspot-sponsor-trait.stackspot-sponsor-trait)
 ;; --------------------------------------------------------------------------------------------
 
 ;; CONATANTS
@@ -47,7 +47,7 @@
 
   (define-constant pot-type "jackpot")
   ;; Platform, pot-treasury and admin addresses
-    (define-constant platform_address (contract-call? 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspots get-platform-treasury))
+    (define-constant platform_address (contract-call? 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspots get-platform-treasury))
     (define-constant pot_treasury_address current-contract)
     (define-constant pot_admin tx-sender)
   ;; ---
@@ -193,13 +193,13 @@
   )
 
   (define-read-only (get-pot-id)
-    (contract-call? 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspots get-token-id current-contract)
+    (contract-call? 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspots get-token-id current-contract)
   )
 
   (define-read-only (get-pot-participants-list)
     (let (
         (participants-count (var-get last-pot-participant))
-        (n (contract-call? 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspot-vrf generate-list u0 participants-count))
+        (n (contract-call? 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspot-vrf generate-list u0 participants-count))
         (participants (match n
           value (map get-by-id-helper-private value)
           (list)
@@ -217,7 +217,7 @@
   (define-read-only (get-sponsors-list)
     (let 
       (
-        (n (contract-call? 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
+        (n (contract-call? 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
         (participants 
           (match n
             value (map get-by-id-helper-sponsor value)
@@ -340,7 +340,7 @@
     (let 
         (
             ;; Get random digit from VRF
-            (vrf-random-digit (unwrap! (contract-call? 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspot-vrf get-random-uint-at-block stacks-block-height) err_not_found))
+            (vrf-random-digit (unwrap! (contract-call? 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspot-vrf get-random-uint-at-block stacks-block-height) err_not_found))
             (winner-id (mod vrf-random-digit (var-get last-pot-participant)))
             (winner-values (unwrap! (map-get? pot-participants-by-id winner-id) err_not_found))
             (winner-address (get participant winner-values))
@@ -391,7 +391,7 @@
 
           (print payload)
 
-          (contract-call? 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspots register-pot payload contract)
+          (contract-call? 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspots register-pot payload contract)
         )
       )
     )
@@ -445,7 +445,7 @@
             }) err_not_found))
           )
           (print payload)
-          (try! (contract-call? 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspots log-join-pot payload))
+          (try! (contract-call? 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspots log-join-pot payload))
         )
 
         ;; Execution Complete
@@ -493,7 +493,7 @@
             }) err_not_found))
           )
           (print payload)
-          (try! (contract-call? 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspots log-join-pot-as-sponsor payload))
+          (try! (contract-call? 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspots log-join-pot-as-sponsor payload))
         )
 
         ;; Execution Complete
@@ -553,7 +553,7 @@
             )
           )
           (print (merge {pot-participants: (unwrap! (get-pot-participants-list) err_not_found)} payload))
-          (try! (contract-call? 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspots log-start-pot (unwrap! (to-consensus-buff? payload ) err_not_found)))
+          (try! (contract-call? 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspots log-start-pot (unwrap! (to-consensus-buff? payload ) err_not_found)))
         )
 
         ;; Execution complete
@@ -701,7 +701,7 @@
                 } payload)
               )
 
-              (try! (contract-call? 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspots log-claim-pot-reward (unwrap-panic (to-consensus-buff? payload))))
+              (try! (contract-call? 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspots log-claim-pot-reward (unwrap-panic (to-consensus-buff? payload))))
             )     
           ;;  ---
 
@@ -772,7 +772,7 @@
             })))
           )
           (print payload)
-          (try! (contract-call? 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspots log-cancel-pot payload))
+          (try! (contract-call? 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspots log-cancel-pot payload))
         )
 
         ;; Execution complete
@@ -806,4 +806,4 @@
 
   (print PRE_INIT_LOG)
   
-  (contract-call? 'STEW89QVCJXF26P1VW27DWBMXVEVQEKMNFD88REG.stackspot-pre-init-logs log-pre-init PRE_INIT_LOG)
+  (contract-call? 'ST2D3MNSY0ZR66G8CD1HQQY8VWY6RZ3BK6CA8E03G.stackspot-pre-init-logs log-pre-init PRE_INIT_LOG)
