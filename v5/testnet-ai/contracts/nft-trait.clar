@@ -1,4 +1,4 @@
-;; SIP-009 NFT trait (published as ST3RCQ79BSRY80WS98GZF86B48G6JC66TFF8Y4QX0.nft-trait)
+;; SIP-009 NFT trait (published as STKGQQXE4TMV1P438CQMKA3TE5YAJ2FKAG1MZ1K4.nft-trait)
 (define-trait nft-trait
   (
     (get-last-token-id () (response uint uint))

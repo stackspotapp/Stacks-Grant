@@ -11,6 +11,7 @@
     {
       pot-participants-count: uint, 
       pot-value: uint, 
+      pot-sponsor-amount: uint,
       pot-reward-amount: uint, 
       pot-participant-values: (optional {participant: principal, amount: uint}),
       ;;;;  Winner Values

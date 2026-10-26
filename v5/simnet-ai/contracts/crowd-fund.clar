@@ -164,6 +164,7 @@
       {
         pot-participants-count: (var-get last-pot-participant),
         pot-value: (stx-get-balance pot_treasury_address),
+        pot-sponsor-amount: (var-get sponsor-amount),
         pot-reward-amount: (unwrap-panic (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token get-balance current-contract)),
         pot-participant-values: (get-pot-participant-values tx-sender),
         
