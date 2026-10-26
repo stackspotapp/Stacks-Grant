@@ -371,7 +371,7 @@
 
         (let 
           (
-            (sponsor-tickets (map register-to-platform-sponsor (list contract) sponsors))
+            (sponsor-tickets (map register-to-platform-sponsor (list contract contract contract) sponsors))
             (payload (unwrap-panic (to-consensus-buff? 
               {
                 event: "init-pot",
