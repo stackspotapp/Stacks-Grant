@@ -237,7 +237,7 @@
 
 ;; PRIVATE FUNCTION
   ;; Sponsor helper  
-    (define-private (register-to-platform-sponsor (sponsor <stackspot-sponsor-trait>) (pot <stackspot-pots-trait>))
+    (define-private (register-to-platform-sponsor (pot <stackspot-pots-trait>) (sponsor <stackspot-sponsor-trait>))
       (let 
         (
           (ticket (unwrap-panic (as-contract? () (try! (contract-call? sponsor sponsor-event pot)))))
@@ -362,7 +362,7 @@
 
         (let 
           (
-            (sponsor-tickets (map register-to-platform-sponsor sponsors (list contract)))
+            (sponsor-tickets (map register-to-platform-sponsor (list contract) sponsors))
             (payload (unwrap-panic (to-consensus-buff? 
               {
                 event: "init-pot",
