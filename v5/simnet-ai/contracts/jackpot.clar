@@ -162,7 +162,7 @@
     (ok 
       {
         pot-participants-count: (var-get last-pot-participant),
-        pot-value: (if (> (stx-get-balance pot_treasury_address) u0) (get unlocked (stx-account current-contract)) (get locked (stx-account current-contract))),
+        pot-value: (if (> (stx-get-balance current-contract) u0) (get unlocked (stx-account current-contract)) (get locked (stx-account current-contract))),
         pot-sponsor-amount: (var-get sponsor-amount),
         pot-reward-amount: (unwrap-panic (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token get-balance current-contract)),
         pot-participant-values: (get-pot-participant-values tx-sender),
