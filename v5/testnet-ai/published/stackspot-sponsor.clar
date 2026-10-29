@@ -4,9 +4,9 @@
 ;; description: This contract is used to sponsor the Stackspots platform.
 
 ;; traits
-  (impl-trait 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.nft-trait.nft-trait)
-  (impl-trait 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-sponsor-trait.stackspot-sponsor-trait)
-  (use-trait stackspot-pots-trait 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-pots-trait.stackspot-pots-trait)
+  (impl-trait 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.nft-trait.nft-trait)
+  (impl-trait 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-sponsor-trait.stackspot-sponsor-trait)
+  (use-trait stackspot-pots-trait 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-pots-trait.stackspot-pots-trait)
 ;; ================================
 
 ;; token definitions
@@ -67,7 +67,7 @@
 
         ;; validate the sponsor contract is allowed to sponsor
         (try! (stx-transfer-memo? amount tx-sender current-contract (unwrap! (to-consensus-buff? "sponsor amount transferred") err_not_found)))
-        (try! (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots verify-sponsorer-contract current-contract))
+        (try! (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots verify-sponsorer-contract current-contract))
         
         ;; stake or stake-update in pox-5
         (if is-staking
@@ -105,7 +105,7 @@
             }) err_not_found))
           )
           (print payload)
-          (try! (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots log-sponsor-platform payload))          
+          (try! (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots log-sponsor-platform payload))          
         )
 
         (ok true)
@@ -125,7 +125,7 @@
         (sponsored-amount (stx-get-balance current-contract))
         (token-id-owner (unwrap-panic (unwrap-panic (get-owner ticket-id))))
       )
-      (asserts! (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots is-contract-allowed-hash (contract-of pot-contract)) err-not-allowed-contract-hash)
+      (asserts! (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots is-contract-allowed-hash (contract-of pot-contract)) err-not-allowed-contract-hash)
       (asserts! (is-eq (contract-of pot-contract) contract-caller) err_not-authorized)
       (asserts! (is-eq token-id-owner contract-caller) err-not-token-owner)
 
@@ -170,7 +170,7 @@
       ;; validate the calling pot is the contract being sponsored
       ;; validate the sponsor contract is allowed to sponsor events
       (asserts! (is-eq contract-caller (contract-of pot-contract)) err_not-authorized)
-      (asserts! (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots is-contract-allowed-hash contract-caller) err_not-authorized)
+      (asserts! (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots is-contract-allowed-hash contract-caller) err_not-authorized)
 
       (let
         (
@@ -272,7 +272,7 @@
   (define-private (get-total-validated-rule-score (pot-contract <stackspot-pots-trait>)) 
     (let 
       (
-        (generated-list (default-to (list ) (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-vrf generate-list u0 rule-sets-count)))
+        (generated-list (default-to (list ) (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-vrf generate-list u0 rule-sets-count)))
         (rule-set-list (map get-rule-score generated-list))
       )
       (ok 
@@ -315,7 +315,7 @@
 
   (define-private (record-reward-cycles)
     (let (
-        (record-range (unwrap-panic (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-vrf generate-list u0 (var-get num-cycles))))        
+        (record-range (unwrap-panic (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-vrf generate-list u0 (var-get num-cycles))))        
       )
       (map record-reward-cycles-helper record-range)
     )
@@ -359,13 +359,13 @@
   )
 
   (define-read-only (get-minimum-sponsor-amount) 
-    (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots get-minimum-sponsor-amount)
+    (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots get-minimum-sponsor-amount)
   )
 
   (define-read-only (get-rule-sets) 
     (let 
       (
-        (generated-list (default-to (list ) (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-vrf generate-list u0 rule-sets-count)))
+        (generated-list (default-to (list ) (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-vrf generate-list u0 rule-sets-count)))
         (rule-set-list (map get-rule generated-list))
       )
       (ok rule-set-list)
@@ -375,7 +375,7 @@
   (define-read-only (get-total-rule-score) 
     (let 
       (
-        (generated-list (default-to (list ) (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-vrf generate-list u0 rule-sets-count)))
+        (generated-list (default-to (list ) (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-vrf generate-list u0 rule-sets-count)))
         (rule-set-list (map get-rule-score generated-list))
       )
       (ok (fold add-score rule-set-list u0))
@@ -410,7 +410,7 @@
   )
 
   (define-read-only (get-reward-cycles) 
-    (let ((range (unwrap-panic (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-vrf generate-list u0 (var-get num-cycles)))))
+    (let ((range (unwrap-panic (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-vrf generate-list u0 (var-get num-cycles)))))
       (map get-reward-cycle-by-index range)
     )
   )
@@ -449,7 +449,7 @@
         (
           (token-id (+ (var-get last-token-id) u1))
         )
-        (asserts! (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots is-contract-allowed-hash recipient) err_not-authorized)
+        (asserts! (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots is-contract-allowed-hash recipient) err_not-authorized)
         (asserts! (is-eq tx-sender recipient) err-owner-only)
         
         (try! (nft-mint? pot-ticket token-id recipient))

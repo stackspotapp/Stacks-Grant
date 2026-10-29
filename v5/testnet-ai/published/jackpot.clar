@@ -4,9 +4,9 @@
 ;; description: Random winner selection. Staking + payouts happen on this contract.
 
 ;; --- TRAITS
-  (impl-trait 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-pots-trait.stackspot-pots-trait)
-  (use-trait stackspot-pots-trait 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-pots-trait.stackspot-pots-trait)
-  (use-trait stackspot-sponsor-trait 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-sponsor-trait.stackspot-sponsor-trait)
+  (impl-trait 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-pots-trait.stackspot-pots-trait)
+  (use-trait stackspot-pots-trait 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-pots-trait.stackspot-pots-trait)
+  (use-trait stackspot-sponsor-trait 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-sponsor-trait.stackspot-sponsor-trait)
 ;; --------------------------------------------------------------------------------------------
 
 ;; CONATANTS
@@ -47,7 +47,7 @@
 
   (define-constant pot-type "jackpot")
   ;; Platform, pot-treasury and admin addresses
-    (define-constant platform_address (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots get-platform-treasury))
+    (define-constant platform_address (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots get-platform-treasury))
     (define-constant pot_treasury_address current-contract)
     (define-constant pot_admin tx-sender)
   ;; ---
@@ -196,13 +196,13 @@
   )
 
   (define-read-only (get-pot-id)
-    (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots get-token-id current-contract)
+    (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots get-token-id current-contract)
   )
 
   (define-read-only (get-pot-participants-list)
     (let (
         (participants-count (var-get last-pot-participant))
-        (n (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-vrf generate-list u0 participants-count))
+        (n (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-vrf generate-list u0 participants-count))
         (participants (match n
           value (map get-by-id-helper-private value)
           (list)
@@ -220,7 +220,7 @@
   (define-read-only (get-sponsors-list)
     (let 
       (
-        (n (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
+        (n (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-vrf generate-list u0 (var-get last-sponsors-count)))
         (participants 
           (match n
             value (map get-by-id-helper-sponsor value)
@@ -237,7 +237,7 @@
   )
 
   (define-read-only (get-reward-cycles) 
-    (let ((range (unwrap-panic (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-vrf generate-list u0 (var-get pot-cycle)))))
+    (let ((range (unwrap-panic (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-vrf generate-list u0 (var-get pot-cycle)))))
       (map get-reward-cycle-by-index range)
     )
   )
@@ -349,7 +349,7 @@
     (let 
         (
             ;; Get random digit from VRF
-            (vrf-random-digit (unwrap! (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-vrf get-random-uint-at-block stacks-block-height) err_not_found))
+            (vrf-random-digit (unwrap! (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-vrf get-random-uint-at-block stacks-block-height) err_not_found))
             (winner-id (mod vrf-random-digit (var-get last-pot-participant)))
             (winner-values (unwrap! (map-get? pot-participants-by-id winner-id) err_not_found))
             (winner-address (get participant winner-values))
@@ -377,7 +377,7 @@
 
   (define-private (record-reward-cycles)
     (let (
-        (record-range (unwrap-panic (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-vrf generate-list u0 (var-get pot-cycle))))        
+        (record-range (unwrap-panic (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-vrf generate-list u0 (var-get pot-cycle))))        
       )
       (map record-reward-cycles-helper record-range)
     )
@@ -427,7 +427,7 @@
 
           (print payload)
 
-          (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots register-pot payload contract)
+          (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots register-pot payload contract)
         )
       )
     )
@@ -481,7 +481,7 @@
             }) err_not_found))
           )
           (print payload)
-          (try! (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots log-join-pot payload))
+          (try! (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots log-join-pot payload))
         )
 
         ;; Execution Complete
@@ -529,7 +529,7 @@
             }) err_not_found))
           )
           (print payload)
-          (try! (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots log-join-pot-as-sponsor payload))
+          (try! (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots log-join-pot-as-sponsor payload))
         )
 
         ;; Execution Complete
@@ -591,7 +591,7 @@
             )
           )
           (print (merge {pot-participants: (unwrap! (get-pot-participants-list) err_not_found)} payload))
-          (try! (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots log-start-pot (unwrap! (to-consensus-buff? payload ) err_not_found)))
+          (try! (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots log-start-pot (unwrap! (to-consensus-buff? payload ) err_not_found)))
         )
 
         ;; Execution complete
@@ -743,7 +743,7 @@
                 } payload)
               )
 
-              (try! (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots log-claim-pot-reward (unwrap-panic (to-consensus-buff? payload))))
+              (try! (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots log-claim-pot-reward (unwrap-panic (to-consensus-buff? payload))))
             )     
           ;;  ---
 
@@ -814,7 +814,7 @@
             })))
           )
           (print payload)
-          (try! (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspots log-cancel-pot payload))
+          (try! (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspots log-cancel-pot payload))
         )
 
         ;; Execution complete
@@ -848,4 +848,4 @@
 
   (print PRE_INIT_LOG)
   
-  (contract-call? 'ST1MYQ9W7PSYX6KQNCZWVHKPJZP4QTKH8G872GD32.stackspot-pre-init-logs log-pre-init PRE_INIT_LOG)
+  (contract-call? 'ST2RMQGDHR7BP8YTAH916QMN6CM06PTDZXZ0XJQCQ.stackspot-pre-init-logs log-pre-init PRE_INIT_LOG)
