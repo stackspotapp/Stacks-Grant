@@ -98,6 +98,9 @@
     
   ;; Platform sponsor tickets (sponsor contract -> ticket-id)
     (define-map platform-sponsor-tickets principal {ticket: uint, state: bool})
+
+  ;; Reward cycles map
+    (define-map reward-cycles uint uint)
 ;; --------------------------------------------------------------------------------------------
 
 ;; READ ONLY FUNCTION
@@ -232,6 +235,12 @@
   (define-read-only (get-winner) 
     (decide-winner)
   )
+
+  (define-read-only (get-reward-cycles) 
+    (let ((range (unwrap-panic (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-vrf generate-list u0 (var-get pot-cycle)))))
+      (map get-reward-cycle-by-index range)
+    )
+  )
 ;; --------------------------------------------------------------------------------------------
 
 ;; PRIVATE FUNCTION
@@ -349,6 +358,33 @@
         
         (ok {winner-id: winner-id, winner-address: winner-address})
     )
+  )
+
+  (define-private (get-reward-cycle-by-index (index uint)) 
+    (unwrap-panic (map-get? reward-cycles index))
+  )
+
+  ;; Record reward cycles helper
+  (define-private (record-reward-cycles-helper (index uint)) 
+    (let (
+        (current-cycle (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5 current-pox-reward-cycle))
+        (reward-cycle (+ current-cycle u1))        
+      )
+      (map-insert reward-cycles index reward-cycle)
+      reward-cycle
+    )
+  )
+
+  (define-private (record-reward-cycles)
+    (let (
+        (record-range (unwrap-panic (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-vrf generate-list u0 (var-get pot-cycle))))        
+      )
+      (map record-reward-cycles-helper record-range)
+    )
+  )
+
+  (define-private (pull-rewards-for-cycle (cycle uint)) 
+    (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool claim-staker-rewards current-contract cycle none)
   )
 ;; ---------------------------------------------------------------------------
 
@@ -509,6 +545,7 @@
           (cycles (var-get pot-cycle))
           (pool-config (unwrap-panic (get-pool-config)))
           (prepare-start (get prepare-start pool-config))
+          (reward-cycle (record-reward-cycles))
         )
         (asserts! (not (var-get locked)) err_pot_already_started) ;; Ensures pot is not locked at point of start
         (asserts! (is-pot-value-target-met) err_insufficient_reward) ;; Ensures traget amount is met before permiting pot delegations to pox
@@ -549,6 +586,7 @@
                 pot-lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
                 pot-cancelled: (var-get pot-cancelled),
                 burn-block-height: burn-block-height,
+                reward-cycles: reward-cycle,
               }
             )
           )
@@ -576,6 +614,8 @@
           (
             ;; Get pot details
             (pot-details (unwrap-panic (get-pot-details)))
+            (rewards-cycle (get-reward-cycles))
+            (pulled-rewards (map pull-rewards-for-cycle rewards-cycle))
             ;; @value: pot ID
             ;; @value: pot winner's ID
             ;; @value: pot winner's {participant: principal, amount: uint}
@@ -689,7 +729,7 @@
                     burn-block-height: burn-block-height,
                     lock-burn-height: (default-to burn-block-height (var-get lock-burn-height)),
                     pot-cancelled: (var-get pot-cancelled),
-                    pot-is-init: (var-get initiated),
+                    pot-is-init: (var-get initiated),                    
                   }
                 )
               )          
@@ -697,7 +737,9 @@
               (print (merge 
                 {
                   pot-participants: participants,
-                  sponsors: (get-sponsors-list)
+                  sponsors: (get-sponsors-list),
+                  pulled-rewards: pulled-rewards,
+                  rewards-cycle: rewards-cycle,
                 } payload)
               )
 

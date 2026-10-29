@@ -49,8 +49,8 @@
 ;; data maps
   (define-map rule-set uint {label: (string-ascii 255), state:bool, required: uint, score: uint})
 
-  ;; Track PoX-5 stake metadata for claim timing / reward attribution
-    (define-map staked-cycles uint uint)
+  ;; Reward cycles map
+    (define-map reward-cycles uint uint)
 ;; ================================
 
 ;; public functions
@@ -59,6 +59,7 @@
       (
         (is-staking (> (get locked (stx-account current-contract)) u0))
         (prepare-window (get prepare-start (unwrap! (get-pool-config (default-to burn-block-height (var-get lock-burn-height))) err_not_found)))
+        (reward-cycle (record-reward-cycles))
       ) 
         (asserts! (< burn-block-height prepare-window) err_try_again_after_prepare_start)
         (asserts! (>= amount (get-minimum-sponsor-amount)) err_insufficient_sponsor_balance)
@@ -100,6 +101,7 @@
               sponsor: tx-sender,
               sponsor-contract: current-contract,
               burn-block-height: burn-block-height,
+              reward-cycles: reward-cycle,
             }) err_not_found))
           )
           (print payload)
@@ -113,6 +115,8 @@
   (define-public (claim-sponsor-reward (pot-contract <stackspot-pots-trait>) (ticket-id uint))
     (let 
       (
+        (rewards-cycle (get-reward-cycles))
+        (pulled-rewards (map pull-rewards-for-cycle rewards-cycle))
         (sbtc-yield (unwrap-panic (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token get-balance current-contract)))
         (is-locked (> (get locked (stx-account current-contract)) u0))
         (memo (to-consensus-buff? "claim-sponsor-reward"))
@@ -153,6 +157,8 @@
         total-reward-pool: sbtc-yield,
         pot-contract: (contract-of pot-contract),
         burn-block-height: burn-block-height,
+        pulled-rewards: pulled-rewards,
+        rewards-cycle: rewards-cycle,
       })
       
       (ok true)
@@ -292,6 +298,32 @@
       (ok true)
     )
   )
+  (define-private (get-reward-cycle-by-index (index uint)) 
+    (unwrap-panic (map-get? reward-cycles index))
+  )
+
+  ;; Record reward cycles helper
+  (define-private (record-reward-cycles-helper (index uint)) 
+    (let (
+        (current-cycle (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5 current-pox-reward-cycle))
+        (reward-cycle (+ current-cycle u1))        
+      )
+      (map-insert reward-cycles index reward-cycle)
+      reward-cycle
+    )
+  )
+
+  (define-private (record-reward-cycles)
+    (let (
+        (record-range (unwrap-panic (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-vrf generate-list u0 (var-get num-cycles))))        
+      )
+      (map record-reward-cycles-helper record-range)
+    )
+  )
+
+  (define-private (pull-rewards-for-cycle (cycle uint)) 
+    (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool claim-staker-rewards current-contract cycle none)
+  )
 
 ;; ================================
 
@@ -374,6 +406,12 @@
         (if (>= participant-count (default-to u0 (get required (get-rule u1)))) (get-rule-score u1) u0)
         (if (< locked-burn-height (default-to u0 (get required (get-rule u2)))) (get-rule-score u2) u0)
       ) u0)
+    )
+  )
+
+  (define-read-only (get-reward-cycles) 
+    (let ((range (unwrap-panic (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-vrf generate-list u0 (var-get num-cycles)))))
+      (map get-reward-cycle-by-index range)
     )
   )
 ;; ================================
