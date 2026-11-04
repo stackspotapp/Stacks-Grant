@@ -1072,27 +1072,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
       "fn": "claim-pot-reward",
-      "result": "ok",
-      "burn": 4633,
-      "stacks": 4661
-    },
-    {
-      "scenario": "S6",
-      "step": "get-pot-details-winner",
-      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
-      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
-      "fn": "get-pot-details",
-      "result": "ok",
-      "burn": 4633,
-      "stacks": 4661
-    },
-    {
-      "scenario": "S6",
-      "step": "get-winner-reroll",
-      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
-      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
-      "fn": "get-winner",
-      "result": "ok",
+      "result": "none",
       "burn": 4633,
       "stacks": 4661
     },
@@ -1102,7 +1082,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
       "fn": "claim-pot-reward",
-      "result": "err u1303",
+      "result": "ok",
       "burn": 4633,
       "stacks": 4662
     },
@@ -2019,37 +1999,22 @@
   ],
   "findings": [
     "WINNER S1 stored id=1 p2/wallet_4 reroll id=1 p2/wallet_4 same=true",
-    "SBTC S1 pot pre=0 post=0 details-reward=0 starter potDeployer/wallet_2 sbtc=0 d=0 claimer extra/wallet_8 sbtc=0 d=0 winner p2/wallet_4 sbtc=0 d=0",
+    "SBTC S1 pot pre=0 post=0 details-reward=0 starter potDeployer/wallet_2 sbtc=950 d=950 claimer extra/wallet_8 sbtc=271 d=271 winner p2/wallet_4 sbtc=12233 d=12233",
     "S1 claim err u1303",
     "S3 immediate=err u1408 unauth=err u1408 mid=err u1408",
     "S5 early-cancel err u1408",
-    "WINNER S6 stored id=1 p2/wallet_4 reroll id=1 p2/wallet_4 same=true",
-    "SBTC S6 pot pre=0 post=0 details-reward=0 starter potDeployer/wallet_2 sbtc=0 d=0 claimer potDeployer/wallet_2 sbtc=0 d=0 winner p2/wallet_4 sbtc=0 d=0",
-    "S6 claim-with-ps=ok claim-empty=err u1303",
+    "S6 claim-with-platform-sponsor-list runtime: Call contract function error: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6::claim-pot-reward('ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6, (list 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor)) -> Error calling contract function 'claim-pot-reward': Runtime error while interpreting ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6: Runtime(UnwrapFailure, Some([FunctionIdentifier { identifier: \"ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6:claim-pot-reward\" }, FunctionIdentifier { identifier: \"_native_:special_fold\" }, FunctionIdentifier { identifier: \"ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6:claim-one-platform-sponsor\" }, FunctionIdentifier { identifier: \"_native_:special_let\" }, FunctionIdentifier { identifier: \"_native_:special_as_contract\" }, FunctionIdentifier { identifier: \"_native_:special_contract-call\" }, FunctionIdentifier { identifier: \"ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor:claim-sponsor-reward\" }, FunctionIdentifier { identifier: \"_native_:special_let\" }, FunctionIdentifier { identifier: \"ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor:get-reward-cycles\" }, FunctionIdentifier { identifier: \"_native_:special_let\" }, FunctionIdentifier { identifier: \"_native_:special_map\" }, FunctionIdentifier { identifier: \"ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor:get-reward-cycle-by-index\" }, FunctionIdentifier { identifier: \"_native_:native_unwrap\" }]))",
+    "S6 claim-with-ps=none claim-empty=ok",
     "WINNER G stored id=0 p1/wallet_3 reroll id=0 p1/wallet_3 same=true",
     "SBTC G pot pre=0 post=0 details-reward=0 starter platform/deployer sbtc=0 d=0 claimer extra/wallet_8 sbtc=0 d=0 winner p1/wallet_3 sbtc=0 d=0",
     "G genesis-claim=err u1303 get-winner=ok",
     "WINNER E stored id=1 p2/wallet_4 reroll id=1 p2/wallet_4 same=true",
-    "SBTC E pot pre=0 post=0 details-reward=0 starter potDeployer/wallet_2 sbtc=0 d=0 claimer potDeployer/wallet_2 sbtc=0 d=0 winner p2/wallet_4 sbtc=0 d=0",
+    "SBTC E pot pre=0 post=0 details-reward=0 starter potDeployer/wallet_2 sbtc=1221 d=1221 claimer potDeployer/wallet_2 sbtc=1221 d=1221 winner p2/wallet_4 sbtc=12233 d=12233",
     "E claim=ok sponsor-delta=1000000000 expected=1000000000"
   ],
   "winners": [
     {
       "scenario": "S1",
-      "stored": {
-        "id": "1",
-        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
-        "party": "p2/wallet_4"
-      },
-      "reroll": {
-        "id": "1",
-        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
-        "party": "p2/wallet_4"
-      },
-      "same": true
-    },
-    {
-      "scenario": "S6",
       "stored": {
         "id": "1",
         "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
@@ -2112,39 +2077,12 @@
         "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
         "party": "p2/wallet_4"
       },
-      "starterSbtc": "0",
-      "claimerSbtc": "0",
-      "winnerSbtc": "0",
-      "starterDelta": "0",
-      "claimerDelta": "0",
-      "winnerDelta": "0"
-    },
-    {
-      "scenario": "S6",
-      "pot": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6",
-      "potPre": "0",
-      "potPost": "0",
-      "starter": {
-        "id": "pot-starter-address",
-        "address": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
-        "party": "potDeployer/wallet_2"
-      },
-      "claimer": {
-        "id": "pot-claimer-address",
-        "address": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
-        "party": "potDeployer/wallet_2"
-      },
-      "winner": {
-        "id": "1",
-        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
-        "party": "p2/wallet_4"
-      },
-      "starterSbtc": "0",
-      "claimerSbtc": "0",
-      "winnerSbtc": "0",
-      "starterDelta": "0",
-      "claimerDelta": "0",
-      "winnerDelta": "0"
+      "starterSbtc": "950",
+      "claimerSbtc": "271",
+      "winnerSbtc": "12233",
+      "starterDelta": "950",
+      "claimerDelta": "271",
+      "winnerDelta": "12233"
     },
     {
       "scenario": "G",
@@ -2193,12 +2131,12 @@
         "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
         "party": "p2/wallet_4"
       },
-      "starterSbtc": "0",
-      "claimerSbtc": "0",
-      "winnerSbtc": "0",
-      "starterDelta": "0",
-      "claimerDelta": "0",
-      "winnerDelta": "0"
+      "starterSbtc": "1221",
+      "claimerSbtc": "1221",
+      "winnerSbtc": "12233",
+      "starterDelta": "1221",
+      "claimerDelta": "1221",
+      "winnerDelta": "12233"
     }
   ],
   "snaps": [
@@ -2496,7 +2434,7 @@
         },
         "potDeployer": {
           "stx": "99999999900000",
-          "sbtc": "0"
+          "sbtc": "950"
         },
         "p1": {
           "stx": "100000000000000",
@@ -2504,7 +2442,7 @@
         },
         "p2": {
           "stx": "100000000000000",
-          "sbtc": "0"
+          "sbtc": "12233"
         },
         "p3": {
           "stx": "100000000000000",
@@ -2520,7 +2458,7 @@
         },
         "extra": {
           "stx": "100000000000000",
-          "sbtc": "0"
+          "sbtc": "271"
         },
         "stackspotSponsor": {
           "stx": "0",
@@ -2528,11 +2466,11 @@
         },
         "stackspots": {
           "stx": "100000",
-          "sbtc": "0"
+          "sbtc": "135"
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "16999998"
+          "sbtc": "16986409"
         }
       }
     },
@@ -3278,7 +3216,7 @@
         },
         "potDeployer": {
           "stx": "99999999900000",
-          "sbtc": "0"
+          "sbtc": "1221"
         },
         "p1": {
           "stx": "100000000000000",
@@ -3290,7 +3228,7 @@
         },
         "p3": {
           "stx": "100000000000000",
-          "sbtc": "0"
+          "sbtc": "12233"
         },
         "sponsor": {
           "stx": "100000000000000",
@@ -3310,11 +3248,11 @@
         },
         "stackspots": {
           "stx": "100000",
-          "sbtc": "0"
+          "sbtc": "135"
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "16999998"
+          "sbtc": "16986409"
         }
       }
     },
@@ -4068,7 +4006,7 @@
         },
         "potDeployer": {
           "stx": "99999999900000",
-          "sbtc": "0"
+          "sbtc": "1221"
         },
         "p1": {
           "stx": "100000000000000",
@@ -4076,7 +4014,7 @@
         },
         "p2": {
           "stx": "100000000000000",
-          "sbtc": "0"
+          "sbtc": "12233"
         },
         "p3": {
           "stx": "100000000000000",
@@ -4100,11 +4038,11 @@
         },
         "stackspots": {
           "stx": "100000",
-          "sbtc": "0"
+          "sbtc": "135"
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "16999998"
+          "sbtc": "16986409"
         }
       }
     }

@@ -1,0 +1,47 @@
+{
+  "platform": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+  "pots": {
+    "pot-a": {
+      "deployer": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5",
+      "contract": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5.pot-a",
+      "kind": "jackpot",
+      "stakeCycles": 1
+    },
+    "pot-b": {
+      "deployer": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-b",
+      "kind": "sequential",
+      "stakeCycles": 6,
+      "claimRounds": 7
+    },
+    "pot-c": {
+      "deployer": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC.pot-c",
+      "kind": "crowd-fund",
+      "stakeCycles": 1
+    }
+  },
+  "participants": {
+    "wallet_4": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+    "wallet_5": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+    "wallet_6": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+    "wallet_8": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+    "wallet_7": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+    "faucet": "STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6"
+  },
+  "starter": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+  "closer": "STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6",
+  "potSponsor": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+  "unauthorized": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+  "fastpool": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+  "cycles": {
+    "poxCycleLengthBurns": 2100,
+    "currentPoxCycle": 0,
+    "currentBurnBlock": 3,
+    "potStakeCycles": 1,
+    "sequentialStakeCycles": 6,
+    "sequentialClaimRounds": 7,
+    "platformSponsorCycles": 10,
+    "fastpoolFundStx": 2000000
+  }
+}

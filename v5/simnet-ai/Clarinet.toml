@@ -91,3 +91,8 @@ epoch = "latest"
 path = "contracts/jackpot.clar"
 clarity_version = 6
 epoch = "latest"
+
+[contracts.sequential]
+path = "contracts/sequential.clar"
+clarity_version = 6
+epoch = "latest"

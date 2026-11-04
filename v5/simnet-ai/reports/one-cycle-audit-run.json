@@ -982,7 +982,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s6",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "none",
       "burn": 4633,
       "stacks": 4660
     },
@@ -992,7 +992,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s6",
       "fn": "claim-pot-reward",
-      "result": "err u1303",
+      "result": "ok",
       "burn": 4633,
       "stacks": 4661
     },
@@ -1671,7 +1671,8 @@
     "S1 claim err u1303",
     "S3 immediate=err u1408 unauth=err u1408 mid=err u1408",
     "S5 early-cancel err u1408",
-    "S6 claim-with-ps=ok claim-empty=err u1303",
+    "S6 claim-with-platform-sponsor-list runtime: Call contract function error: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s6::claim-pot-reward('ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s6, (list 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor)) -> Error calling contract function 'claim-pot-reward': Runtime error while interpreting ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s6: Runtime(UnwrapFailure, Some([FunctionIdentifier { identifier: \"ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s6:claim-pot-reward\" }, FunctionIdentifier { identifier: \"_native_:special_fold\" }, FunctionIdentifier { identifier: \"ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.cf-s6:claim-one-platform-sponsor\" }, FunctionIdentifier { identifier: \"_native_:special_let\" }, FunctionIdentifier { identifier: \"_native_:special_as_contract\" }, FunctionIdentifier { identifier: \"_native_:special_contract-call\" }, FunctionIdentifier { identifier: \"ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor:claim-sponsor-reward\" }, FunctionIdentifier { identifier: \"_native_:special_let\" }, FunctionIdentifier { identifier: \"ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor:get-reward-cycles\" }, FunctionIdentifier { identifier: \"_native_:special_let\" }, FunctionIdentifier { identifier: \"_native_:special_map\" }, FunctionIdentifier { identifier: \"ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor:get-reward-cycle-by-index\" }, FunctionIdentifier { identifier: \"_native_:native_unwrap\" }]))",
+    "S6 claim-with-ps=none claim-empty=ok",
     "E claim=ok sponsor-delta=1000000000 expected=1000000000"
   ],
   "snaps": [
@@ -1969,7 +1970,7 @@
         },
         "potDeployer": {
           "stx": "99999999900000",
-          "sbtc": "0"
+          "sbtc": "13183"
         },
         "p1": {
           "stx": "100000000000000",
@@ -1993,7 +1994,7 @@
         },
         "extra": {
           "stx": "100000000000000",
-          "sbtc": "0"
+          "sbtc": "271"
         },
         "stackspotSponsor": {
           "stx": "0",
@@ -2001,11 +2002,11 @@
         },
         "stackspots": {
           "stx": "100000",
-          "sbtc": "0"
+          "sbtc": "135"
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "16999998"
+          "sbtc": "16986409"
         }
       }
     },
@@ -2751,7 +2752,7 @@
         },
         "potDeployer": {
           "stx": "99999999900000",
-          "sbtc": "0"
+          "sbtc": "13454"
         },
         "p1": {
           "stx": "100000000000000",
@@ -2783,11 +2784,11 @@
         },
         "stackspots": {
           "stx": "100000",
-          "sbtc": "0"
+          "sbtc": "135"
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "16999998"
+          "sbtc": "16986409"
         }
       }
     },
@@ -3374,7 +3375,7 @@
         },
         "potDeployer": {
           "stx": "99999999900000",
-          "sbtc": "0"
+          "sbtc": "13454"
         },
         "p1": {
           "stx": "100000000000000",
@@ -3406,11 +3407,11 @@
         },
         "stackspots": {
           "stx": "100000",
-          "sbtc": "0"
+          "sbtc": "135"
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "16999998"
+          "sbtc": "16986409"
         }
       }
     }
