@@ -353,22 +353,21 @@
     (unwrap-panic (map-get? reward-cycles index))
   )
 
-  ;; Record reward cycles helper
-  (define-private (record-reward-cycles-helper (index uint)) 
-    (let (
-        (current-cycle (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5 current-pox-reward-cycle))
-        (reward-cycle (+ current-cycle u1))        
-      )
-      (map-insert reward-cycles index reward-cycle)
-      reward-cycle
+  ;; Record consecutive reward cycles: current+1 .. current+n
+  (define-private (record-reward-cycles-helper (index uint) (prev-cycle uint))
+    (let ((cycle (+ prev-cycle u1)))
+      (map-set reward-cycles index cycle)
+      cycle
     )
   )
 
   (define-private (record-reward-cycles)
     (let (
-        (record-range (unwrap-panic (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-vrf generate-list u0 (var-get pot-cycle))))        
+        (current-cycle (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5 current-pox-reward-cycle))
+        (record-range (unwrap-panic (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-vrf generate-list u0 (var-get pot-cycle))))
       )
-      (map record-reward-cycles-helper record-range)
+      (fold record-reward-cycles-helper record-range current-cycle)
+      (get-reward-cycles)
     )
   )
 
