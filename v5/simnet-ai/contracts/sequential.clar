@@ -452,7 +452,7 @@
       (try! res)
       (if (< cycle current-cycle)
         (begin
-          (match (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool claim-staker-rewards current-contract cycle none)
+          (match (as-contract? () (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool claim-staker-rewards current-contract cycle none)))
             ok-val true
             err-val false
           )

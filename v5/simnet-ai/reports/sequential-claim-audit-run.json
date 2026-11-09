@@ -60,25 +60,25 @@
           "round": 2,
           "targetPox": 2,
           "actualPox": 3,
-          "result": "ok"
+          "result": "err u1001"
         },
         {
           "round": 3,
           "targetPox": 3,
           "actualPox": 4,
-          "result": "ok"
+          "result": "err u1001"
         },
         {
           "round": 4,
           "targetPox": 4,
           "actualPox": 5,
-          "result": "ok"
+          "result": "err u1001"
         },
         {
           "round": 5,
           "targetPox": 5,
           "actualPox": 6,
-          "result": "ok"
+          "result": "err u1001"
         }
       ],
       "fastpoolThresholdUstx": "1000000000000"
@@ -129,19 +129,19 @@
           "round": 3,
           "targetPox": 3,
           "actualPox": 4,
-          "result": "ok"
+          "result": "err u1001"
         },
         {
           "round": 4,
           "targetPox": 4,
           "actualPox": 5,
-          "result": "ok"
+          "result": "err u1001"
         },
         {
           "round": 5,
           "targetPox": 5,
           "actualPox": 6,
-          "result": "ok"
+          "result": "err u1001"
         }
       ],
       "fastpoolThresholdUstx": "1000000000000"
@@ -192,13 +192,13 @@
           "round": 4,
           "targetPox": 4,
           "actualPox": 5,
-          "result": "ok"
+          "result": "err u1001"
         },
         {
           "round": 5,
           "targetPox": 5,
           "actualPox": 6,
-          "result": "ok"
+          "result": "err u1001"
         }
       ],
       "fastpoolThresholdUstx": "1000000000000"
@@ -249,7 +249,7 @@
           "round": 5,
           "targetPox": 5,
           "actualPox": 6,
-          "result": "ok"
+          "result": "err u1001"
         }
       ],
       "fastpoolThresholdUstx": "1000000000000"
@@ -483,7 +483,7 @@
       "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
       "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.seq-pot",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1001",
       "burn": 6300,
       "stacks": 6331,
       "poxCycle": 3
@@ -505,7 +505,7 @@
       "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
       "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.seq-pot",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1001",
       "burn": 8400,
       "stacks": 8438,
       "poxCycle": 4
@@ -527,7 +527,7 @@
       "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
       "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.seq-pot",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1001",
       "burn": 10500,
       "stacks": 10545,
       "poxCycle": 5
@@ -549,7 +549,7 @@
       "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
       "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.seq-pot",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1001",
       "burn": 12600,
       "stacks": 12652,
       "poxCycle": 6
@@ -714,7 +714,7 @@
       "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
       "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.seq-pot",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1001",
       "burn": 8400,
       "stacks": 8437,
       "poxCycle": 4
@@ -736,7 +736,7 @@
       "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
       "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.seq-pot",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1001",
       "burn": 10500,
       "stacks": 10544,
       "poxCycle": 5
@@ -758,7 +758,7 @@
       "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
       "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.seq-pot",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1001",
       "burn": 12600,
       "stacks": 12651,
       "poxCycle": 6
@@ -923,7 +923,7 @@
       "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
       "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.seq-pot",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1001",
       "burn": 10500,
       "stacks": 10543,
       "poxCycle": 5
@@ -945,7 +945,7 @@
       "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
       "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.seq-pot",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1001",
       "burn": 12600,
       "stacks": 12650,
       "poxCycle": 6
@@ -1110,7 +1110,7 @@
       "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
       "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.seq-pot",
       "fn": "claim-pot-reward",
-      "result": "ok",
+      "result": "err u1001",
       "burn": 12600,
       "stacks": 12649,
       "poxCycle": 6
@@ -1261,19 +1261,19 @@
   ],
   "findings": [
     "SBTC E1 r1 pox=2 claim=ok pot=0 w1=77813 w2=0 w3=0 w4=0 w5=0 deployer=5919 fastpool=16915421",
-    "SBTC E1 r2 pox=3 claim=ok pot=0 w1=77813 w2=77813 w3=0 w4=0 w5=0 deployer=11838 fastpool=33830842",
-    "SBTC E1 r3 pox=4 claim=ok pot=0 w1=77813 w2=77813 w3=77813 w4=0 w5=0 deployer=17757 fastpool=50746263",
-    "SBTC E1 r4 pox=5 claim=ok pot=0 w1=77813 w2=77813 w3=77813 w4=77813 w5=0 deployer=23676 fastpool=67661684",
-    "SBTC E1 r5 pox=6 claim=ok pot=0 w1=77813 w2=77813 w3=77813 w4=77813 w5=77813 deployer=29595 fastpool=84577105",
+    "SBTC E1 r2 pox=3 claim=err u1001 pot=0 w1=77813 w2=0 w3=0 w4=0 w5=0 deployer=5919 fastpool=33915419",
+    "SBTC E1 r3 pox=4 claim=err u1001 pot=0 w1=77813 w2=0 w3=0 w4=0 w5=0 deployer=5919 fastpool=50915417",
+    "SBTC E1 r4 pox=5 claim=err u1001 pot=0 w1=77813 w2=0 w3=0 w4=0 w5=0 deployer=5919 fastpool=67915415",
+    "SBTC E1 r5 pox=6 claim=err u1001 pot=0 w1=77813 w2=0 w3=0 w4=0 w5=0 deployer=5919 fastpool=84915413",
     "SBTC E2 r2 pox=3 claim=ok pot=0 w1=76120 w2=79503 w3=0 w4=0 w5=0 deployer=11840 fastpool=33830842",
-    "SBTC E2 r3 pox=4 claim=ok pot=0 w1=76120 w2=79503 w3=77813 w4=0 w5=0 deployer=17759 fastpool=50746263",
-    "SBTC E2 r4 pox=5 claim=ok pot=0 w1=76120 w2=79503 w3=77813 w4=77813 w5=0 deployer=23678 fastpool=67661684",
-    "SBTC E2 r5 pox=6 claim=ok pot=0 w1=76120 w2=79503 w3=77813 w4=77813 w5=77813 deployer=29597 fastpool=84577105",
+    "SBTC E2 r3 pox=4 claim=err u1001 pot=0 w1=76120 w2=79503 w3=0 w4=0 w5=0 deployer=11840 fastpool=50830840",
+    "SBTC E2 r4 pox=5 claim=err u1001 pot=0 w1=76120 w2=79503 w3=0 w4=0 w5=0 deployer=11840 fastpool=67830838",
+    "SBTC E2 r5 pox=6 claim=err u1001 pot=0 w1=76120 w2=79503 w3=0 w4=0 w5=0 deployer=11840 fastpool=84830836",
     "SBTC E3 r3 pox=4 claim=ok pot=0 w1=76120 w2=76120 w3=81194 w4=0 w5=0 deployer=17760 fastpool=50746263",
-    "SBTC E3 r4 pox=5 claim=ok pot=0 w1=76120 w2=76120 w3=81194 w4=77813 w5=0 deployer=23679 fastpool=67661684",
-    "SBTC E3 r5 pox=6 claim=ok pot=0 w1=76120 w2=76120 w3=81194 w4=77813 w5=77813 deployer=29598 fastpool=84577105",
+    "SBTC E3 r4 pox=5 claim=err u1001 pot=0 w1=76120 w2=76120 w3=81194 w4=0 w5=0 deployer=17760 fastpool=67746261",
+    "SBTC E3 r5 pox=6 claim=err u1001 pot=0 w1=76120 w2=76120 w3=81194 w4=0 w5=0 deployer=17760 fastpool=84746259",
     "SBTC E4 r4 pox=5 claim=ok pot=2 w1=76119 w2=76119 w3=76119 w4=82885 w5=0 deployer=23681 fastpool=67661684",
-    "SBTC E4 r5 pox=6 claim=ok pot=0 w1=76119 w2=76119 w3=76119 w4=82885 w5=77815 deployer=29600 fastpool=84577105",
+    "SBTC E4 r5 pox=6 claim=err u1001 pot=2 w1=76119 w2=76119 w3=76119 w4=82885 w5=0 deployer=23681 fastpool=84661682",
     "SBTC E5 r5 pox=6 claim=ok pot=4 w1=76119 w2=76119 w3=76119 w4=76119 w5=84576 deployer=29601 fastpool=84577105"
   ],
   "snaps": [
@@ -1732,7 +1732,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "11838"
+          "sbtc": "5919"
         },
         "sequentialPot": {
           "stx": "0",
@@ -1744,7 +1744,7 @@
         },
         "wallet_2": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_3": {
           "stx": "100000000000000",
@@ -1764,7 +1764,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "33830842"
+          "sbtc": "33915419"
         },
         "simPox5": {
           "stx": "0",
@@ -1777,7 +1777,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "11838"
+          "sbtc": "5919"
         },
         "sequentialPot": {
           "stx": "0",
@@ -1789,7 +1789,7 @@
         },
         "wallet_2": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_3": {
           "stx": "100000000000000",
@@ -1809,7 +1809,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "50830840"
+          "sbtc": "50915417"
         },
         "simPox5": {
           "stx": "0",
@@ -1822,7 +1822,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "17757"
+          "sbtc": "5919"
         },
         "sequentialPot": {
           "stx": "0",
@@ -1834,11 +1834,11 @@
         },
         "wallet_2": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_3": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_4": {
           "stx": "100000000000000",
@@ -1854,7 +1854,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "50746263"
+          "sbtc": "50915417"
         },
         "simPox5": {
           "stx": "0",
@@ -1867,7 +1867,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "17757"
+          "sbtc": "5919"
         },
         "sequentialPot": {
           "stx": "0",
@@ -1879,11 +1879,11 @@
         },
         "wallet_2": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_3": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_4": {
           "stx": "100000000000000",
@@ -1899,7 +1899,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "67746261"
+          "sbtc": "67915415"
         },
         "simPox5": {
           "stx": "0",
@@ -1912,7 +1912,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "23676"
+          "sbtc": "5919"
         },
         "sequentialPot": {
           "stx": "0",
@@ -1924,15 +1924,15 @@
         },
         "wallet_2": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_3": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_4": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_5": {
           "stx": "100000000000000",
@@ -1944,7 +1944,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "67661684"
+          "sbtc": "67915415"
         },
         "simPox5": {
           "stx": "0",
@@ -1957,7 +1957,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "23676"
+          "sbtc": "5919"
         },
         "sequentialPot": {
           "stx": "0",
@@ -1969,15 +1969,15 @@
         },
         "wallet_2": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_3": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_4": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_5": {
           "stx": "100000000000000",
@@ -1989,7 +1989,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "84661682"
+          "sbtc": "84915413"
         },
         "simPox5": {
           "stx": "0",
@@ -2002,7 +2002,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "29595"
+          "sbtc": "5919"
         },
         "sequentialPot": {
           "stx": "0",
@@ -2014,19 +2014,19 @@
         },
         "wallet_2": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_3": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_4": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_5": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_7_lp": {
           "stx": "99000000000000",
@@ -2034,7 +2034,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "84577105"
+          "sbtc": "84915413"
         },
         "simPox5": {
           "stx": "0",
@@ -2407,7 +2407,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "17759"
+          "sbtc": "11840"
         },
         "sequentialPot": {
           "stx": "0",
@@ -2423,7 +2423,7 @@
         },
         "wallet_3": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_4": {
           "stx": "100000000000000",
@@ -2439,7 +2439,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "50746263"
+          "sbtc": "50830840"
         },
         "simPox5": {
           "stx": "0",
@@ -2452,7 +2452,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "17759"
+          "sbtc": "11840"
         },
         "sequentialPot": {
           "stx": "0",
@@ -2468,7 +2468,7 @@
         },
         "wallet_3": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_4": {
           "stx": "100000000000000",
@@ -2484,7 +2484,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "67746261"
+          "sbtc": "67830838"
         },
         "simPox5": {
           "stx": "0",
@@ -2497,7 +2497,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "23678"
+          "sbtc": "11840"
         },
         "sequentialPot": {
           "stx": "0",
@@ -2513,11 +2513,11 @@
         },
         "wallet_3": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_4": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_5": {
           "stx": "100000000000000",
@@ -2529,7 +2529,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "67661684"
+          "sbtc": "67830838"
         },
         "simPox5": {
           "stx": "0",
@@ -2542,7 +2542,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "23678"
+          "sbtc": "11840"
         },
         "sequentialPot": {
           "stx": "0",
@@ -2558,11 +2558,11 @@
         },
         "wallet_3": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_4": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_5": {
           "stx": "100000000000000",
@@ -2574,7 +2574,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "84661682"
+          "sbtc": "84830836"
         },
         "simPox5": {
           "stx": "0",
@@ -2587,7 +2587,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "29597"
+          "sbtc": "11840"
         },
         "sequentialPot": {
           "stx": "0",
@@ -2603,15 +2603,15 @@
         },
         "wallet_3": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_4": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_5": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_7_lp": {
           "stx": "99000000000000",
@@ -2619,7 +2619,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "84577105"
+          "sbtc": "84830836"
         },
         "simPox5": {
           "stx": "0",
@@ -2992,7 +2992,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "23679"
+          "sbtc": "17760"
         },
         "sequentialPot": {
           "stx": "0",
@@ -3012,7 +3012,7 @@
         },
         "wallet_4": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_5": {
           "stx": "100000000000000",
@@ -3024,7 +3024,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "67661684"
+          "sbtc": "67746261"
         },
         "simPox5": {
           "stx": "0",
@@ -3037,7 +3037,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "23679"
+          "sbtc": "17760"
         },
         "sequentialPot": {
           "stx": "0",
@@ -3057,7 +3057,7 @@
         },
         "wallet_4": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_5": {
           "stx": "100000000000000",
@@ -3069,7 +3069,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "84661682"
+          "sbtc": "84746259"
         },
         "simPox5": {
           "stx": "0",
@@ -3082,7 +3082,7 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "29598"
+          "sbtc": "17760"
         },
         "sequentialPot": {
           "stx": "0",
@@ -3102,11 +3102,11 @@
         },
         "wallet_4": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_5": {
           "stx": "100000000000000",
-          "sbtc": "77813"
+          "sbtc": "0"
         },
         "wallet_7_lp": {
           "stx": "99000000000000",
@@ -3114,7 +3114,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "84577105"
+          "sbtc": "84746259"
         },
         "simPox5": {
           "stx": "0",
@@ -3487,11 +3487,11 @@
       "rows": {
         "deployer": {
           "stx": "99999999900000",
-          "sbtc": "29600"
+          "sbtc": "23681"
         },
         "sequentialPot": {
           "stx": "0",
-          "sbtc": "0"
+          "sbtc": "2"
         },
         "wallet_1": {
           "stx": "100000000000000",
@@ -3511,7 +3511,7 @@
         },
         "wallet_5": {
           "stx": "100000000000000",
-          "sbtc": "77815"
+          "sbtc": "0"
         },
         "wallet_7_lp": {
           "stx": "99000000000000",
@@ -3519,7 +3519,7 @@
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "84577105"
+          "sbtc": "84661682"
         },
         "simPox5": {
           "stx": "0",

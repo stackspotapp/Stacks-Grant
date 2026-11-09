@@ -383,7 +383,7 @@
   )
 
   (define-private (pull-rewards-for-cycle (cycle uint)) 
-    (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool claim-staker-rewards current-contract cycle none)
+    (as-contract? () (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool claim-staker-rewards current-contract cycle none)))
   )
 ;; ---------------------------------------------------------------------------
 

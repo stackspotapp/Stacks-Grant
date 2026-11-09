@@ -1830,14 +1830,14 @@
   ],
   "findings": [
     "WINNER S1 stored id=1 p2/wallet_4 reroll id=1 p2/wallet_4 same=true",
-    "SBTC S1 pot pre=0 post=0 details-reward=0 starter potDeployer/wallet_2 sbtc=950 d=950 claimer extra/wallet_8 sbtc=271 d=271 winner p2/wallet_4 sbtc=12233 d=12233",
+    "SBTC S1 pot pre=0 post=0 details-reward=0 starter potDeployer/wallet_2 sbtc=4755 d=4755 claimer extra/wallet_8 sbtc=1358 d=1358 winner p2/wallet_4 sbtc=61153 d=61153",
     "S1 claim err u1303",
     "S3 immediate=err u1408 unauth=err u1408 mid=ok",
     "S5 early-cancel err u1408",
     "S6 claim-with-platform-sponsor-list runtime: Call contract function error: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6::claim-pot-reward('ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6, (list 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor)) -> Error calling contract function 'claim-pot-reward': Runtime error while interpreting ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6: Runtime(UnwrapFailure, Some([FunctionIdentifier { identifier: \"ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6:claim-pot-reward\" }, FunctionIdentifier { identifier: \"_native_:special_fold\" }, FunctionIdentifier { identifier: \"ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp-s6:claim-one-platform-sponsor\" }, FunctionIdentifier { identifier: \"_native_:special_let\" }, FunctionIdentifier { identifier: \"_native_:special_as_contract\" }, FunctionIdentifier { identifier: \"_native_:special_contract-call\" }, FunctionIdentifier { identifier: \"ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor:claim-sponsor-reward\" }, FunctionIdentifier { identifier: \"_native_:special_let\" }, FunctionIdentifier { identifier: \"ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor:get-reward-cycles\" }, FunctionIdentifier { identifier: \"_native_:special_let\" }, FunctionIdentifier { identifier: \"_native_:special_map\" }, FunctionIdentifier { identifier: \"ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspot-sponsor:get-reward-cycle-by-index\" }, FunctionIdentifier { identifier: \"_native_:native_unwrap\" }]))",
     "S6 claim-with-ps=none claim-empty=ok",
     "WINNER E stored id=1 p2/wallet_4 reroll id=1 p2/wallet_4 same=true",
-    "SBTC E pot pre=0 post=0 details-reward=0 starter potDeployer/wallet_2 sbtc=1221 d=1221 claimer potDeployer/wallet_2 sbtc=1221 d=1221 winner p2/wallet_4 sbtc=12233 d=12233",
+    "SBTC E pot pre=0 post=0 details-reward=0 starter potDeployer/wallet_2 sbtc=6113 d=6113 claimer potDeployer/wallet_2 sbtc=6113 d=6113 winner p2/wallet_4 sbtc=61153 d=61153",
     "E claim=ok sponsor-delta=1000000000 expected=1000000000"
   ],
   "winners": [
@@ -1891,12 +1891,12 @@
         "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
         "party": "p2/wallet_4"
       },
-      "starterSbtc": "950",
-      "claimerSbtc": "271",
-      "winnerSbtc": "12233",
-      "starterDelta": "950",
-      "claimerDelta": "271",
-      "winnerDelta": "12233"
+      "starterSbtc": "4755",
+      "claimerSbtc": "1358",
+      "winnerSbtc": "61153",
+      "starterDelta": "4755",
+      "claimerDelta": "1358",
+      "winnerDelta": "61153"
     },
     {
       "scenario": "E",
@@ -1918,12 +1918,12 @@
         "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
         "party": "p2/wallet_4"
       },
-      "starterSbtc": "1221",
-      "claimerSbtc": "1221",
-      "winnerSbtc": "12233",
-      "starterDelta": "1221",
-      "claimerDelta": "1221",
-      "winnerDelta": "12233"
+      "starterSbtc": "6113",
+      "claimerSbtc": "6113",
+      "winnerSbtc": "61153",
+      "starterDelta": "6113",
+      "claimerDelta": "6113",
+      "winnerDelta": "61153"
     }
   ],
   "snaps": [
@@ -2221,7 +2221,7 @@
         },
         "potDeployer": {
           "stx": "99999999900000",
-          "sbtc": "950"
+          "sbtc": "4755"
         },
         "p1": {
           "stx": "100000000000000",
@@ -2229,7 +2229,7 @@
         },
         "p2": {
           "stx": "100000000000000",
-          "sbtc": "12233"
+          "sbtc": "61153"
         },
         "p3": {
           "stx": "100000000000000",
@@ -2245,7 +2245,7 @@
         },
         "extra": {
           "stx": "100000000000000",
-          "sbtc": "271"
+          "sbtc": "1358"
         },
         "stackspotSponsor": {
           "stx": "0",
@@ -2253,11 +2253,11 @@
         },
         "stackspots": {
           "stx": "100000",
-          "sbtc": "135"
+          "sbtc": "679"
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "84986401"
+          "sbtc": "84932045"
         }
       }
     },
@@ -3003,7 +3003,7 @@
         },
         "potDeployer": {
           "stx": "99999999900000",
-          "sbtc": "1221"
+          "sbtc": "6113"
         },
         "p1": {
           "stx": "100000000000000",
@@ -3011,7 +3011,7 @@
         },
         "p2": {
           "stx": "100000000000000",
-          "sbtc": "12233"
+          "sbtc": "61153"
         },
         "p3": {
           "stx": "100000000000000",
@@ -3035,11 +3035,11 @@
         },
         "stackspots": {
           "stx": "100000",
-          "sbtc": "135"
+          "sbtc": "679"
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "84986401"
+          "sbtc": "84932045"
         }
       }
     },
@@ -3626,7 +3626,7 @@
         },
         "potDeployer": {
           "stx": "99999999900000",
-          "sbtc": "1221"
+          "sbtc": "6113"
         },
         "p1": {
           "stx": "100000000000000",
@@ -3634,7 +3634,7 @@
         },
         "p2": {
           "stx": "100000000000000",
-          "sbtc": "12233"
+          "sbtc": "61153"
         },
         "p3": {
           "stx": "100000000000000",
@@ -3658,11 +3658,11 @@
         },
         "stackspots": {
           "stx": "100000",
-          "sbtc": "135"
+          "sbtc": "679"
         },
         "fastpool": {
           "stx": "1000000000000",
-          "sbtc": "84986401"
+          "sbtc": "84932045"
         }
       }
     }

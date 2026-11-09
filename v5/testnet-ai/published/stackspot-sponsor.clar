@@ -321,7 +321,7 @@
   )
 
   (define-private (pull-rewards-for-cycle (cycle uint)) 
-    (contract-call? 'ST31XHNM0GZ2K978FPP4QA3STNQ73Z8C9G9MJEPK2.signer-manager claim-staker-rewards current-contract cycle none)
+    (as-contract? () (try! (contract-call? 'ST31XHNM0GZ2K978FPP4QA3STNQ73Z8C9G9MJEPK2.signer-manager claim-staker-rewards current-contract cycle none)))
   )
 
 ;; ================================

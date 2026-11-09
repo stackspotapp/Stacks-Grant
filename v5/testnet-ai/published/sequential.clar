@@ -452,7 +452,7 @@
       (try! res)
       (if (< cycle current-cycle)
         (begin
-          (match (contract-call? 'ST31XHNM0GZ2K978FPP4QA3STNQ73Z8C9G9MJEPK2.signer-manager claim-staker-rewards current-contract cycle none)
+          (match (as-contract? () (try! (contract-call? 'ST31XHNM0GZ2K978FPP4QA3STNQ73Z8C9G9MJEPK2.signer-manager claim-staker-rewards current-contract cycle none)))
             ok-val true
             err-val false
           )
