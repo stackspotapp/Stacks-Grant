@@ -102,6 +102,7 @@
 
   ;; Reward cycles map: one recorded cycle per joiner, catch-up via claimed.
     (define-map reward-cycles uint {winner-id: uint, cycle: uint, claimed: bool})
+    ;; (define-map reward-cycles-to-winners-by-cycle uint uint)
 ;; --------------------------------------------------------------------------------------------
 
 ;; READ ONLY FUNCTION
@@ -265,7 +266,7 @@
   )
 
   (define-read-only (get-winner) 
-    (decide-winner)
+    (var-get winners-values)
   )
 
   (define-read-only (get-reward-cycles) 
@@ -354,17 +355,6 @@
     )
   )
 
-  ;; Next unpaid due joiner. Missed cycles stay due until a later claim.
-  (define-private (decide-winner)
-    (match (fold pick-due-winner (participant-ids) none)
-      winner winner
-      {
-        winner-id: u0,
-        winner-address: (unwrap-panic (get participant (map-get? pot-participants-by-id u0)))
-      }
-    )
-  )
-
   (define-private (pay-reward (index uint) (amount (response uint uint)))
     (let (
         (transfer-amount (try! amount))
@@ -433,6 +423,7 @@
   (define-private (record-reward-cycles-helper (index uint) (prev-cycle uint))
     (let ((cycle (+ prev-cycle u1)))
       (map-set reward-cycles index {winner-id: index, cycle: cycle, claimed: false})
+      ;; (map-set reward-cycles-to-winners-by-cycle cycle index)
       cycle
     )
   )
@@ -730,9 +721,6 @@
           (asserts! (or (> pot-yield u0) (>= total-balance current-target-amount)) err_insufficient_reward)
           ;; Set pot claimer principal
           (var-set pot-claimer-principal (some tx-sender))
-
-          ;; Set winners address
-          (var-set winners-values (some (decide-winner)))
 
           ;; Catch-up sBTC first. Return STX only after funds unlock (not on early cycle claims).
           (if (> pot-yield u0) 

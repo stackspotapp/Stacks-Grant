@@ -1,0 +1,83 @@
+[
+  {
+    "window": 1,
+    "recordedCycleIndex": 0,
+    "recordedPoxCycle": "1",
+    "burn": 4200,
+    "pox": 2,
+    "getWinner": {
+      "id": "0",
+      "address": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5",
+      "party": "wallet_1"
+    },
+    "getRewardCycles": [
+      {
+        "index": 0,
+        "cycle": "1"
+      },
+      {
+        "index": 1,
+        "cycle": "2"
+      },
+      {
+        "index": 2,
+        "cycle": "3"
+      }
+    ],
+    "claim": "ok"
+  },
+  {
+    "window": 2,
+    "recordedCycleIndex": 1,
+    "recordedPoxCycle": "2",
+    "burn": 6300,
+    "pox": 3,
+    "getWinner": {
+      "id": "1",
+      "address": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "party": "wallet_2"
+    },
+    "getRewardCycles": [
+      {
+        "index": 0,
+        "cycle": "1"
+      },
+      {
+        "index": 1,
+        "cycle": "2"
+      },
+      {
+        "index": 2,
+        "cycle": "3"
+      }
+    ],
+    "claim": "err u1001"
+  },
+  {
+    "window": 3,
+    "recordedCycleIndex": 2,
+    "recordedPoxCycle": "3",
+    "burn": 8400,
+    "pox": 4,
+    "getWinner": {
+      "id": "1",
+      "address": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "party": "wallet_2"
+    },
+    "getRewardCycles": [
+      {
+        "index": 0,
+        "cycle": "1"
+      },
+      {
+        "index": 1,
+        "cycle": "2"
+      },
+      {
+        "index": 2,
+        "cycle": "3"
+      }
+    ],
+    "claim": "err u1001"
+  }
+]
