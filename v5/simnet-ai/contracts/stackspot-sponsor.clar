@@ -116,7 +116,7 @@
     (let 
       (
         (rewards-cycle (get-reward-cycles))
-        (pulled-rewards (map pull-rewards-for-cycle rewards-cycle))
+        (pulled-rewards (try! (pull-pool-reward)))
         (sbtc-yield (unwrap-panic (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token get-balance current-contract)))
         (is-locked (> (get locked (stx-account current-contract)) u0))
         (memo (to-consensus-buff? "claim-sponsor-reward"))
@@ -320,8 +320,8 @@
     )
   )
 
-  (define-private (pull-rewards-for-cycle (cycle uint)) 
-    (as-contract? () (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool claim-staker-rewards current-contract cycle none)))
+  (define-private (pull-pool-reward) 
+    (as-contract? () (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool payout current-contract)))
   )
 
 ;; ================================

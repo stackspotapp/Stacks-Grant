@@ -382,8 +382,8 @@
     )
   )
 
-  (define-private (pull-rewards-for-cycle (cycle uint)) 
-    (as-contract? () (try! (contract-call? 'ST31XHNM0GZ2K978FPP4QA3STNQ73Z8C9G9MJEPK2.signer-manager claim-staker-rewards current-contract cycle none)))
+  (define-private (pull-pool-reward) 
+    (as-contract? () (try! (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager payout current-contract)))
   )
 ;; ---------------------------------------------------------------------------
 
@@ -614,7 +614,7 @@
             ;; Get pot details
             (pot-details (unwrap-panic (get-pot-details)))
             (rewards-cycle (get-reward-cycles))
-            (pulled-rewards (map pull-rewards-for-cycle rewards-cycle))
+            (pulled-rewards (try! (pull-pool-reward)))
             ;; @value: pot ID
             ;; @value: pot winner's ID
             ;; @value: pot winner's {participant: principal, amount: uint}

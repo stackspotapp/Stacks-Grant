@@ -31,8 +31,8 @@
 ;; Fees are still snapshotted per cycle when `claim-rewards` crystallizes it,
 ;; so a rate change never applies to a cycle that has already been pulled.
 
-(impl-trait .sim-pox-5.signer-manager-trait)
-(use-trait signer-manager-trait .sim-pox-5.signer-manager-trait)
+(impl-trait 'ST000000000000000000002AMW42H.pox-5.signer-manager-trait)
+(use-trait signer-manager-trait 'ST000000000000000000002AMW42H.pox-5.signer-manager-trait)
 
 ;; A staker tried to claim rewards, but they had none available
 (define-constant ERR_NO_CLAIMABLE_REWARDS (err u1001))
@@ -319,7 +319,7 @@
   )
   (let (
       (active-bips (get-active-fee-bips))
-      (result (try! (contract-call? .sim-pox-5 claim-rewards
+      (result (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5 claim-rewards
         bond-periods reward-cycle
       )))
       (stx-key {
@@ -352,7 +352,7 @@
     (bond-index (optional uint))
   )
   (let (
-      (earned-before-fees (contract-call? .sim-pox-5
+      (earned-before-fees (contract-call? 'ST000000000000000000002AMW42H.pox-5
         get-earned-staker-rewards current-contract reward-cycle bond-index
         staker
       ))
@@ -391,7 +391,7 @@
     (bond-index (optional uint))
   )
   (let (
-      (rewards-info (try! (contract-call? .sim-pox-5
+      (rewards-info (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5
         claim-staker-rewards-for-signer staker reward-cycle bond-index
       )))
       (gross (get earned rewards-info))
@@ -469,7 +469,7 @@
     ;; `initiate-withdrawal-request`, `none` when the staker was paid
     ;; directly in sBTC.
     (let ((withdrawal-request (try! (as-contract?
-        ((with-ft .sbtc-token
+        ((with-ft 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token
           "sbtc-token" amount
         ))
         (match config
@@ -484,7 +484,7 @@
             (let (
                 (withdrawal-amount (- amount max-fee))
                 (withdrawal-request (try! (contract-call?
-                  .sbtc-withdrawal
+                  'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-withdrawal
                   initiate-withdrawal-request withdrawal-amount
                   (get pox-addr l1-info) max-fee
                 )))
@@ -839,10 +839,10 @@
   )
   (begin
     (try! (authorize-admin))
-    (try! (contract-call? .sim-pox-5 grant-signer-key
+    (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5 grant-signer-key
       signer-key current-contract auth-id signer-sig
     ))
-    (contract-call? .sim-pox-5 register-signer
+    (contract-call? 'ST000000000000000000002AMW42H.pox-5 register-signer
       signer-manager signer-key
     )
   )
@@ -861,7 +861,7 @@
 ;; `staker` argument; they must only ever be driven by pox-5, never invoked
 ;; directly by an external principal.
 (define-private (authorize-pox-5)
-  (ok (asserts! (is-eq contract-caller .sim-pox-5)
+  (ok (asserts! (is-eq contract-caller 'ST000000000000000000002AMW42H.pox-5)
     ERR_UNAUTHORIZED_CALLER
   ))
 )
@@ -918,7 +918,7 @@
 )
 
 (define-read-only (current-cycle)
-  (contract-call? .sim-pox-5 current-pox-reward-cycle)
+  (contract-call? 'ST000000000000000000002AMW42H.pox-5 current-pox-reward-cycle)
 )
 
 ;; The fee rate a `claim-rewards` call would snapshot right now: the pending
@@ -1085,7 +1085,7 @@
 }))
   (begin
     (asserts!
-      (is-ok (contract-call? .sbtc-withdrawal
+      (is-ok (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-withdrawal
         validate-recipient (get pox-addr config)
       ))
       ERR_INVALID_POX_ADDR

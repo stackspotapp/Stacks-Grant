@@ -87,14 +87,14 @@ plan:
       path: contracts/sbtc-withdrawal.clar
       clarity-version: 6
     - transaction-type: emulated-contract-publish
-      contract-name: sim-pox-5
-      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-      path: contracts/sim-pox-5.clar
-      clarity-version: 6
-    - transaction-type: emulated-contract-publish
       contract-name: fastpool
       emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
       path: contracts/fastpool.clar
+      clarity-version: 6
+    - transaction-type: emulated-contract-publish
+      contract-name: sim-pox-5
+      emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+      path: contracts/sim-pox-5.clar
       clarity-version: 6
     - transaction-type: emulated-contract-publish
       contract-name: stackspot-pots-trait

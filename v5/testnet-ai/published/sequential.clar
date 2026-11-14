@@ -438,20 +438,8 @@
   )
 
   ;; Pull only ended cycles. Ignore Fastpool "no claimable" so one empty cycle does not abort catch-up.
-  (define-private (pull-pool-reward (cycle uint) (res (response bool uint)))
-    (let ((current-cycle (contract-call? 'ST000000000000000000002AMW42H.pox-5 current-pox-reward-cycle)))
-      (try! res)
-      (if (< cycle current-cycle)
-        (begin
-          (match (as-contract? () (try! (contract-call? 'ST31XHNM0GZ2K978FPP4QA3STNQ73Z8C9G9MJEPK2.signer-manager claim-staker-rewards current-contract cycle none)))
-            ok-val true
-            err-val false
-          )
-          (ok true)
-        )
-        (ok true)
-      )
-    )
+  (define-private (pull-pool-reward)
+    (as-contract? () (try! (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager payout current-contract)))
   )
 
   (define-private (all-winners-claimed (index uint) (res (response bool uint)))
@@ -695,7 +683,7 @@
             ;; Get pot details
             (pot-details (unwrap-panic (get-pot-details)))
             (rewards-cycle (get-reward-cycles))
-            (pulled-rewards (try! (fold pull-pool-reward rewards-cycle (ok true))))
+            (pulled-rewards (try! (pull-pool-reward)))
             ;; @value: pot ID
             ;; @value: pot winner's ID
             ;; @value: pot winner's {participant: principal, amount: uint}
