@@ -544,7 +544,7 @@
 
         ;; Stake treasury into PoX-5 via Fastpool
         (try! (as-contract? ((with-stx total-treasury-balance) (with-staking total-treasury-balance))
-          (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5 stake 'ST31XHNM0GZ2K978FPP4QA3STNQ73Z8C9G9MJEPK2.signer-manager total-treasury-balance cycles burn-block-height none))
+          (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5 stake 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager total-treasury-balance cycles burn-block-height none))
         ))
 
         ;; Set lock burn height
@@ -762,7 +762,7 @@
         (if is-locked
           (begin 
             (try! (as-contract? ((with-pox))
-              (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5 unstake 'ST31XHNM0GZ2K978FPP4QA3STNQ73Z8C9G9MJEPK2.signer-manager))
+              (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5 unstake 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager))
             ))
             true
           )

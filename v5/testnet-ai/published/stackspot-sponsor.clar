@@ -33,7 +33,7 @@
   ;; data constants vars
     (define-constant sponsorer tx-sender)
     (define-constant stake-amount u40000000)
-    (define-constant signer 'ST31XHNM0GZ2K978FPP4QA3STNQ73Z8C9G9MJEPK2.signer-manager)
+    (define-constant signer 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager)
     (define-constant rule-sets-count u3)
 
     (define-constant pox-data (contract-call? 'ST000000000000000000002AMW42H.pox-5 get-pox-info))
