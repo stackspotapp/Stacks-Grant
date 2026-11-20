@@ -441,7 +441,7 @@
   ;; Crystallize Fastpool signer rewards, settle this staker share, then pay sBTC here.
   ;; sim-pox-5.claim-rewards is signer-only (Fastpool). This contract must call fastpool.claim-rewards.
   ;; fastpool.payout requires pending from settle-staker-rewards; payout alone is err u1016.
-  (define-private (pull-pool-reward (reward-cycle uint) (res (response {success: bool, reward: uint} uint)))
+  (define-private (pull-pool-reward (reward-cycle uint) (res (response {success: bool, reward: uint, fee: uint} uint)))
     (let
       (
         (prior (try! res))
@@ -453,14 +453,16 @@
       )
       (let
         (
-          (staker-earned (get earned (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool get-earned-staker-rewards current-contract reward-cycle none)))
+          (pot-earned (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool get-earned-staker-rewards current-contract reward-cycle none))
+          (staker-earned (get earned pot-earned))
+          (fee (get fees pot-earned))
         )
-        (if (and (> staker-earned u0) (is-ok (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool settle-staker-rewards current-contract reward-cycle none)))
-          (if (is-ok (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool payout current-contract))
-            (ok {success: true, reward: (+ (get reward prior) staker-earned)})
-            (ok {success: true, reward: (get reward prior)})
+        (if (> staker-earned u0)
+          (if (is-ok (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool settle-staker-rewards current-contract reward-cycle none))
+            (ok {success: true, reward: (+ (get reward prior) staker-earned), fee: (+ (get fee prior) fee)})
+            (ok {success: true, reward: (get reward prior), fee: (+ (get fee prior) fee)})
           )
-          (ok {success: true, reward: (get reward prior)})
+          (ok {success: true, reward: (get reward prior), fee: (+ (get fee prior) fee)})
         )
       )
     )
@@ -709,7 +711,7 @@
             ;; Get pot details
             (pot-details (unwrap-panic (get-pot-details)))
             (rewards-cycle (get-reward-cycles))
-            (pulled-rewards (try! (fold pull-pool-reward rewards-cycle (ok {success: true, reward: u0}))))
+            (pulled-rewards (try! (fold pull-pool-reward rewards-cycle (ok {success: true, reward: u0, fee: u0}))))
             ;; @value: pot ID
             ;; @value: pot winner's ID
             ;; @value: pot winner's {participant: principal, amount: uint}
