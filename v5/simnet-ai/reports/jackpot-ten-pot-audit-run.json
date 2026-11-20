@@ -66,6 +66,16 @@
     },
     {
       "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "boot",
       "step": "deployer-init-admin-late",
       "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
       "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late",
@@ -93,9 +103,931 @@
       "result": "ok",
       "burn": 3,
       "stacks": 5
+    },
+    {
+      "scenario": "boot",
+      "step": "wallet_7-fastpool-liq",
+      "caller": "ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "transferSTX",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 9
+    },
+    {
+      "scenario": "1C",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c1",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "1C",
+      "step": "init-1-cycle",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c1",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "1C",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c1",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "1C",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c1",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "1C",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c1",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "1C",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c1",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "1C",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c1",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "1C",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c2",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 19
+    },
+    {
+      "scenario": "1C",
+      "step": "init-1-cycle",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c2",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 20
+    },
+    {
+      "scenario": "1C",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c2",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 21
+    },
+    {
+      "scenario": "1C",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c2",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 22
+    },
+    {
+      "scenario": "1C",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c2",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 23
+    },
+    {
+      "scenario": "1C",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c2",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 24
+    },
+    {
+      "scenario": "1C",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c2",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 25
+    },
+    {
+      "scenario": "1C",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c3",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 26
+    },
+    {
+      "scenario": "1C",
+      "step": "init-1-cycle",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c3",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 27
+    },
+    {
+      "scenario": "1C",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c3",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 28
+    },
+    {
+      "scenario": "1C",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c3",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 29
+    },
+    {
+      "scenario": "1C",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c3",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 30
+    },
+    {
+      "scenario": "1C",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c3",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 31
+    },
+    {
+      "scenario": "1C",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c3",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 32
+    },
+    {
+      "scenario": "1C",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c4",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 33
+    },
+    {
+      "scenario": "1C",
+      "step": "init-1-cycle",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c4",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 34
+    },
+    {
+      "scenario": "1C",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c4",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 35
+    },
+    {
+      "scenario": "1C",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c4",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 36
+    },
+    {
+      "scenario": "1C",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c4",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 37
+    },
+    {
+      "scenario": "1C",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c4",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 38
+    },
+    {
+      "scenario": "1C",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c4",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 39
+    },
+    {
+      "scenario": "1C",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c5",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 40
+    },
+    {
+      "scenario": "1C",
+      "step": "init-1-cycle",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c5",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 41
+    },
+    {
+      "scenario": "1C",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c5",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 42
+    },
+    {
+      "scenario": "1C",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c5",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 43
+    },
+    {
+      "scenario": "1C",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c5",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 44
+    },
+    {
+      "scenario": "1C",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c5",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 45
+    },
+    {
+      "scenario": "1C",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c5",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 46
+    },
+    {
+      "scenario": "5C",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c1",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 47
+    },
+    {
+      "scenario": "5C",
+      "step": "init-5-cycle",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c1",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 48
+    },
+    {
+      "scenario": "5C",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c1",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 49
+    },
+    {
+      "scenario": "5C",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c1",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 50
+    },
+    {
+      "scenario": "5C",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c1",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 51
+    },
+    {
+      "scenario": "5C",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c1",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 52
+    },
+    {
+      "scenario": "5C",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c1",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 53
+    },
+    {
+      "scenario": "5C",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c2",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 54
+    },
+    {
+      "scenario": "5C",
+      "step": "init-5-cycle",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c2",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 55
+    },
+    {
+      "scenario": "5C",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c2",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 56
+    },
+    {
+      "scenario": "5C",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c2",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 57
+    },
+    {
+      "scenario": "5C",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c2",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 58
+    },
+    {
+      "scenario": "5C",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c2",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 59
+    },
+    {
+      "scenario": "5C",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c2",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 60
+    },
+    {
+      "scenario": "5C",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c3",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 61
+    },
+    {
+      "scenario": "5C",
+      "step": "init-5-cycle",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c3",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 62
+    },
+    {
+      "scenario": "5C",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c3",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 63
+    },
+    {
+      "scenario": "5C",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c3",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 64
+    },
+    {
+      "scenario": "5C",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c3",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 65
+    },
+    {
+      "scenario": "5C",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c3",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 66
+    },
+    {
+      "scenario": "5C",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c3",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 67
+    },
+    {
+      "scenario": "5C",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c4",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 68
+    },
+    {
+      "scenario": "5C",
+      "step": "init-5-cycle",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c4",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 69
+    },
+    {
+      "scenario": "5C",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c4",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 70
+    },
+    {
+      "scenario": "5C",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c4",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 71
+    },
+    {
+      "scenario": "5C",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c4",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 72
+    },
+    {
+      "scenario": "5C",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c4",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 73
+    },
+    {
+      "scenario": "5C",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c4",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 74
+    },
+    {
+      "scenario": "10C",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp10c1",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 75
+    },
+    {
+      "scenario": "10C",
+      "step": "init-10-cycle",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp10c1",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 76
+    },
+    {
+      "scenario": "10C",
+      "step": "join-100",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp10c1",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 77
+    },
+    {
+      "scenario": "10C",
+      "step": "join-200",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp10c1",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 78
+    },
+    {
+      "scenario": "10C",
+      "step": "join-300",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp10c1",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 79
+    },
+    {
+      "scenario": "10C",
+      "step": "sponsor-1000",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp10c1",
+      "fn": "join-pot-as-sponsor",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 80
+    },
+    {
+      "scenario": "10C",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp10c1",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 81
+    },
+    {
+      "scenario": "1C",
+      "step": "claim-jp1c1",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c1",
+      "fn": "claim-pot-reward",
+      "result": "err u1016",
+      "burn": 4633,
+      "stacks": 4724
+    },
+    {
+      "scenario": "1C",
+      "step": "note-permissionless-claim-jp1c1",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c1",
+      "fn": "claim-observed",
+      "result": "err u1016",
+      "burn": 4633,
+      "stacks": 4724
+    },
+    {
+      "scenario": "1C",
+      "step": "claim-jp1c2",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c2",
+      "fn": "claim-pot-reward",
+      "result": "err u1016",
+      "burn": 4633,
+      "stacks": 4725
+    },
+    {
+      "scenario": "1C",
+      "step": "note-permissionless-claim-jp1c2",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c2",
+      "fn": "claim-observed",
+      "result": "err u1016",
+      "burn": 4633,
+      "stacks": 4725
+    },
+    {
+      "scenario": "1C",
+      "step": "claim-jp1c3",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c3",
+      "fn": "claim-pot-reward",
+      "result": "err u1016",
+      "burn": 4633,
+      "stacks": 4726
+    },
+    {
+      "scenario": "1C",
+      "step": "note-permissionless-claim-jp1c3",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c3",
+      "fn": "claim-observed",
+      "result": "err u1016",
+      "burn": 4633,
+      "stacks": 4726
+    },
+    {
+      "scenario": "1C",
+      "step": "claim-jp1c4",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c4",
+      "fn": "claim-pot-reward",
+      "result": "err u1016",
+      "burn": 4633,
+      "stacks": 4727
+    },
+    {
+      "scenario": "1C",
+      "step": "note-permissionless-claim-jp1c4",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c4",
+      "fn": "claim-observed",
+      "result": "err u1016",
+      "burn": 4633,
+      "stacks": 4727
+    },
+    {
+      "scenario": "1C",
+      "step": "claim-jp1c5",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c5",
+      "fn": "claim-pot-reward",
+      "result": "err u1016",
+      "burn": 4633,
+      "stacks": 4728
+    },
+    {
+      "scenario": "1C",
+      "step": "note-permissionless-claim-jp1c5",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp1c5",
+      "fn": "claim-observed",
+      "result": "err u1016",
+      "burn": 4633,
+      "stacks": 4728
+    },
+    {
+      "scenario": "5C",
+      "step": "claim-jp5c1",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c1",
+      "fn": "claim-pot-reward",
+      "result": "err u1016",
+      "burn": 13033,
+      "stacks": 13153
+    },
+    {
+      "scenario": "5C",
+      "step": "note-permissionless-claim-jp5c1",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c1",
+      "fn": "claim-observed",
+      "result": "err u1016",
+      "burn": 13033,
+      "stacks": 13153
+    },
+    {
+      "scenario": "5C",
+      "step": "claim-jp5c2",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c2",
+      "fn": "claim-pot-reward",
+      "result": "err u1016",
+      "burn": 13033,
+      "stacks": 13154
+    },
+    {
+      "scenario": "5C",
+      "step": "note-permissionless-claim-jp5c2",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c2",
+      "fn": "claim-observed",
+      "result": "err u1016",
+      "burn": 13033,
+      "stacks": 13154
+    },
+    {
+      "scenario": "5C",
+      "step": "claim-jp5c3",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c3",
+      "fn": "claim-pot-reward",
+      "result": "err u1016",
+      "burn": 13033,
+      "stacks": 13155
+    },
+    {
+      "scenario": "5C",
+      "step": "note-permissionless-claim-jp5c3",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c3",
+      "fn": "claim-observed",
+      "result": "err u1016",
+      "burn": 13033,
+      "stacks": 13155
+    },
+    {
+      "scenario": "5C",
+      "step": "claim-jp5c4",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c4",
+      "fn": "claim-pot-reward",
+      "result": "err u1016",
+      "burn": 13033,
+      "stacks": 13156
+    },
+    {
+      "scenario": "5C",
+      "step": "note-permissionless-claim-jp5c4",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp5c4",
+      "fn": "claim-observed",
+      "result": "err u1016",
+      "burn": 13033,
+      "stacks": 13156
+    },
+    {
+      "scenario": "10C",
+      "step": "claim-jp10c1",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp10c1",
+      "fn": "claim-pot-reward",
+      "result": "err u1016",
+      "burn": 23533,
+      "stacks": 23687
+    },
+    {
+      "scenario": "10C",
+      "step": "note-permissionless-claim-jp10c1",
+      "caller": "ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.jp10c1",
+      "fn": "claim-observed",
+      "result": "err u1016",
+      "burn": 23533,
+      "stacks": 23687
     }
   ],
-  "findings": [],
+  "findings": [
+    "1C jp1c1 claim err u1016",
+    "1C jp1c2 claim err u1016",
+    "1C jp1c3 claim err u1016",
+    "1C jp1c4 claim err u1016",
+    "1C jp1c5 claim err u1016",
+    "5C jp5c1 claim err u1016",
+    "5C jp5c2 claim err u1016",
+    "5C jp5c3 claim err u1016",
+    "5C jp5c4 claim err u1016",
+    "10C jp10c1 claim err u1016",
+    "ten-pot winners=0 pots=10"
+  ],
   "winners": [],
   "payouts": [],
   "snaps": [
@@ -144,6 +1076,63 @@
         },
         "fastpool": {
           "stx": "0",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
           "sbtc": "0"
         },
         "genesis_jackpot": {
@@ -210,6 +1199,513 @@
         "stackspot_sponsor": {
           "stx": "0",
           "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-boot",
+      "rows": {
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "clarinet_wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_2_pot_deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_7": {
+          "stx": "99000000000000",
+          "sbtc": "0"
+        },
+        "wallet_8": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "genesis_jackpot": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspot_sponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "1C-jp1c1-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "1600000000",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999000000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "99999000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "99998000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "99997000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "99990000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "1000000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "16999998"
+        }
+      }
+    },
+    {
+      "label": "1C-jp1c2-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "1600000000",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999000000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "99999000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "99998000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "99997000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "99990000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "1000000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "16999998"
+        }
+      }
+    },
+    {
+      "label": "1C-jp1c3-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "1600000000",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999000000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "99999000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "99998000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "99997000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "99990000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "1000000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "16999998"
+        }
+      }
+    },
+    {
+      "label": "1C-jp1c4-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "1600000000",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999000000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "99999000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "99998000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "99997000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "99990000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "1000000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "16999998"
+        }
+      }
+    },
+    {
+      "label": "1C-jp1c5-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "1600000000",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999000000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "99999000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "99998000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "99997000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "99990000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "1000000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "16999998"
+        }
+      }
+    },
+    {
+      "label": "5C-jp5c1-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "1600000000",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999000000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "99999000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "99998000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "99997000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "99990000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "1000000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "93499990"
+        }
+      }
+    },
+    {
+      "label": "5C-jp5c2-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "1600000000",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999000000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "99999000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "99998000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "99997000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "99990000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "1000000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "93499990"
+        }
+      }
+    },
+    {
+      "label": "5C-jp5c3-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "1600000000",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999000000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "99999000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "99998000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "99997000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "99990000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "1000000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "93499990"
+        }
+      }
+    },
+    {
+      "label": "5C-jp5c4-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "1600000000",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999000000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "99999000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "99998000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "99997000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "99990000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "1000000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "93499990"
+        }
+      }
+    },
+    {
+      "label": "10C-jp10c1-post-claim",
+      "rows": {
+        "pot": {
+          "stx": "1600000000",
+          "sbtc": "0"
+        },
+        "platform": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999000000",
+          "sbtc": "0"
+        },
+        "p1": {
+          "stx": "99999000000000",
+          "sbtc": "0"
+        },
+        "p2": {
+          "stx": "99998000000000",
+          "sbtc": "0"
+        },
+        "p3": {
+          "stx": "99997000000000",
+          "sbtc": "0"
+        },
+        "sponsor": {
+          "stx": "99990000000000",
+          "sbtc": "0"
+        },
+        "extra": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "1000000",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "178499980"
         }
       }
     }

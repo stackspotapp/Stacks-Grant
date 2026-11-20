@@ -122,7 +122,7 @@ function bootSbtcTokenAndRegistry(platform: string): void {
   }
 }
 
-function mintSbtcToPox(platform: string, amount = WEEKLY_REWARD_SATS): void {
+export function mintSbtcToPox(platform: string, amount = WEEKLY_REWARD_SATS): void {
   const minted = simnet.callPublicFn(
     "sbtc-token",
     "protocol-mint",

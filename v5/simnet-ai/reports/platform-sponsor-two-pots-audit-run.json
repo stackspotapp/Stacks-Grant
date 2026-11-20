@@ -1,0 +1,1125 @@
+{
+  "identities": {
+    "deployer": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+    "potDeployer": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+    "sponsor1": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-1",
+    "sponsor2": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-2",
+    "joiners": [
+      {
+        "name": "wallet_1",
+        "address": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5"
+      },
+      {
+        "name": "wallet_3",
+        "address": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC"
+      },
+      {
+        "name": "wallet_4",
+        "address": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND"
+      },
+      {
+        "name": "wallet_5",
+        "address": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB"
+      },
+      {
+        "name": "wallet_6",
+        "address": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "rule": 1,
+      "required": 10,
+      "score": 300
+    },
+    {
+      "rule": 2,
+      "required": 2,
+      "score": 500
+    }
+  ],
+  "log": [
+    {
+      "scenario": "sponsors",
+      "step": "deploy-sponsor-1",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-1",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 10
+    },
+    {
+      "scenario": "sponsors",
+      "step": "allowlist-sponsor-1",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "update-platform-sponsor-contract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 11
+    },
+    {
+      "scenario": "sponsors",
+      "step": "sponsor-platform-sponsor-1",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-1",
+      "fn": "sponsor-platform",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 12
+    },
+    {
+      "scenario": "sponsors",
+      "step": "deploy-sponsor-2",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-2",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 13
+    },
+    {
+      "scenario": "sponsors",
+      "step": "allowlist-sponsor-2",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots",
+      "fn": "update-platform-sponsor-contract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 14
+    },
+    {
+      "scenario": "sponsors",
+      "step": "sponsor-platform-sponsor-2",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-2",
+      "fn": "sponsor-platform",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 15
+    },
+    {
+      "scenario": "pot-one",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-one",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 16
+    },
+    {
+      "scenario": "pot-one",
+      "step": "init-1-sponsors",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-one",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 17
+    },
+    {
+      "scenario": "pot-one",
+      "step": "join-wallet_1",
+      "caller": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-one",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 18
+    },
+    {
+      "scenario": "pot-one",
+      "step": "join-wallet_3",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-one",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 19
+    },
+    {
+      "scenario": "pot-one",
+      "step": "join-wallet_4",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-one",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 20
+    },
+    {
+      "scenario": "pot-one",
+      "step": "join-wallet_5",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-one",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 21
+    },
+    {
+      "scenario": "pot-one",
+      "step": "join-wallet_6",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-one",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 22
+    },
+    {
+      "scenario": "pot-two",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-two",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 23
+    },
+    {
+      "scenario": "pot-two",
+      "step": "init-2-sponsors",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-two",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 24
+    },
+    {
+      "scenario": "pot-two",
+      "step": "join-wallet_1",
+      "caller": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-two",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 25
+    },
+    {
+      "scenario": "pot-two",
+      "step": "join-wallet_3",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-two",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 26
+    },
+    {
+      "scenario": "pot-two",
+      "step": "join-wallet_4",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-two",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 27
+    },
+    {
+      "scenario": "pot-two",
+      "step": "join-wallet_5",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-two",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 28
+    },
+    {
+      "scenario": "pot-two",
+      "step": "join-wallet_6",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-two",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 29
+    },
+    {
+      "scenario": "pot-three",
+      "step": "deploy",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-three",
+      "fn": "deployContract",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 30
+    },
+    {
+      "scenario": "pot-three",
+      "step": "init-0-sponsors",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-three",
+      "fn": "init-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 31
+    },
+    {
+      "scenario": "pot-three",
+      "step": "join-wallet_1",
+      "caller": "ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-three",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 32
+    },
+    {
+      "scenario": "pot-three",
+      "step": "join-wallet_3",
+      "caller": "ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-three",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 33
+    },
+    {
+      "scenario": "pot-three",
+      "step": "join-wallet_4",
+      "caller": "ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-three",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 34
+    },
+    {
+      "scenario": "pot-three",
+      "step": "join-wallet_5",
+      "caller": "ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-three",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 35
+    },
+    {
+      "scenario": "pot-three",
+      "step": "join-wallet_6",
+      "caller": "ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-three",
+      "fn": "join-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 36
+    },
+    {
+      "scenario": "pot-one",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-one",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 37
+    },
+    {
+      "scenario": "pot-two",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-two",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 38
+    },
+    {
+      "scenario": "pot-three",
+      "step": "start-pot",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-three",
+      "fn": "start-pot",
+      "result": "ok",
+      "burn": 3,
+      "stacks": 39
+    },
+    {
+      "scenario": "clock",
+      "step": "mine-to-yield-claim-cycle",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "simnet",
+      "fn": "mineEmptyBurnBlocks",
+      "result": "ok",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "signer-unclaimed-c1",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5",
+      "fn": "get-signer-unclaimed-rewards-for-cycle",
+      "result": "ok",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-pot-one-c1",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-pot-two-c1",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-pot-three-c1",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-sponsor-1-c1",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-sponsor-2-c1",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "signer-unclaimed-c2",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5",
+      "fn": "get-signer-unclaimed-rewards-for-cycle",
+      "result": "ok",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-pot-one-c2",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-pot-two-c2",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-pot-three-c2",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-sponsor-1-c2",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-sponsor-2-c2",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "signer-unclaimed-c3",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5",
+      "fn": "get-signer-unclaimed-rewards-for-cycle",
+      "result": "ok",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-pot-one-c3",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-pot-two-c3",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-pot-three-c3",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-sponsor-1-c3",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pool",
+      "step": "earned-sponsor-2-c3",
+      "caller": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      "contract": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "fn": "get-earned-staker-rewards",
+      "result": "{\"type\":\"tuple\",\"value\":{\"earned\":{\"type\":\"uint\",\"value\":\"0\"},\"fees\":{\"type\":\"uint\",\"value\":\"0\"}}}",
+      "burn": 6301,
+      "stacks": 6337
+    },
+    {
+      "scenario": "pot-one",
+      "step": "claim-pot-reward",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-one",
+      "fn": "claim-pot-reward",
+      "result": "ok",
+      "burn": 6301,
+      "stacks": 6338
+    },
+    {
+      "scenario": "pot-two",
+      "step": "claim-pot-reward",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-two",
+      "fn": "claim-pot-reward",
+      "result": "ok",
+      "burn": 6301,
+      "stacks": 6339
+    },
+    {
+      "scenario": "pot-three",
+      "step": "claim-pot-reward",
+      "caller": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG",
+      "contract": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-three",
+      "fn": "claim-pot-reward",
+      "result": "ok",
+      "burn": 6301,
+      "stacks": 6340
+    }
+  ],
+  "snaps": [
+    {
+      "label": "post-start",
+      "burn": 3,
+      "rows": {
+        "sponsor-1": {
+          "stx": "40000000",
+          "sbtc": "0"
+        },
+        "sponsor-2": {
+          "stx": "40000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "300000",
+          "sbtc": "0"
+        },
+        "simPox5": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999700000",
+          "sbtc": "0"
+        },
+        "deployer": {
+          "stx": "99999920000000",
+          "sbtc": "0"
+        },
+        "pot-one": {
+          "stx": "500000000",
+          "sbtc": "0"
+        },
+        "pot-two": {
+          "stx": "500000000",
+          "sbtc": "0"
+        },
+        "pot-three": {
+          "stx": "500000000",
+          "sbtc": "0"
+        },
+        "wallet_1": {
+          "stx": "99999700000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "99999700000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "99999700000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "99999700000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "99999700000000",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "pre-claim",
+      "burn": 6301,
+      "rows": {
+        "sponsor-1": {
+          "stx": "40000000",
+          "sbtc": "0"
+        },
+        "sponsor-2": {
+          "stx": "40000000",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "300000",
+          "sbtc": "0"
+        },
+        "simPox5": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999700000",
+          "sbtc": "0"
+        },
+        "deployer": {
+          "stx": "99999920000000",
+          "sbtc": "0"
+        },
+        "pot-one": {
+          "stx": "500000000",
+          "sbtc": "0"
+        },
+        "pot-two": {
+          "stx": "500000000",
+          "sbtc": "0"
+        },
+        "pot-three": {
+          "stx": "500000000",
+          "sbtc": "0"
+        },
+        "wallet_1": {
+          "stx": "99999700000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "99999700000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "99999700000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "99999700000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "99999700000000",
+          "sbtc": "0"
+        }
+      }
+    },
+    {
+      "label": "post-claim",
+      "burn": 6301,
+      "rows": {
+        "sponsor-1": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "sponsor-2": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspotSponsor": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "stackspots": {
+          "stx": "300000",
+          "sbtc": "0"
+        },
+        "simPox5": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "fastpool": {
+          "stx": "1000000000000",
+          "sbtc": "0"
+        },
+        "potDeployer": {
+          "stx": "99999999700000",
+          "sbtc": "0"
+        },
+        "deployer": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "pot-one": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "pot-two": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "pot-three": {
+          "stx": "0",
+          "sbtc": "0"
+        },
+        "wallet_1": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_3": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_4": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_5": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        },
+        "wallet_6": {
+          "stx": "100000000000000",
+          "sbtc": "0"
+        }
+      }
+    }
+  ],
+  "poolReads": [
+    {
+      "burn": 6301,
+      "fn": "sbtc-token.get-balance",
+      "account": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5",
+      "value": "0",
+      "raw": {
+        "type": "ok",
+        "value": {
+          "type": "uint",
+          "value": "0"
+        }
+      }
+    },
+    {
+      "cycle": 1,
+      "burn": 6301,
+      "fn": "get-signer-unclaimed-rewards-for-cycle",
+      "signer": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "value": "0",
+      "raw": {
+        "type": "uint",
+        "value": "0"
+      }
+    },
+    {
+      "cycle": 1,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-one",
+      "label": "pot-one",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 1,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-two",
+      "label": "pot-two",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 1,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-three",
+      "label": "pot-three",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 1,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-1",
+      "label": "sponsor-1",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 1,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-2",
+      "label": "sponsor-2",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 2,
+      "burn": 6301,
+      "fn": "get-signer-unclaimed-rewards-for-cycle",
+      "signer": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "value": "0",
+      "raw": {
+        "type": "uint",
+        "value": "0"
+      }
+    },
+    {
+      "cycle": 2,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-one",
+      "label": "pot-one",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 2,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-two",
+      "label": "pot-two",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 2,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-three",
+      "label": "pot-three",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 2,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-1",
+      "label": "sponsor-1",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 2,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-2",
+      "label": "sponsor-2",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 3,
+      "burn": 6301,
+      "fn": "get-signer-unclaimed-rewards-for-cycle",
+      "signer": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool",
+      "value": "0",
+      "raw": {
+        "type": "uint",
+        "value": "0"
+      }
+    },
+    {
+      "cycle": 3,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-one",
+      "label": "pot-one",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 3,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-two",
+      "label": "pot-two",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 3,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.pot-three",
+      "label": "pot-three",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 3,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-1",
+      "label": "sponsor-1",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "cycle": 3,
+      "burn": 6301,
+      "fn": "get-earned-staker-rewards",
+      "staker": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-2",
+      "label": "sponsor-2",
+      "value": {
+        "type": "tuple",
+        "value": {
+          "earned": {
+            "type": "uint",
+            "value": "0"
+          },
+          "fees": {
+            "type": "uint",
+            "value": "0"
+          }
+        }
+      }
+    }
+  ],
+  "findings": []
+}

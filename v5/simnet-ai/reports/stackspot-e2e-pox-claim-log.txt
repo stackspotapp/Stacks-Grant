@@ -1,0 +1,793 @@
+================================================
+STACKSPOT SIMNET INTEGRATION TEST
+================================================
+
+[PHASE 1]
+
+[TX 001] Initialize platform (allowlist pot/sponsor hashes)
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.init-admin-late
+Function: update-contract-hash
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: constructor: jackpot, sequential, crowd-fund, stackspot-sponsor
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 002] Initialize stacking pools
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool
+Function: register-self
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: sim-pox-5 set-burnchain-parameters + fastpool.register-self
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 003] Fund Fastpool threshold stake
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool
+Function: delegate-stx
+Sender: ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ
+Params: threshold stake + 1,000,000 STX to Fastpool
+Result: ok
+Status: SUCCESS
+Balances:
+  lp: STX 100000000000000 -> 99000000000000 (-1000000000000)  sBTC 0 -> 0 (0)
+  fastpool: STX 0 -> 1000000000000 (+1000000000000)  sBTC 0 -> 0 (0)
+
+[TX 004] Open join window (not PoX prepare)
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5
+Function: ensureJoinWindow
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: pox=0 burn=3
+Result: ok
+Status: SUCCESS
+
+[PHASE 2]
+
+[TX 005] Deploy Sponsor 1
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-1
+Function: deployContract
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: sponsor-1
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 006] Register Sponsor 1 hash
+Contract: stackspots
+Function: update-platform-sponsor-contract
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-1
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 007] Initialize Sponsor 1 platform
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-1
+Function: sponsor-platform
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: amount=5000000000 cycles=4 rules=2 (rule-3 omitted)
+Result: ok
+Status: SUCCESS
+Balances:
+  deployer: STX 100000000000000 -> 99995000000000 (-5000000000)  sBTC 0 -> 0 (0)
+  sponsor1: STX 0 -> 5000000000 (+5000000000)  sBTC 0 -> 0 (0)
+
+[TX 008] Verify Sponsor 1 rules
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-1
+Function: get-rule-sets
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: expect rule-1 300/100STX, rule-2 200/5, rule-3 none
+Result: {"type":"ok","value":{"type":"list","value":[{"type":"some","value":{"type":"tuple","value":{"label":{"type":"ascii","value":"rule-1"},"required":{"type":"uint","value":"100000000"},"score":{"type":"uint","value":"300"},"state":{"type":"true"}}}},{"type":"some","value":{"type":"tuple","value":{"label":{"type":"ascii","value":"rule-2"},"required":{"type":"uint","value":"5"},"score":{"type":"uint","
+Status: SUCCESS
+
+[TX 009] Deploy Sponsor 2
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-2
+Function: deployContract
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: sponsor-2
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 010] Register Sponsor 2 hash
+Contract: stackspots
+Function: update-platform-sponsor-contract
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-2
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 011] Initialize Sponsor 2 platform
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-2
+Function: sponsor-platform
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: amount=5000000000 cycles=4 rules=2 (rule-3 omitted)
+Result: ok
+Status: SUCCESS
+Balances:
+  deployer: STX 99995000000000 -> 99990000000000 (-5000000000)  sBTC 0 -> 0 (0)
+  sponsor2: STX 0 -> 5000000000 (+5000000000)  sBTC 0 -> 0 (0)
+
+[TX 012] Verify Sponsor 2 rules
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-2
+Function: get-rule-sets
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: expect rule-1 300/100STX, rule-2 200/5, rule-3 none
+Result: {"type":"ok","value":{"type":"list","value":[{"type":"some","value":{"type":"tuple","value":{"label":{"type":"ascii","value":"rule-1"},"required":{"type":"uint","value":"100000000"},"score":{"type":"uint","value":"300"},"state":{"type":"true"}}}},{"type":"some","value":{"type":"tuple","value":{"label":{"type":"ascii","value":"rule-2"},"required":{"type":"uint","value":"5"},"score":{"type":"uint","
+Status: SUCCESS
+
+[TX 013] Deploy Sponsor 3
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-3
+Function: deployContract
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: sponsor-3
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 014] Register Sponsor 3 hash
+Contract: stackspots
+Function: update-platform-sponsor-contract
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-3
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 015] Initialize Sponsor 3 platform
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-3
+Function: sponsor-platform
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: amount=5000000000 cycles=4 rules=2 (rule-3 omitted)
+Result: ok
+Status: SUCCESS
+Balances:
+  deployer: STX 99990000000000 -> 99985000000000 (-5000000000)  sBTC 0 -> 0 (0)
+  sponsor3: STX 0 -> 5000000000 (+5000000000)  sBTC 0 -> 0 (0)
+
+[TX 016] Verify Sponsor 3 rules
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-3
+Function: get-rule-sets
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: expect rule-1 300/100STX, rule-2 200/5, rule-3 none
+Result: {"type":"ok","value":{"type":"list","value":[{"type":"some","value":{"type":"tuple","value":{"label":{"type":"ascii","value":"rule-1"},"required":{"type":"uint","value":"100000000"},"score":{"type":"uint","value":"300"},"state":{"type":"true"}}}},{"type":"some","value":{"type":"tuple","value":{"label":{"type":"ascii","value":"rule-2"},"required":{"type":"uint","value":"5"},"score":{"type":"uint","
+Status: SUCCESS
+
+[PHASE 3]
+
+[TX 017] Deploy Jackpot
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-jackpot
+Function: deployContract
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: e2e-poxclaim-jackpot
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 018] Jackpot copy-hash allowed
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
+Function: is-contract-allowed-hash
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-jackpot
+Result: [object Object]
+Status: SUCCESS
+
+[TX 019] Deploy Sequential
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Function: deployContract
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: e2e-poxclaim-sequential
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 020] Sequential copy-hash allowed
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
+Function: is-contract-allowed-hash
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Result: [object Object]
+Status: SUCCESS
+
+[TX 021] Deploy Crowdfund
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-crowdfund
+Function: deployContract
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: e2e-poxclaim-crowdfund
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 022] Crowdfund copy-hash allowed
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.stackspots
+Function: is-contract-allowed-hash
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-crowdfund
+Result: [object Object]
+Status: SUCCESS
+
+[TX 023] Initialize jackpot
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-jackpot
+Function: init-pot
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: cycle=1 min=100STX max=5 sponsors=Sponsor1,Sponsor2
+Result: ok
+Status: SUCCESS
+Balances:
+  potDeployer: STX 100000000000000 -> 99999999900000 (-100000)  sBTC 0 -> 0 (0)
+
+[TX 024] Initialize sequential
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Function: init-pot
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: min=100STX max=3 sponsors=Sponsor1 duration=participant-cycles
+Result: ok
+Status: SUCCESS
+Balances:
+  potDeployer: STX 99999999900000 -> 99999999800000 (-100000)  sBTC 0 -> 0 (0)
+
+[TX 025] Initialize crowdfund
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-crowdfund
+Function: init-pot
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: cycle=1 min=100STX max=5 funding=ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP sponsors=none
+Result: ok
+Status: SUCCESS
+Balances:
+  potDeployer: STX 99999999800000 -> 99999999700000 (-100000)  sBTC 0 -> 0 (0)
+
+[TX 026] Jackpot join participant 1
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-jackpot
+Function: join-pot
+Sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner1: STX 100000000000000 -> 99999900000000 (-100000000)  sBTC 0 -> 0 (0)
+  jackpot: STX 0 -> 100000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 027] Jackpot join participant 2
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-jackpot
+Function: join-pot
+Sender: ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner2: STX 100000000000000 -> 99999900000000 (-100000000)  sBTC 0 -> 0 (0)
+  jackpot: STX 100000000 -> 200000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 028] Jackpot join participant 3
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-jackpot
+Function: join-pot
+Sender: ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner3: STX 100000000000000 -> 99999900000000 (-100000000)  sBTC 0 -> 0 (0)
+  jackpot: STX 200000000 -> 300000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 029] Jackpot join participant 4
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-jackpot
+Function: join-pot
+Sender: ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner4: STX 100000000000000 -> 99999900000000 (-100000000)  sBTC 0 -> 0 (0)
+  jackpot: STX 300000000 -> 400000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 030] Jackpot join participant 5
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-jackpot
+Function: join-pot
+Sender: ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner5: STX 100000000000000 -> 99999900000000 (-100000000)  sBTC 0 -> 0 (0)
+  jackpot: STX 400000000 -> 500000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 031] Sequential join participant 1
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Function: join-pot
+Sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner1: STX 99999900000000 -> 99999800000000 (-100000000)  sBTC 0 -> 0 (0)
+  sequential: STX 0 -> 100000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 032] Sequential join participant 2
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Function: join-pot
+Sender: ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner2: STX 99999900000000 -> 99999800000000 (-100000000)  sBTC 0 -> 0 (0)
+  sequential: STX 100000000 -> 200000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 033] Sequential join participant 3
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Function: join-pot
+Sender: ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner3: STX 99999900000000 -> 99999800000000 (-100000000)  sBTC 0 -> 0 (0)
+  sequential: STX 200000000 -> 300000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 034] Crowdfund join participant 1
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-crowdfund
+Function: join-pot
+Sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner1: STX 99999800000000 -> 99999700000000 (-100000000)  sBTC 0 -> 0 (0)
+  crowdfund: STX 0 -> 100000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 035] Crowdfund join participant 2
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-crowdfund
+Function: join-pot
+Sender: ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner2: STX 99999800000000 -> 99999700000000 (-100000000)  sBTC 0 -> 0 (0)
+  crowdfund: STX 100000000 -> 200000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 036] Crowdfund join participant 3
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-crowdfund
+Function: join-pot
+Sender: ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner3: STX 99999800000000 -> 99999700000000 (-100000000)  sBTC 0 -> 0 (0)
+  crowdfund: STX 200000000 -> 300000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 037] Crowdfund join participant 4
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-crowdfund
+Function: join-pot
+Sender: ST2REHHS5J3CERCRBEPMGH7921Q6PYKAADT7JP2VB
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner4: STX 99999900000000 -> 99999800000000 (-100000000)  sBTC 0 -> 0 (0)
+  crowdfund: STX 300000000 -> 400000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 038] Crowdfund join participant 5
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-crowdfund
+Function: join-pot
+Sender: ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0
+Params: amount=100000000
+Result: ok
+Status: SUCCESS
+Balances:
+  joiner5: STX 99999900000000 -> 99999800000000 (-100000000)  sBTC 0 -> 0 (0)
+  crowdfund: STX 400000000 -> 500000000 (+100000000)  sBTC 0 -> 0 (0)
+
+[TX 039] Verify pot details after joins
+Contract: jackpot/sequential/crowd-fund
+Function: get-pot-details
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: jackpot 5/2, sequential 3/1, crowdfund 5/0
+Result: jackpot={"type":"ok","value":{"type":"tuple","value":{"is-initiated":{"type":"true"},"is-participant":{"type":"false"},"is-sponsor":{"type":"false"},"platform-estimated-yield":{"type":"uin sequential={"type":"ok","value":{"type":"tuple","value":{"is-initiated":{"type":"true"},"is-participant":{"type":"false"},"is-sponsor":{"type":"false"},"platform-estimated-yield":{"type":"uin crowdfund={"type":"ok","value":{"type":"tuple","value":{"is-initiated":{"type":"true"},"is-participant":{"type":"false"},"is-sponsor":{"type":"false"},"platform-estimated-yield":{"type":"uin
+Status: SUCCESS
+
+[PHASE 4]
+
+[TX 040] Start jackpot
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-jackpot
+Function: start-pot
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: pox=0
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 041] Start sequential
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Function: start-pot
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: pox=0
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 042] Start crowdfund
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-crowdfund
+Function: start-pot
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: pox=0
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[PHASE 5]
+
+[TX 043] Mine to end of PoX cycle 1 (step 1, +1050 blocks)
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5
+Function: mineEmptyBurnBlocks
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: burn=1053 pox=0 minted-to-sim-pox-5=yes
+Result: ok
+Status: SUCCESS
+Balances:
+  simPox5: STX 0 -> 0 (0)  sBTC 0 -> 10000000 (+10000000)
+
+[TX 044] Mine to end of PoX cycle 1 calculate-rewards @ burn 1053
+Contract: sim-pox-5
+Function: calculate-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: pox=0 interval=1050
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 045] Mine to end of PoX cycle 1 (step 2, +1050 blocks)
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5
+Function: mineEmptyBurnBlocks
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: burn=2103 pox=1 minted-to-sim-pox-5=yes
+Result: ok
+Status: SUCCESS
+Balances:
+  simPox5: STX 0 -> 0 (0)  sBTC 10000000 -> 20000000 (+10000000)
+
+[TX 046] Mine to end of PoX cycle 1 calculate-rewards @ burn 2103
+Contract: sim-pox-5
+Function: calculate-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: pox=1 interval=1050
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 047] Mine to end of PoX cycle 1 (step 3, +1050 blocks)
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5
+Function: mineEmptyBurnBlocks
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: burn=3153 pox=1 minted-to-sim-pox-5=yes
+Result: ok
+Status: SUCCESS
+Balances:
+  simPox5: STX 0 -> 0 (0)  sBTC 20000000 -> 30000000 (+10000000)
+
+[TX 048] Mine to end of PoX cycle 1 calculate-rewards @ burn 3153
+Contract: sim-pox-5
+Function: calculate-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: pox=1 interval=1050
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 049] Mine to end of PoX cycle 1 (step 4, +1047 blocks)
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5
+Function: mineEmptyBurnBlocks
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: burn=4200 pox=2 minted-to-sim-pox-5=yes
+Result: ok
+Status: SUCCESS
+Balances:
+  simPox5: STX 0 -> 0 (0)  sBTC 30000000 -> 40000000 (+10000000)
+
+[TX 050] Mine to end of PoX cycle 1 calculate-rewards @ burn 4200
+Contract: sim-pox-5
+Function: calculate-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: pox=2 interval=1050
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 051] sim-pox-5 claim-rewards cycle 1 before sequential claim 1
+Contract: fastpool
+Function: claim-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: fastpool.claim-rewards → sim-pox-5.claim-rewards as signer; cycle=1
+Result: ok
+Status: SUCCESS
+Balances:
+  fastpool: STX 1000000000000 -> 1000000000000 (0)  sBTC 0 -> 16999999 (+16999999)
+  simPox5: STX 0 -> 0 (0)  sBTC 40000000 -> 23000001 (-16999999)
+
+[TX 052] Sequential Claim 1
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Function: claim-pot-reward
+Sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+Params: Participant 1 ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+Result: ok
+Status: SUCCESS
+Balances:
+  deployer: STX 99985000000000 -> 99990000000000 (+5000000000)  sBTC 0 -> 0 (0)
+  potDeployer: STX 99999999700000 -> 99999999700000 (0)  sBTC 0 -> 371 (+371)
+  fastpool: STX 1000000000000 -> 1000000000000 (0)  sBTC 16999999 -> 16911345 (-88654)
+  joiner1: STX 99999700000000 -> 99999800000000 (+100000000)  sBTC 0 -> 4894 (+4894)
+  joiner2: STX 99999700000000 -> 99999800000000 (+100000000)  sBTC 0 -> 0 (0)
+  joiner3: STX 99999700000000 -> 99999800000000 (+100000000)  sBTC 0 -> 0 (0)
+  sponsor1: STX 5000000000 -> 0 (-5000000000)  sBTC 0 -> 83336 (+83336)
+  sequential: STX 300000000 -> 0 (-300000000)  sBTC 0 -> 0 (0)
+
+[TX 053] Sequential next-payment after claim 1
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Function: get-winner
+Sender: ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5
+Result: {"type":"some","value":{"type":"tuple","value":{"winner-address":{"type":"address","value":"ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5"},"winner-id":{"type":"uint","value":"0"}}}}
+Status: SUCCESS
+
+[TX 054] Mine to end of PoX cycle 2 (step 1, +1050 blocks)
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5
+Function: mineEmptyBurnBlocks
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: burn=5250 pox=2 minted-to-sim-pox-5=yes
+Result: ok
+Status: SUCCESS
+Balances:
+  simPox5: STX 0 -> 0 (0)  sBTC 23000001 -> 33000001 (+10000000)
+
+[TX 055] Mine to end of PoX cycle 2 calculate-rewards @ burn 5250
+Contract: sim-pox-5
+Function: calculate-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: pox=2 interval=1050
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 056] Mine to end of PoX cycle 2 (step 2, +1050 blocks)
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5
+Function: mineEmptyBurnBlocks
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: burn=6300 pox=3 minted-to-sim-pox-5=yes
+Result: ok
+Status: SUCCESS
+Balances:
+  simPox5: STX 0 -> 0 (0)  sBTC 33000001 -> 43000001 (+10000000)
+
+[TX 057] Mine to end of PoX cycle 2 calculate-rewards @ burn 6300
+Contract: sim-pox-5
+Function: calculate-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: pox=3 interval=1050
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 058] sim-pox-5 claim-rewards cycle 2 before sequential claim 2
+Contract: fastpool
+Function: claim-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: fastpool.claim-rewards → sim-pox-5.claim-rewards as signer; cycle=2
+Result: ok
+Status: SUCCESS
+Balances:
+  fastpool: STX 1000000000000 -> 1000000000000 (0)  sBTC 16911345 -> 33911344 (+16999999)
+  simPox5: STX 0 -> 0 (0)  sBTC 43000001 -> 26000002 (-16999999)
+
+[TX 059] Sequential Claim 2
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Function: claim-pot-reward
+Sender: ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC
+Params: Participant 2 ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC
+Result: ok
+Status: SUCCESS
+Balances:
+  potDeployer: STX 99999999700000 -> 99999999700000 (0)  sBTC 371 -> 722 (+351)
+  fastpool: STX 1000000000000 -> 1000000000000 (0)  sBTC 33911344 -> 33822602 (-88742)
+  joiner2: STX 99999800000000 -> 99999800000000 (0)  sBTC 0 -> 4622 (+4622)
+  sponsor1: STX 0 -> 0 (0)  sBTC 83336 -> 167055 (+83719)
+
+[TX 060] Sequential next-payment after claim 2
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Function: get-winner
+Sender: ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC
+Result: {"type":"some","value":{"type":"tuple","value":{"winner-address":{"type":"address","value":"ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC"},"winner-id":{"type":"uint","value":"1"}}}}
+Status: SUCCESS
+
+[TX 061] Mine to end of PoX cycle 3 (step 1, +1050 blocks)
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5
+Function: mineEmptyBurnBlocks
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: burn=7350 pox=3 minted-to-sim-pox-5=yes
+Result: ok
+Status: SUCCESS
+Balances:
+  simPox5: STX 0 -> 0 (0)  sBTC 26000002 -> 36000002 (+10000000)
+
+[TX 062] Mine to end of PoX cycle 3 calculate-rewards @ burn 7350
+Contract: sim-pox-5
+Function: calculate-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: pox=3 interval=1050
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 063] Mine to end of PoX cycle 3 (step 2, +1050 blocks)
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5
+Function: mineEmptyBurnBlocks
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: burn=8400 pox=4 minted-to-sim-pox-5=yes
+Result: ok
+Status: SUCCESS
+Balances:
+  simPox5: STX 0 -> 0 (0)  sBTC 36000002 -> 46000002 (+10000000)
+
+[TX 064] Mine to end of PoX cycle 3 calculate-rewards @ burn 8400
+Contract: sim-pox-5
+Function: calculate-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: pox=4 interval=1050
+Result: ok
+Status: SUCCESS
+Balances: unchanged
+
+[TX 065] sim-pox-5 claim-rewards cycle 3 before sequential claim 3
+Contract: fastpool
+Function: claim-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: fastpool.claim-rewards → sim-pox-5.claim-rewards as signer; cycle=3
+Result: ok
+Status: SUCCESS
+Balances:
+  fastpool: STX 1000000000000 -> 1000000000000 (0)  sBTC 33822602 -> 50822601 (+16999999)
+  simPox5: STX 0 -> 0 (0)  sBTC 46000002 -> 29000003 (-16999999)
+
+[TX 066] Sequential Claim 3
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Function: claim-pot-reward
+Sender: ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND
+Params: Participant 3 ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND
+Result: ok
+Status: SUCCESS
+Balances:
+  potDeployer: STX 99999999700000 -> 99999999700000 (0)  sBTC 722 -> 1073 (+351)
+  fastpool: STX 1000000000000 -> 1000000000000 (0)  sBTC 50822601 -> 50733859 (-88742)
+  joiner3: STX 99999800000000 -> 99999800000000 (0)  sBTC 0 -> 4622 (+4622)
+  sponsor1: STX 0 -> 0 (0)  sBTC 167055 -> 250774 (+83719)
+
+[TX 067] Sequential next-payment after claim 3
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-sequential
+Function: get-winner
+Sender: ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND
+Result: {"type":"some","value":{"type":"tuple","value":{"winner-address":{"type":"address","value":"ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND"},"winner-id":{"type":"uint","value":"2"}}}}
+Status: SUCCESS
+
+[TX 068] Mine to sequential STX unlock / reward-release (step 1, +433 blocks)
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5
+Function: mineEmptyBurnBlocks
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: burn=8833 pox=4 minted-to-sim-pox-5=yes
+Result: ok
+Status: SUCCESS
+Balances:
+  simPox5: STX 0 -> 0 (0)  sBTC 29000003 -> 39000003 (+10000000)
+
+[TX 069] Mine to sequential STX unlock / reward-release calculate-rewards @ burn 8833
+Contract: sim-pox-5
+Function: calculate-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: pox=4 interval=1050
+Result: err u30
+Status: FAILURE
+Balances: unchanged
+
+[TX 070] sim-pox-5 claim-rewards cycle 0 before jackpot/crowdfund close
+Contract: fastpool
+Function: claim-rewards
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: fastpool.claim-rewards → sim-pox-5.claim-rewards as signer; cycle=0
+Result: err u32
+Status: FAILURE
+Balances: unchanged
+
+[TX 071] Jackpot claim
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-jackpot
+Function: claim-pot-reward
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: closer=potDeployer sponsors=1,2
+Result: ok
+Status: SUCCESS
+Balances:
+  deployer: STX 99990000000000 -> 99995000000000 (+5000000000)  sBTC 0 -> 0 (0)
+  potDeployer: STX 99999999700000 -> 99999999700000 (0)  sBTC 1073 -> 1879 (+806)
+  fastpool: STX 1000000000000 -> 1000000000000 (0)  sBTC 50733859 -> 50474422 (-259437)
+  joiner1: STX 99999800000000 -> 99999900000000 (+100000000)  sBTC 4894 -> 4894 (0)
+  joiner2: STX 99999800000000 -> 99999900000000 (+100000000)  sBTC 4622 -> 4622 (0)
+  joiner3: STX 99999800000000 -> 99999900000000 (+100000000)  sBTC 4622 -> 12690 (+8068)
+  joiner4: STX 99999800000000 -> 99999900000000 (+100000000)  sBTC 0 -> 0 (0)
+  joiner5: STX 99999800000000 -> 99999900000000 (+100000000)  sBTC 0 -> 0 (0)
+  sponsor1: STX 0 -> 0 (0)  sBTC 250774 -> 250474 (-300)
+  sponsor2: STX 5000000000 -> 0 (-5000000000)  sBTC 0 -> 250774 (+250774)
+  jackpot: STX 500000000 -> 0 (-500000000)  sBTC 0 -> 0 (0)
+
+[TX 072] Verify jackpot winner
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-jackpot
+Function: get-winner
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Result: {"type":"ok","value":{"type":"tuple","value":{"winner-address":{"type":"address","value":"ST2NEB84ASENDXKYGJPQW86YXQCEFEX2ZQPG87ND"},"winner-id":{"type":"uint","value":"2"}}}}
+Status: SUCCESS
+
+[TX 073] Crowdfund claim
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-crowdfund
+Function: claim-pot-reward
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: funding-address=ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP sponsors=none
+Result: ok
+Status: SUCCESS
+Balances:
+  potDeployer: STX 99999999700000 -> 99999999700000 (0)  sBTC 1879 -> 2631 (+752)
+  funding: STX 100000000000000 -> 100000000000000 (0)  sBTC 0 -> 7528 (+7528)
+  fastpool: STX 1000000000000 -> 1000000000000 (0)  sBTC 50474422 -> 50466059 (-8363)
+  joiner1: STX 99999900000000 -> 100000000000000 (+100000000)  sBTC 4894 -> 4894 (0)
+  joiner2: STX 99999900000000 -> 100000000000000 (+100000000)  sBTC 4622 -> 4622 (0)
+  joiner3: STX 99999900000000 -> 100000000000000 (+100000000)  sBTC 12690 -> 12690 (0)
+  joiner4: STX 99999900000000 -> 100000000000000 (+100000000)  sBTC 0 -> 0 (0)
+  joiner5: STX 99999900000000 -> 100000000000000 (+100000000)  sBTC 0 -> 0 (0)
+  crowdfund: STX 500000000 -> 0 (-500000000)  sBTC 0 -> 0 (0)
+
+[TX 074] Verify crowdfund recipient
+Contract: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG.e2e-poxclaim-crowdfund
+Function: get-winner
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Result: {"type":"tuple","value":{"winner-address":{"type":"address","value":"ST3NBRSFKX28FQ2ZJ1MAKX58HKHSDGNV5N7R21XCP"},"winner-id":{"type":"uint","value":"0"}}}
+Status: SUCCESS
+
+[PHASE 6]
+
+[TX 075] Sponsor 1 configuration
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-1
+Function: get-rule-sets
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: rule-3 must remain uninitialized
+Result: sbtc=250474 rules={"type":"ok","value":{"type":"list","value":[{"type":"some","value":{"type":"tuple","value":{"label":{"type":"ascii","value":"rule-1"},"required":{"type":"uint","value":"100000000"},"score":{"type":"uint","value":"300"},"state":{"type":"true"}}}},{"type":"some","value":{"type":"t
+Status: SUCCESS
+
+[TX 076] Sponsor 2 configuration
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-2
+Function: get-rule-sets
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: rule-3 must remain uninitialized
+Result: sbtc=250774 rules={"type":"ok","value":{"type":"list","value":[{"type":"some","value":{"type":"tuple","value":{"label":{"type":"ascii","value":"rule-1"},"required":{"type":"uint","value":"100000000"},"score":{"type":"uint","value":"300"},"state":{"type":"true"}}}},{"type":"some","value":{"type":"t
+Status: SUCCESS
+
+[TX 077] Sponsor 3 configuration
+Contract: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sponsor-3
+Function: get-rule-sets
+Sender: ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG
+Params: rule-3 must remain uninitialized
+Result: sbtc=0 rules={"type":"ok","value":{"type":"list","value":[{"type":"some","value":{"type":"tuple","value":{"label":{"type":"ascii","value":"rule-1"},"required":{"type":"uint","value":"100000000"},"score":{"type":"uint","value":"300"},"state":{"type":"true"}}}},{"type":"some","value":{"type":"t
+Status: SUCCESS
+
+[TX 078] Sponsor sBTC after claims
+Contract: sbtc-token
+Function: get-balance
+Sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+Params: {"beforeJackpot":{"s1":250774,"s2":0,"s3":0,"pot":0},"beforeCf":{"pot":0,"funding":0,"s1":250474},"after":{"s1":250474,"s2":250774,"s3":0,"jackpot":0,"sequential":0,"crowdfund":0,"funding":7528}}
+Result: {"s1":250474,"s2":250774,"s3":0,"jackpot":0,"sequential":0,"crowdfund":0,"funding":7528}
+Status: SUCCESS
+
+================================================
+FINAL TEST SUMMARY
+================================================
+Sponsor Contracts: 3/3
+Jackpot: SUCCESS
+Sequential: SUCCESS
+Crowdfund: SUCCESS
+Overall Result: FAILED
+================================================

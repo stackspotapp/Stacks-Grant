@@ -371,8 +371,32 @@
     )
   )
 
-  (define-private (pull-rewards-for-cycle (cycle uint)) 
-    (as-contract? () (try! (contract-call? 'ST31XHNM0GZ2K978FPP4QA3STNQ73Z8C9G9MJEPK2.signer-manager claim-staker-rewards current-contract cycle none)))
+  ;; Crystallize signer rewards, settle this staker share, then pay sBTC here.
+  ;; pox-5.claim-rewards is signer-only. This contract must call fastpool-max500-signer-manager.claim-rewards.
+  ;; payout requires pending from settle-staker-rewards; payout alone is err u1016.
+  (define-private (pull-pool-reward (reward-cycle uint) (res (response {success: bool, reward: uint} uint)))
+    (let
+      (
+        (prior (try! res))
+        (signer-earned (contract-call? 'ST000000000000000000002AMW42H.pox-5 get-earned 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager reward-cycle none))
+      )
+      (if (> signer-earned u0)
+        (is-ok (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager claim-rewards (list) reward-cycle))
+        false
+      )
+      (let
+        (
+          (staker-earned (get earned (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager get-earned-staker-rewards current-contract reward-cycle none)))
+        )
+        (if (and (> staker-earned u0) (is-ok (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager settle-staker-rewards current-contract reward-cycle none)))
+          (if (is-ok (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager payout current-contract))
+            (ok {success: true, reward: (+ (get reward prior) staker-earned)})
+            (ok {success: true, reward: (get reward prior)})
+          )
+          (ok {success: true, reward: (get reward prior)})
+        )
+      )
+    )
   )
 ;; ---------------------------------------------------------------------------
 
@@ -544,7 +568,7 @@
 
         ;; Stake treasury into PoX-5 via Fastpool
         (try! (as-contract? ((with-stx total-treasury-balance) (with-staking total-treasury-balance))
-          (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5 stake 'ST31XHNM0GZ2K978FPP4QA3STNQ73Z8C9G9MJEPK2.signer-manager total-treasury-balance cycles burn-block-height none))
+          (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5 stake 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager total-treasury-balance cycles burn-block-height none))
         ))
 
         ;; Set lock burn height
@@ -604,7 +628,7 @@
             ;; Get pot details
             (pot-details (unwrap-panic (get-pot-details)))
             (rewards-cycle (get-reward-cycles))
-            (pulled-rewards (map pull-rewards-for-cycle rewards-cycle))
+            (pulled-rewards (try! (fold pull-pool-reward rewards-cycle (ok {success: true, reward: u0}))))
             ;; @value: pot ID
             ;; @value: pot winner's ID
             ;; @value: pot winner's {participant: principal, amount: uint}
@@ -762,7 +786,7 @@
         (if is-locked
           (begin 
             (try! (as-contract? ((with-pox))
-              (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5 unstake 'ST31XHNM0GZ2K978FPP4QA3STNQ73Z8C9G9MJEPK2.signer-manager))
+              (try! (contract-call? 'ST000000000000000000002AMW42H.pox-5 unstake 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager))
             ))
             true
           )

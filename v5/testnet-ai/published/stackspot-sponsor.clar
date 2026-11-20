@@ -116,7 +116,7 @@
     (let 
       (
         (rewards-cycle (get-reward-cycles))
-        (pulled-rewards (try! (pull-pool-reward)))
+        (pulled-rewards (try! (fold pull-pool-reward rewards-cycle (ok {success: true, reward: u0}))))
         (sbtc-yield (unwrap-panic (contract-call? 'SN3VMHXEN64ZZF71JQ5VESXDWTR301XTTXGF4J8F1.sbtc-token get-balance current-contract)))
         (is-locked (> (get locked (stx-account current-contract)) u0))
         (memo (to-consensus-buff? "claim-sponsor-reward"))
@@ -320,8 +320,32 @@
     )
   )
 
-  (define-private (pull-pool-reward) 
-    (as-contract? () (try! (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager payout current-contract)))
+  ;; Crystallize signer rewards, settle this staker share, then pay sBTC here.
+  ;; pox-5.claim-rewards is signer-only. This contract must call fastpool-max500-signer-manager.claim-rewards.
+  ;; payout requires pending from settle-staker-rewards; payout alone is err u1016.
+  (define-private (pull-pool-reward (reward-cycle uint) (res (response {success: bool, reward: uint} uint)))
+    (let
+      (
+        (prior (try! res))
+        (signer-earned (contract-call? 'ST000000000000000000002AMW42H.pox-5 get-earned 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager reward-cycle none))
+      )
+      (if (> signer-earned u0)
+        (is-ok (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager claim-rewards (list) reward-cycle))
+        false
+      )
+      (let
+        (
+          (staker-earned (get earned (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager get-earned-staker-rewards current-contract reward-cycle none)))
+        )
+        (if (and (> staker-earned u0) (is-ok (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager settle-staker-rewards current-contract reward-cycle none)))
+          (if (is-ok (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager payout current-contract))
+            (ok {success: true, reward: (+ (get reward prior) staker-earned)})
+            (ok {success: true, reward: (get reward prior)})
+          )
+          (ok {success: true, reward: (get reward prior)})
+        )
+      )
+    )
   )
 
 ;; ================================

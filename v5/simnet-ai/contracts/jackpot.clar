@@ -382,10 +382,35 @@
     )
   )
 
-  (define-private (pull-pool-reward) 
-    (as-contract? () (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool payout current-contract)))
+  ;; Crystallize Fastpool signer rewards, settle this staker share, then pay sBTC here.
+  ;; sim-pox-5.claim-rewards is signer-only (Fastpool). This contract must call fastpool.claim-rewards.
+  ;; fastpool.payout requires pending from settle-staker-rewards; payout alone is err u1016.
+  (define-private (pull-pool-reward (reward-cycle uint) (res (response {success: bool, reward: uint} uint)))
+    (let
+      (
+        (prior (try! res))
+        (signer-earned (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5 get-earned 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool reward-cycle none))
+      )
+      (if (> signer-earned u0)
+        (is-ok (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool claim-rewards (list) reward-cycle))
+        false
+      )
+      (let
+        (
+          (staker-earned (get earned (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool get-earned-staker-rewards current-contract reward-cycle none)))
+        )
+        (if (and (> staker-earned u0) (is-ok (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool settle-staker-rewards current-contract reward-cycle none)))
+          (if (is-ok (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool payout current-contract))
+            (ok {success: true, reward: (+ (get reward prior) staker-earned)})
+            (ok {success: true, reward: (get reward prior)})
+          )
+          (ok {success: true, reward: (get reward prior)})
+        )
+      )
+    )
   )
-;; ---------------------------------------------------------------------------
+
+  ;; ---------------------------------------------------------------------------
 
 ;; PUBLIC FUNCTION
   ;; Pot Configuration inits
@@ -420,6 +445,8 @@
                 max-participants: (var-get pot-max-participants),
                 sponsors: sponsor-tickets,
                 burn-block-height: burn-block-height,
+                signer: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.fastpool,
+                pox: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sim-pox-5,
               }
             )))
           )
@@ -614,7 +641,7 @@
             ;; Get pot details
             (pot-details (unwrap-panic (get-pot-details)))
             (rewards-cycle (get-reward-cycles))
-            (pulled-rewards (try! (pull-pool-reward)))
+            (pulled-rewards (try! (fold pull-pool-reward rewards-cycle (ok {success: true, reward: u0}))))
             ;; @value: pot ID
             ;; @value: pot winner's ID
             ;; @value: pot winner's {participant: principal, amount: uint}
