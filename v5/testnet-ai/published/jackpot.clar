@@ -401,10 +401,10 @@
           (staker-earned (get earned pot-earned))
           (fee (get fees pot-earned))
         )
-        (if (> staker-earned u0)
-          (if (is-ok (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager settle-staker-rewards current-contract reward-cycle none))
+        (if (and (> staker-earned u0) (is-ok (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager settle-staker-rewards current-contract reward-cycle none)))
+          (begin
+            (try! (contract-call? 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager payout current-contract))
             (ok {success: true, reward: (+ (get reward prior) staker-earned), fee: (+ (get fee prior) fee)})
-            (ok {success: true, reward: (get reward prior), fee: (+ (get fee prior) fee)})
           )
           (ok {success: true, reward: (get reward prior), fee: (+ (get fee prior) fee)})
         )
