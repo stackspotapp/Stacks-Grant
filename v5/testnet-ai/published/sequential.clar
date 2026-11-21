@@ -508,6 +508,8 @@
                 max-participants: (var-get pot-max-participants),
                 sponsors: sponsor-tickets,
                 burn-block-height: burn-block-height,
+                signer: 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager,
+                pox: 'ST000000000000000000002AMW42H.pox-5,
               }
             )))
           )

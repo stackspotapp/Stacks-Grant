@@ -102,6 +102,8 @@
               sponsor-contract: current-contract,
               burn-block-height: burn-block-height,
               reward-cycles: reward-cycle,
+              signer: 'ST27J8CK2MP0TE57CT9DP0X672EWXDRR3FEGZJKPJ.fastpool-max500-signer-manager,
+              pox: 'ST000000000000000000002AMW42H.pox-5,
             }) err_not_found))
           )
           (print payload)
